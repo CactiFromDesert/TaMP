@@ -1,0 +1,6 @@
+*.exe
+*.obj
+*.o
+*.exec
+config.h
+.vscode/
