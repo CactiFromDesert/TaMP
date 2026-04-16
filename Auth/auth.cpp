@@ -27,12 +27,19 @@ bool Auth::verifyPassword(const std::string& password, const std::string& hash) 
 }
 
 // Регистрация нового пользователя
+// Регистрация нового пользователя
 bool Auth::registerUser(const std::string& name,
                         const std::string& login,
                         const std::string& password,
                         const std::string& email)
 {
     try {
+        // Проверка формата email
+        if (!EmailService::isValidEmail(email)) {
+            std::cout << "Invalid email format\n";
+            return false;
+        }
+        
         pqxx::work txn(db.getConnection()); // Используем подключение из db
 
         // Проверка уникальности
@@ -47,7 +54,47 @@ bool Auth::registerUser(const std::string& name,
             return false;
         }
 
-        // Хэшурем пароль и сохраняем его
+        // Отправляем код верификации на email ДО создания пользователя
+        std::cout << "Sending verification code to " << email << "...\n";
+        if (!EmailService::sendVerificationEmail(email, name)) {
+            std::cout << "Failed to send verification email. Registration cancelled.\n";
+            return false;
+        }
+        
+        std::cout << "Verification code sent! Please check your email.\n";
+        
+        // Запрашиваем код у пользователя
+        std::string code;
+        int attempts = 0;
+        const int MAX_ATTEMPTS = 3;
+        bool verified = false;
+        
+        while (attempts < MAX_ATTEMPTS && !verified) {
+            std::cout << "\nEnter verification code from email (or 'cancel' to abort): ";
+            std::getline(std::cin, code);
+            
+            if (code == "cancel") {
+                std::cout << "Registration cancelled.\n";
+                return false;
+            }
+            
+            if (EmailService::verifyCode(email, code)) {
+                verified = true;
+                std::cout << "Email verified successfully!\n";
+            } else {
+                attempts++;
+                if (attempts < MAX_ATTEMPTS) {
+                    std::cout << "Invalid code. " << (MAX_ATTEMPTS - attempts) << " attempts remaining.\n";
+                }
+            }
+        }
+        
+        if (!verified) {
+            std::cout << "Too many failed attempts. Registration failed.\n";
+            return false;
+        }
+        
+        // Только после успешной верификации создаем пользователя
         std::string hash = hashPassword(password);
 
         txn.exec_params(
@@ -58,7 +105,7 @@ bool Auth::registerUser(const std::string& name,
         // Фиксируется полное выполнение транзакции и происходит запись данных в БД 
         txn.commit(); 
 
-        std::cout << "User registered\n";
+        std::cout << "User registered successfully!\n";
         return true;
 
     } catch (const std::exception& e) {
@@ -76,7 +123,7 @@ bool Auth::loginUser(const std::string& login,
 
         // Ищем по логину
         pqxx::result r = txn.exec_params(
-            "SELECT hash FROM users WHERE login=$1",
+            "SELECT hash, email, name FROM users WHERE login=$1",
             login
         );
 
@@ -88,13 +135,50 @@ bool Auth::loginUser(const std::string& login,
 
         // Проверка пароля
         std::string stored_hash = r[0]["hash"].c_str();
+        std::string email = r[0]["email"].c_str();
+        std::string name = r[0]["name"].c_str();
 
-        if (verifyPassword(password, stored_hash)) {
-            std::cout << "Login successful\n";
-            return true;
+        if (!verifyPassword(password, stored_hash)) {
+            std::cout << "Wrong password\n";
+            return false;
         }
-
-        std::cout << "Wrong password\n";
+        
+        // Требуем верификацию email
+        std::cout << "\n=== Email Verification Required ===\n";
+        std::cout << "A verification code has been sent to: " << email << "\n";
+        
+        // Отправляем код
+        if (!EmailService::sendVerificationEmail(email, name)) {
+            std::cout << "Failed to send verification code. Please try again.\n";
+            return false;
+        }
+        
+        // Запрашиваем код
+        std::string code;
+        int attempts = 0;
+        const int MAX_ATTEMPTS = 3;
+        
+        while (attempts < MAX_ATTEMPTS) {
+            std::cout << "\nEnter verification code (or 'cancel' to abort): ";
+            std::getline(std::cin, code);
+            
+            if (code == "cancel") {
+                std::cout << "Login cancelled\n";
+                return false;
+            }
+            
+            if (EmailService::verifyCode(email, code)) {
+                std::cout << "Login successful!\n";
+                return true;
+            }
+            
+            attempts++;
+            if (attempts < MAX_ATTEMPTS) {
+                std::cout << "Invalid code. " << (MAX_ATTEMPTS - attempts) << " attempts remaining.\n";
+            }
+        }
+        
+        std::cout << "Too many failed attempts. Login failed.\n";
         return false;
 
     } catch (const std::exception& e) {

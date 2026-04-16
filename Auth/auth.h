@@ -2,6 +2,7 @@
 
 #include "common.h"
 #include "database.h"
+#include "email_service.h"
 
 class Auth {
 private:
