@@ -1,74 +1,42 @@
 CXX = g++
-CXX = g++
-CXXFLAGS = -Wall -Wextra -I./solution -I./googletest/googletest/include -fPIC
-LDFLAGS = -lgtest -lgtest_main -lpthread -pthread -Lgoogletest/build/lib
+CXXFLAGS = -Wall -Wextra -std=c++17 -pthread
+LDFLAGS = -pthread
 
-# Пути к исходным файлам
-TEST_SRC = for_tests/main.cpp for_tests/test.cpp TCPClient.cpp 
-TEST_EXEC = run_tests
+# Для сервера
+SERVER_SRC = main_server.cpp TCPServer.cpp
+SERVER_TARGET = server
 
-# Запуск основного мэйна
-CXXFLAGSMAIN = -Wall -Wextra -std=c++17 #17 = версии, можно менять
-TARGET = main
+# Для клиента
+CLIENT_SRC = main_client.cpp TCPClient.cpp
+CLIENT_TARGET = client
 
-SRCS = main_client.cpp TCPClient.cpp 
+# Сборка сервера
+build_server: $(SERVER_SRC)
+	$(CXX) $(CXXFLAGS) $(SERVER_SRC) -o $(SERVER_TARGET)
+	@echo "✅ Сервер успешно собран: ./$(SERVER_TARGET)"
 
-# Для динамической библиотеки
-LIB_SRC = func.cpp
-LIB_OBJECTS = $(LIB_SRC:.cpp=.o)
-LIB_TARGET = libfunc.so
+# Сборка клиента
+build_client: $(CLIENT_SRC)
+	$(CXX) $(CXXFLAGS) $(CLIENT_SRC) -o $(CLIENT_TARGET)
+	@echo "✅ Клиент успешно собран: ./$(CLIENT_TARGET)"
 
-$(TARGET): $(SRCS)
-	$(CXX) $(CXXFLAGSMAIN) $(SRCS) -o $(TARGET)
+# Запуск сервера
+server: build_server
+	@echo "🚀 Запуск сервера..."
+	./$(SERVER_TARGET)
 
-vallg: main
-	valgrind ./$(TARGET)
-
-# Правило по умолчанию (собирает и запускает тесты)
-# all: $(TEST_EXEC)
-#	./$(TEST_EXEC)
-
-# Сборка тестового исполняемого файла
-$(TEST_EXEC): $(TEST_SRC)
-	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
-
-# Запуск тестов (можно использовать вместо all)
-test: $(TEST_EXEC)
-	./$(TEST_EXEC)
-
-# Сборка динамической библиотеки
-$(LIB_TARGET): $(LIB_OBJECTS)
-	$(CXX) -shared -o $@ $^
-	@echo "Динамическая библиотека $(LIB_TARGET) создана"
-
-# Компиляция объектных файлов для библиотеки (с -fPIC)
-%.o: %.cpp
-	$(CXX) $(CXXFLAGS) -c $< -o $@
-
-# Сборка и использование библиотеки с main_lib.cpp (пример)
-LIB_EXAMPLE_SRC = main_lib.cpp
-LIB_EXAMPLE_TARGET = app_with_lib
-
-$(LIB_EXAMPLE_TARGET): $(LIB_EXAMPLE_SRC) $(LIB_TARGET)
-	$(CXX) $(CXXFLAGSMAIN) $< -L. -lfunc -o $@
-	@echo "Исполняемый файл с библиотекой создан"
-	@echo "Для запуска: LD_LIBRARY_PATH=. ./$(LIB_EXAMPLE_TARGET)"
-
-# Скачивание и сборка googletest (выполняется один раз)
-googletest:
-	git clone --depth=1 --branch=release-1.11.0 https://github.com/google/googletest.git
-	cd googletest && mkdir -p build && cd build && cmake .. && make
+# Запуск клиента
+client: build_client
+	@echo "🚀 Запуск клиента..."
+	./$(CLIENT_TARGET)
 
 # Очистка
 clean:
-	rm -f $(TEST_EXEC) $(TARGET) $(LIB_OBJECTS) $(LIB_TARGET) $(LIB_EXAMPLE_TARGET)
+	rm -f $(SERVER_TARGET) $(CLIENT_TARGET)
+	@echo "🧹 Очистка завершена"
 
-# Глубокая очистка (удаляет googletest)
-distclean: clean
-	rm -rf googletest
+# Сборка всего
+all: build_server build_client
+	@echo "📦 Все компоненты собраны"
 
-# Запуск примера с библиотекой
-run_lib: $(LIB_EXAMPLE_TARGET)
-	LD_LIBRARY_PATH=. ./$(LIB_EXAMPLE_TARGET)
-
-.PHONY: all test clean distclean run_lib
+.PHONY: all clean server client build_server build_client
