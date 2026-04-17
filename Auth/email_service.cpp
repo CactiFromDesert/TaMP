@@ -35,6 +35,13 @@ void EmailService::cleanupExpiredCodes() {
     }
 }
 
+// Очищаем кэш письма
+void EmailService::clearAllCodes() {
+    std::lock_guard<std::mutex> lock(codes_mutex);
+    pending_codes.clear();
+    std::cout << "All cached verification codes cleared." << std::endl;
+}
+
 // Отправка email с кодом верификации
 bool EmailService::sendVerificationEmail(const std::string& to_email, 
                                          const std::string& user_name) {
@@ -57,22 +64,21 @@ bool EmailService::sendVerificationEmail(const std::string& to_email,
     EmailMessage msg;
     msg.to_email = to_email;
     msg.to_name = user_name;
-    msg.subject = "Your Verification Code - Auth System";
+    msg.subject = "Код верификации";
     
     // Формируем тело письма
     std::ostringstream body;
-    body << "Hello";
+    body << "Здравствуйте";
     if (!user_name.empty()) {
         body << " " << user_name;
     }
     body << ",\n\n";
-    body << "Thank you for using our Auth System!\n\n";
-    body << "Your verification code is: " << code << "\n\n";
-    body << "This code will expire in 10 minutes.\n\n";
-    body << "If you didn't request this code, please ignore this email.\n\n";
-    body << "Best regards,\n";
-    body << "Auth System Team\n";
-    body << "This is an automated message, please do not reply.";
+    body << "Ваш код верификации для сервиса вычисления функции: " << code << "\n\n";
+    body << "Этот код действителен 10 минут.\n\n";
+    body << "Если вы не запрашивали это письмо, пожалуйста проигнориуйте его.\n\n";
+    body << "С наилучшими пожеланиями,\n";
+    body << "Команда авторизации.\n";
+    body << "Это сообщение было создано автоматически, пожалуйста не отвечайте на него.";
     
     msg.body = body.str();
     

@@ -2,11 +2,11 @@
 
 #include <string>
 
-// НАСТРОЙКИ SMTP СЕРВЕРА - ЗАПОЛНИТЕ СВОИ ДАННЫЕ
+// НАСТРОЙКИ SMTP СЕРВЕРА 
 namespace EmailConfig {
-    // SMTP сервер (например: smtp.gmail.com, smtp.mail.ru, smtp.yandex.ru)
+    // SMTP сервер 
     const std::string SMTP_SERVER = "smtp.gmail.com";
-    const int SMTP_PORT = 587; // 587 для TLS, 465 для SSL, 25 для без шифрования
+    const int SMTP_PORT = 587; // 587 для TLS, 465 для SSL
     
     // Учетные данные отправителя
     const std::string SMTP_USERNAME = "dmitriy.mikhanoshin@gmail.com"; // ВАША ПОЧТА

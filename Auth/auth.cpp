@@ -27,7 +27,6 @@ bool Auth::verifyPassword(const std::string& password, const std::string& hash) 
 }
 
 // Регистрация нового пользователя
-// Регистрация нового пользователя
 bool Auth::registerUser(const std::string& name,
                         const std::string& login,
                         const std::string& password,

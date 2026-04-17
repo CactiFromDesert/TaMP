@@ -27,7 +27,7 @@ struct UploadStatus {
 
 class EmailService {
 private:
-    // Временное хранилище кодов в памяти (email -> код)
+    // хранилище кодов в памяти (email -> код)
     static std::map<std::string, VerificationCode> pending_codes;
     
     // Статические callback функции для CURL
@@ -65,4 +65,7 @@ public:
     
     // Очистка просроченных кодов
     static void cleanupExpiredCodes();
+
+    // Очистка кэша писем
+    static void clearAllCodes();
 };

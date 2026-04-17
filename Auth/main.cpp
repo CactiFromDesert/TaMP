@@ -4,6 +4,7 @@
 #include "email_service.h"
 
 int main() {
+    EmailService::clearAllCodes();  
     std::cout << "=== Starting Auth System ===" << std::endl;
     
     // Инициализация libsodium
