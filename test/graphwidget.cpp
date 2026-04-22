@@ -228,4 +228,4 @@ void GraphWidget::setupLeftPanel()
 
     connect(logoutBtn, &QPushButton::clicked,
             this, &GraphWidget::onLogoutClicked);
-}
+}// FORCED CHANGE Wed Apr 22 21:24:18 MSK 2026
