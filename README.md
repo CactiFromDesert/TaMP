@@ -1,8 +1,8 @@
 # Инструкция по запуску через докер
 
 ## 1. Клонировать проект
-cd <folder>
-git clone <url>
+cd folder
+git clone url
 
 ## 2. Запустить сервер и БД
 docker compose up -d postgres calculation_server
