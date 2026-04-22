@@ -1,6 +1,8 @@
 #ifndef GRAPHWIDGET_H
 #define GRAPHWIDGET_H
 
+#include "func.hpp"
+
 #include <QWidget>
 #include <QPushButton>
 #include <QLabel>
