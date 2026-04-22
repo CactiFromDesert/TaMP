@@ -81,14 +81,36 @@ void GraphWidget::onSpinCChanged(double v)
 // ─────────────────────────────────────────────
 // MATH ONLY (NO BACKEND)
 // ─────────────────────────────────────────────
-double GraphWidget::calculate(double x, double a, double b, double c) const
+double GraphWidget::calculate(double x, double a, double b, double c)
 {
-    if (x < -2.0)
-        return std::fabs(x * a) - 2.0;
-    else if (x < 2.0)
-        return b * x * x + x + 1.0;
+    if (x < 0)
+    {
+        // Первая ветка: √(-x) + a, где x < 0
+        return sqrt(-x) + a;
+    }
+    else if (x >= 0 && x < PI)
+    {
+        // Вторая ветка: arcsin(x / π) + b, где 0 <= x < π
+        double argument = x / PI;
+        // Проверка, что аргумент arcsin в диапазоне [-1, 1]
+        if (argument < -1.0 || argument > 1.0)
+        {
+            std::cerr << "Ошибка: аргумент arcsin вне диапазона [-1, 1] для x = " << x << "\n";
+            return NAN;
+        }
+        return asin(argument) + b;
+    }
     else
-        return std::fabs(x - 2.0) + c;
+    {
+        // Третья ветка: arccos(x / π) - c, где x >= π
+        double argument = x / PI;
+        // Проверка, что аргумент arccos в диапазоне [-1, 1]
+        if (argument < -1.0 || argument > 1.0) {
+            std::cerr << "Ошибка: аргумент arccos вне диапазона [-1, 1] для x = " << x << "\n";
+            return NAN;
+        }
+        return acos(argument) - c;
+    }
 }
 
 // ─────────────────────────────────────────────
