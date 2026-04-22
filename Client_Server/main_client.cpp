@@ -2,48 +2,37 @@
 
 TCPClient tcp;
 
-void sig_exit(int s)
+int main()
 {
-   (void)s;
-   tcp.exit();
-   exit(0);
-}
-
-int main(int argc, char *argv[])
-{
-   (void)argc;
-   (void)argv;
+   std::cout << "Trying to connect to host.docker.internal:11999...\n";
    
-   signal(SIGINT, sig_exit);
-   
-   if(!tcp.setup("127.0.0.1", 11999))
+   if(!tcp.setup("host.docker.internal", 11999))
    {
-      std::cout << "Setup failed!\n";
+      std::cout << "Setup failed\n";
       return 1;
    }
    
-   if(!tcp.connectToServer())
+   for(int i = 0; i < 5; i++)
    {
-      std::cout << "Connection failed!\n";
-      return 1;
-   }
-   
-   srand(time(NULL));
-   
-   while(1)
-   {
-      int random_num = rand() % 25000;
-      tcp.Send(std::to_string(random_num));
-      
-      std::string rec = tcp.receive(1024);
-      
-      if(rec != "")
+      std::cout << "Attempt " << i+1 << "...\n";
+      if(tcp.connectToServer())
       {
-         std::cout << "Server Response: " << rec << std::endl;
+         std::cout << "Connected!\n";
+         
+         srand(time(NULL));
+         while(1)
+         {
+            int num = rand() % 1000;
+            tcp.Send(std::to_string(num));
+            std::string rec = tcp.receive(1024);
+            if(rec != "")
+               std::cout << "Server: " << rec << std::endl;
+            sleep(1);
+         }
       }
-      
-      sleep(1);
+      sleep(2);
    }
    
-   return 0;
+   std::cout << "Connection failed\n";
+   return 1;
 }

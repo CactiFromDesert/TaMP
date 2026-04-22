@@ -1,0 +1,71 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: auth_postgres
+    environment:
+      POSTGRES_DB: usersauth
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: "1234"
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    networks:
+      - app_network
+
+  calculation_server:
+    build:
+      context: .
+      dockerfile: Client_Server/Dockerfile.server
+    container_name: calc_server
+    ports:
+      - "11999:11999"
+    networks:
+      - app_network
+
+  auth:
+    build:
+      context: .
+      dockerfile: Auth/Dockerfile.auth
+    container_name: auth_service
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=usersauth
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1234
+    stdin_open: true
+    tty: true
+    networks:
+      - app_network
+    profiles:
+      - interactive
+
+  calculation_client:
+    build:
+      context: .
+      dockerfile: Client_Server/Dockerfile.client
+    container_name: calc_client
+    depends_on:
+      - calculation_server
+    networks:
+      - app_network
+    profiles:
+      - client
+
+networks:
+  app_network:
+    driver: bridge
+
+volumes:
+  postgres_data:

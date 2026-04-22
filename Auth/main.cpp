@@ -15,7 +15,7 @@ int main() {
 
     // Строка подключения к PostgreSQL ПОМЕНЯТЬ НА IP сервера (сейчас локально)
     std::string conn_str = 
-    "postgresql://postgres:%20%20%20%20@127.0.0.1:5432/usersauth";
+    "postgresql://postgres:1234@postgres:5432/usersauth";
     
     try {
         std::cout << "Connecting to database..." << std::endl;

@@ -9,8 +9,8 @@ namespace EmailConfig {
     const int SMTP_PORT = 587; // 587 для TLS, 465 для SSL
     
     // Учетные данные отправителя
-    const std::string SMTP_USERNAME = "dmitriy.mikhanoshin@gmail.com"; // ВАША ПОЧТА
-    const std::string SMTP_PASSWORD = "zgsgprotqjvxgrnf";    // ПАРОЛЬ ПРИЛОЖЕНИЯ
+    const std::string SMTP_USERNAME = "dmitriy.mikhanoshin@gmail.com"; // 
+    const std::string SMTP_PASSWORD = "zgsgprotqjvxgrnf";    // 
     
     // Информация об отправителе
     const std::string FROM_EMAIL = "dmitriy.mikhanoshin@gmail.com";

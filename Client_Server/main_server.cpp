@@ -26,15 +26,21 @@ void* loop(void* m)
 
 int main()
 {
+    std::cout << "Starting server on port 11999...\n";
+    
     pthread_t msg;
     tcp.setup(11999);
     std::cout << "Server started on port 11999\n";
-    std::string client_ip = tcp.receive();  // Получаем IP клиента
-    std::cout << "Client connected from: " << client_ip << std::endl;
+    std::cout << "Waiting for client connection...\n";
     
-    if(pthread_create(&msg, NULL, loop, NULL) == 0)
-    {
-        pthread_join(msg, NULL);  // Ждем завершения потока
+    while(1) {
+        std::string client_ip = tcp.receive();  // Получаем IP клиента
+        std::cout << "Client connected from: " << client_ip << std::endl;
+        
+        if(pthread_create(&msg, NULL, loop, NULL) == 0)
+        {
+            pthread_join(msg, NULL);  // Ждем завершения потока
+        }
     }
     
     return 0;

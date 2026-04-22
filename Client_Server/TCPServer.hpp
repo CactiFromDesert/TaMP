@@ -5,7 +5,7 @@
 
 #include <iostream>
 #include <vector>
-#include <stdio.h>      // вместо <-ts-tdio.h>
+#include <stdio.h>      
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
