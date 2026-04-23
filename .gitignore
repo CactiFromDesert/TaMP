@@ -1,0 +1,16 @@
+build/
+bin/
+obj/
+*.o
+*.out
+*.exe
+auth_app
+client_app
+server_app
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+*.log
+postgres_data/

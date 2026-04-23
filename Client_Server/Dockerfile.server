@@ -1,0 +1,14 @@
+FROM gcc:14
+
+RUN apt-get update && apt-get install -y \
+    net-tools \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+COPY Client_Server/ /app/
+
+RUN g++ -std=c++17 -pthread -o server_app \
+    main_server.cpp TCPServer.cpp -lpthread
+
+EXPOSE 11999
+CMD ["./server_app"]
