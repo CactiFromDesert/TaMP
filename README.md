@@ -15,7 +15,7 @@ docker compose --profile client up calculation_client
 ## 4. Запустить аутентификацию (новый терминал)
 docker compose run --rm auth
 
-## 3. Остановить всё (не удаляя)
+## 5. Остановить всё (не удаляя)
 Остановить выполнение программы - ctrl + C 
 
 docker compose stop calc_server
