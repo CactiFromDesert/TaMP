@@ -3,12 +3,11 @@
 #include <QPainter>
 #include <QPen>
 #include <cmath>
-#include <iostream>
 
-// ?????????????????????????????????????????????
+// ─────────────────────────────────────────────
 // CONSTRUCTOR
-// ?????????????????????????????????????????????
-GraphWidget::GraphWidget(QWidget* parent)
+// ─────────────────────────────────────────────
+GraphWidget::GraphWidget(QWidget *parent)
     : QWidget(parent)
     , currentA(1.0)
     , currentB(1.0)
@@ -16,37 +15,36 @@ GraphWidget::GraphWidget(QWidget* parent)
 {
     setupUI();
 
+    // безопасный старт (если UI ещё не готов — не падаем)
     if (spinA && spinB && spinC)
         updateGraph();
 }
 
 GraphWidget::~GraphWidget() = default;
 
-// ?????????????????????????????????????????????
+// ─────────────────────────────────────────────
 // UI SETUP
-// ?????????????????????????????????????????????
+// ─────────────────────────────────────────────
 void GraphWidget::setupUI()
 {
-    auto* mainLayout = new QHBoxLayout(this);
+    auto *mainLayout = new QHBoxLayout(this);
     mainLayout->setContentsMargins(0, 0, 0, 0);
 
     leftPanel = new QWidget(this);
     leftPanel->setFixedWidth(320);
 
-    setupLeftPanel();
+    setupLeftPanel(); // теперь ОБЯЗАТЕЛЬНО должен существовать (stub допустим)
 
     mainLayout->addWidget(leftPanel);
     setLayout(mainLayout);
 
-    setStyleSheet(
-        "font-weight: bold;"
-        "QTableWidget, QTableWidget::item { font-weight: normal; }"
-    );
+    // Make all text bold except table
+    setStyleSheet("font-weight: bold; QTableWidget, QTableWidget::item { font-weight: normal; }");
 }
 
-// ?????????????????????????????????????????????
-// SLIDERS ? SPINS (SAFE)
-// ?????????????????????????????????????????????
+// ─────────────────────────────────────────────
+// SLIDERS → SPINS (SAFE)
+// ─────────────────────────────────────────────
 void GraphWidget::onSliderAChanged(int v)
 {
     if (spinA) spinA->setValue(v / 10.0);
@@ -83,48 +81,26 @@ void GraphWidget::onSpinCChanged(double v)
     updateGraph();
 }
 
-// ?????????????????????????????????????????????
+// ─────────────────────────────────────────────
 // MATH ONLY (NO BACKEND)
-// ?????????????????????????????????????????????
-double GraphWidget::calculate(double x, double a, double b, double c)
+// ─────────────────────────────────────────────
+double GraphWidget::calculate(double x, double a, double b, double c) const
 {
-    if (x < 0)
-    {
-        return sqrt(-x) + a;
-    }
-    else if (x >= 0 && x < PI)
-    {
-        double argument = x / PI;
-
-        if (argument < -1.0 || argument > 1.0)
-        {
-            std::cerr << "������: �������� arcsin ��� ��������� [-1, 1] ��� x = " << x << "\n";
-            return NAN;
-        }
-
-        return asin(argument) + b;
-    }
+    if (x < -2.0)
+        return std::fabs(x * a) - 2.0;
+    else if (x < 2.0)
+        return b * x * x + x + 1.0;
     else
-    {
-        double argument = x / PI;
-
-        if (argument < -1.0 || argument > 1.0)
-        {
-            std::cerr << "������: �������� arccos ��� ��������� [-1, 1] ��� x = " << x << "\n";
-            return NAN;
-        }
-
-        return acos(argument) - c;
-    }
+        return std::fabs(x - 2.0) + c;
 }
 
-// ?????????????????????????????????????????????
+// ─────────────────────────────────────────────
 // GRAPH UPDATE
-// ?????????????????????????????????????????????
+// ─────────────────────────────────────────────
 void GraphWidget::updateGraph()
 {
     if (!spinA || !spinB || !spinC || !table)
-        return;
+        return; // UI stub safety
 
     double a = spinA->value();
     double b = spinB->value();
@@ -152,9 +128,9 @@ void GraphWidget::updateGraph()
     update();
 }
 
-// ?????????????????????????????????????????????
+// ─────────────────────────────────────────────
 // TABLE
-// ?????????????????????????????????????????????
+// ─────────────────────────────────────────────
 void GraphWidget::fillTable(double a, double b, double c)
 {
     if (!table)
@@ -163,56 +139,50 @@ void GraphWidget::fillTable(double a, double b, double c)
     table->setRowCount(21);
 
     int row = 0;
-
     for (int x = -10; x <= 10; x++)
     {
         double y = calculate(x, a, b, c);
 
-        table->setItem(row, 0,
-            new QTableWidgetItem(QString::number(x)));
-
-        table->setItem(row, 1,
-            new QTableWidgetItem(QString::number(y, 'f', 2)));
+        table->setItem(row, 0, new QTableWidgetItem(QString::number(x)));
+        table->setItem(row, 1, new QTableWidgetItem(QString::number(y, 'f', 2)));
 
         row++;
     }
 }
 
-// ?????????????????????????????????????????????
+// ─────────────────────────────────────────────
 // LOGOUT
-// ?????????????????????????????????????????????
+// ─────────────────────────────────────────────
 void GraphWidget::onLogoutClicked()
 {
     emit logout();
 }
 
-// ?????????????????????????????????????????????
+// ─────────────────────────────────────────────
 // USER
-// ?????????????????????????????????????????????
-void GraphWidget::setUserLogin(const QString& login)
+// ─────────────────────────────────────────────
+void GraphWidget::setUserLogin(const QString &login)
 {
     userLogin = login;
 
     if (userLabel)
-        userLabel->setText("������������: " + login);
+        userLabel->setText("Пользователь: " + login);
 }
 
-// ?????????????????????????????????????????????
+// ─────────────────────────────────────────────
 // PAINT
-// ?????????????????????????????????????????????
-void GraphWidget::paintEvent(QPaintEvent* event)
+// ─────────────────────────────────────────────
+void GraphWidget::paintEvent(QPaintEvent *event)
 {
     QWidget::paintEvent(event);
+
+    // оставлено как hook для будущего кастомного рендера
     Q_UNUSED(event);
 }
 
-// ?????????????????????????????????????????????
-// LEFT PANEL UI (����� ������Ѩ�)
-// ?????????????????????????????????????????????
 void GraphWidget::setupLeftPanel()
 {
-    auto* layout = new QVBoxLayout(leftPanel);
-
+    auto *layout = new QVBoxLayout(leftPanel);
     layout->setSpacing(10);
     layout->setContentsMargins(10, 10, 10, 10);
 
@@ -223,113 +193,92 @@ void GraphWidget::setupLeftPanel()
 
     layout->addSpacing(10);
 
-    // A
-    QHBoxLayout* aLayout = new QHBoxLayout();
-
-    QLabel* labelA = new QLabel("a", leftPanel);
+    // Parameter A
+    QHBoxLayout *aTopLayout = new QHBoxLayout();
+    QLabel *labelA = new QLabel("a", leftPanel);
     labelA->setStyleSheet("font-weight: bold; color: #ff6b6b; font-size: 11pt;");
     labelA->setFixedWidth(30);
-
-    aLayout->addWidget(labelA);
+    aTopLayout->addWidget(labelA);
 
     spinA = new QDoubleSpinBox(leftPanel);
     spinA->setStyleSheet("font-weight: bold; font-size: 11pt;");
     spinA->setRange(0, 10);
     spinA->setValue(1.0);
+    spinA->setFixedWidth(100);
     spinA->setDecimals(1);
     spinA->setSingleStep(0.1);
-    spinA->setFixedWidth(100);
-
-    aLayout->addWidget(spinA);
-    aLayout->addStretch();
-
-    layout->addLayout(aLayout);
+    aTopLayout->addWidget(spinA);
+    aTopLayout->addStretch();
+    layout->addLayout(aTopLayout);
 
     sliderA = new QSlider(Qt::Horizontal, leftPanel);
     sliderA->setRange(0, 100);
     sliderA->setValue(10);
-
     sliderA->setStyleSheet(
         "QSlider::groove:horizontal { height: 3px; background: #ff6b6b; border-radius: 1.5px; }"
         "QSlider::handle:horizontal { background: #ff6b6b; width: 10px; height: 10px; margin: -4px 0; border-radius: 5px; }"
         "QSlider::handle:horizontal:hover { background: #ff8888; }"
-        "QSlider::sub-page:horizontal { background: #ff6b6b; border-radius: 1.5px; }"
-    );
-
+        "QSlider::sub-page:horizontal { background: #ff6b6b; border-radius: 1.5px; }");
     layout->addWidget(sliderA);
 
     layout->addSpacing(15);
 
-    // B
-    QHBoxLayout* bLayout = new QHBoxLayout();
-
-    QLabel* labelB = new QLabel("b", leftPanel);
+    // Parameter B
+    QHBoxLayout *bTopLayout = new QHBoxLayout();
+    QLabel *labelB = new QLabel("b", leftPanel);
     labelB->setStyleSheet("font-weight: bold; color: #4cd4b0; font-size: 11pt;");
     labelB->setFixedWidth(30);
-
-    bLayout->addWidget(labelB);
+    bTopLayout->addWidget(labelB);
 
     spinB = new QDoubleSpinBox(leftPanel);
     spinB->setStyleSheet("font-weight: bold; font-size: 11pt;");
     spinB->setRange(0, 10);
     spinB->setValue(1.0);
+    spinB->setFixedWidth(100);
     spinB->setDecimals(1);
     spinB->setSingleStep(0.1);
-    spinB->setFixedWidth(100);
-
-    bLayout->addWidget(spinB);
-    bLayout->addStretch();
-
-    layout->addLayout(bLayout);
+    bTopLayout->addWidget(spinB);
+    bTopLayout->addStretch();
+    layout->addLayout(bTopLayout);
 
     sliderB = new QSlider(Qt::Horizontal, leftPanel);
     sliderB->setRange(0, 100);
     sliderB->setValue(10);
-
     sliderB->setStyleSheet(
         "QSlider::groove:horizontal { height: 3px; background: #4cd4b0; border-radius: 1.5px; }"
         "QSlider::handle:horizontal { background: #4cd4b0; width: 10px; height: 10px; margin: -4px 0; border-radius: 5px; }"
         "QSlider::handle:horizontal:hover { background: #6ee0c4; }"
-        "QSlider::sub-page:horizontal { background: #4cd4b0; border-radius: 1.5px; }"
-    );
-
+        "QSlider::sub-page:horizontal { background: #4cd4b0; border-radius: 1.5px; }");
     layout->addWidget(sliderB);
 
     layout->addSpacing(15);
 
-    // C
-    QHBoxLayout* cLayout = new QHBoxLayout();
-
-    QLabel* labelC = new QLabel("c", leftPanel);
+    // Parameter C
+    QHBoxLayout *cTopLayout = new QHBoxLayout();
+    QLabel *labelC = new QLabel("c", leftPanel);
     labelC->setStyleSheet("font-weight: bold; color: #74c0fc; font-size: 11pt;");
     labelC->setFixedWidth(30);
-
-    cLayout->addWidget(labelC);
+    cTopLayout->addWidget(labelC);
 
     spinC = new QDoubleSpinBox(leftPanel);
     spinC->setStyleSheet("font-weight: bold; font-size: 11pt;");
     spinC->setRange(0, 10);
     spinC->setValue(1.0);
+    spinC->setFixedWidth(100);
     spinC->setDecimals(1);
     spinC->setSingleStep(0.1);
-    spinC->setFixedWidth(100);
-
-    cLayout->addWidget(spinC);
-    cLayout->addStretch();
-
-    layout->addLayout(cLayout);
+    cTopLayout->addWidget(spinC);
+    cTopLayout->addStretch();
+    layout->addLayout(cTopLayout);
 
     sliderC = new QSlider(Qt::Horizontal, leftPanel);
     sliderC->setRange(0, 100);
     sliderC->setValue(10);
-
     sliderC->setStyleSheet(
         "QSlider::groove:horizontal { height: 3px; background: #74c0fc; border-radius: 1.5px; }"
         "QSlider::handle:horizontal { background: #74c0fc; width: 10px; height: 10px; margin: -4px 0; border-radius: 5px; }"
         "QSlider::handle:horizontal:hover { background: #90d4ff; }"
-        "QSlider::sub-page:horizontal { background: #74c0fc; border-radius: 1.5px; }"
-    );
-
+        "QSlider::sub-page:horizontal { background: #74c0fc; border-radius: 1.5px; }");
     layout->addWidget(sliderC);
 
     layout->addSpacing(20);
@@ -337,14 +286,8 @@ void GraphWidget::setupLeftPanel()
     table = new QTableWidget(leftPanel);
     table->setColumnCount(2);
     table->setHorizontalHeaderLabels(QStringList() << "x" << "y");
-
-    table->setStyleSheet(
-        "QTableWidget { font-weight: normal; }"
-        "QTableWidget::item { font-weight: normal; }"
-    );
-
+    table->setStyleSheet("QTableWidget { font-weight: normal; } QTableWidget::item { font-weight: normal; }");
     table->setMinimumHeight(200);
-
     layout->addWidget(table);
 
     layout->addStretch();
@@ -354,32 +297,27 @@ void GraphWidget::setupLeftPanel()
     layout->addWidget(userLabel);
 
     logoutBtn = new QPushButton("Logout", leftPanel);
-    logoutBtn->setStyleSheet(
-        "font-weight: bold;"
-        "font-size: 10pt;"
-        "padding: 6px;"
-    );
-
+    logoutBtn->setStyleSheet("font-weight: bold; font-size: 10pt; padding: 6px;");
     layout->addWidget(logoutBtn);
 
     connect(sliderA, &QSlider::valueChanged,
-        this, &GraphWidget::onSliderAChanged);
+            this, &GraphWidget::onSliderAChanged);
 
     connect(sliderB, &QSlider::valueChanged,
-        this, &GraphWidget::onSliderBChanged);
+            this, &GraphWidget::onSliderBChanged);
 
     connect(sliderC, &QSlider::valueChanged,
-        this, &GraphWidget::onSliderCChanged);
+            this, &GraphWidget::onSliderCChanged);
 
     connect(spinA, QOverload<double>::of(&QDoubleSpinBox::valueChanged),
-        this, &GraphWidget::onSpinAChanged);
+            this, &GraphWidget::onSpinAChanged);
 
     connect(spinB, QOverload<double>::of(&QDoubleSpinBox::valueChanged),
-        this, &GraphWidget::onSpinBChanged);
+            this, &GraphWidget::onSpinBChanged);
 
     connect(spinC, QOverload<double>::of(&QDoubleSpinBox::valueChanged),
-        this, &GraphWidget::onSpinCChanged);
+            this, &GraphWidget::onSpinCChanged);
 
     connect(logoutBtn, &QPushButton::clicked,
-        this, &GraphWidget::onLogoutClicked);
+            this, &GraphWidget::onLogoutClicked);
 }

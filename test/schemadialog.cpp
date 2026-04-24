@@ -140,7 +140,7 @@ SchemaDialog::SchemaDialog(QWidget *parent)
     : QDialog(parent)
 {
     setStyleSheet(QString(
-                      "QDialog { background-color: #0b1e2d; color: #e6f2ff; font-family:'%1'; }"
+                      "QDialog { background-color: #0b1e2d; color: #e6f2ff; font-family:'%1'; font-weight: bold; }"
                       ).arg(FONT_FAMILY));
 
     setupUI();
@@ -163,7 +163,7 @@ void SchemaDialog::setupUI()
     QPushButton *closeBtn = new QPushButton("Закрыть", this);
     closeBtn->setMinimumHeight(36);
     closeBtn->setStyleSheet(
-        "QPushButton{background:#3da9fc;color:#fff;border-radius:6px;padding:6px;}"
+        "QPushButton{background:#3da9fc;color:#fff;border-radius:6px;padding:6px;font-weight: bold;font-size:12pt;}"
         "QPushButton:hover{background:#74c0fc;}"
         );
 

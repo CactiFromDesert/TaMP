@@ -34,8 +34,8 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
     setStyleSheet(QString(
-                      "QMainWindow { background-color: %1; }"
-                      "QWidget { background-color: %1; color: %2; font-family: '%3'; }"
+                      "QMainWindow { background-color: %1; font-weight: bold; }"
+                      "QWidget { background-color: %1; color: %2; font-family: '%3'; font-weight: bold; }"
                       ).arg(UI_BG).arg(UI_TEXT).arg(FONT_FAMILY));
 
     setupUI();
@@ -50,7 +50,7 @@ MainWindow::~MainWindow() {}
 
 void MainWindow::setupUI()
 {
-    setWindowTitle("ТМП — Подгруппа 2");
+    setWindowTitle("ТиМП — Подгруппа 2");
     setMinimumSize(1000, 700);
 
     centralWidget = new QWidget(this);
@@ -65,15 +65,16 @@ void MainWindow::setupUI()
     topBar->setFixedHeight(44);
 
     topBar->setStyleSheet(QString(
-                              "QWidget { background-color: %1; border-bottom: 1px solid %2; }"
+                              "QWidget { background-color: %1; border-bottom: 1px solid %2; font-weight: bold; }"
                               "QPushButton {"
                               "  background-color: %3;"
                               "  color: %4;"
                               "  border: 1px solid %2;"
                               "  border-radius: 6px;"
                               "  padding: 4px 12px;"
-                              "  font-size: 11px;"
+                              "  font-size: 14px;"
                               "  font-family: '%5';"
+                              "  font-weight: bold;"
                               "}"
                               "QPushButton:hover { background-color: %6; }"
                               "QPushButton:pressed { background-color: %7; }"
@@ -107,13 +108,13 @@ void MainWindow::setupUI()
         ));
     schemaBtn->setText("  Блок-схема");
 
-    appTitleLabel = new QLabel("ТМП — Подгруппа 2", topBar);
+    appTitleLabel = new QLabel("ТиМП — Подгруппа 2", topBar);
     appTitleLabel->setAlignment(Qt::AlignCenter);
 
     appTitleLabel->setStyleSheet(QString(
                                      "QLabel {"
                                      " color: %1;"
-                                     " font-size: 12px;"
+                                     " font-size: 16px;"
                                      " font-weight: bold;"
                                      " background: transparent;"
                                      " border: none;"

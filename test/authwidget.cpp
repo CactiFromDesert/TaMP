@@ -54,6 +54,8 @@ static QString inputStyle()
                "border-radius:8px;"
                "padding:6px;"
                "font-family:'Segoe UI';"
+               "font-weight: bold;"
+               "font-size: 12pt;"
                "}"
                "QLineEdit:focus {"
                "border:1px solid %4;"
@@ -73,7 +75,8 @@ static QString btnStylePrimary()
                "border:none;"
                "border-radius:8px;"
                "padding:7px;"
-               "font-weight:500;"
+               "font-weight: bold;"
+               "font-size: 12pt;"
                "}"
                "QPushButton:hover {"
                "background:%2;"
@@ -91,6 +94,8 @@ static QString btnStyleSecondary()
                "border:1px solid %2;"
                "border-radius:8px;"
                "padding:6px;"
+               "font-weight: bold;"
+               "font-size: 12pt;"
                "}"
                "QPushButton:hover {"
                "background:%3;"
@@ -111,6 +116,8 @@ void AuthWidget::setupUI()
                       "background:%1;"
                       "color:%2;"
                       "font-family:'Segoe UI';"
+                      "font-weight: bold;"
+                      "font-size: 12pt;"
                       ).arg(UI_BG).arg(UI_TEXT));
 
     auto *outer = new QVBoxLayout(this);
@@ -124,6 +131,7 @@ void AuthWidget::setupUI()
                             "background:%1;"
                             "border:1px solid %2;"
                             "border-radius:12px;"
+                            "font-weight: bold;"
                             ).arg(UI_CARD).arg(UI_BORDER));
 
 
@@ -159,7 +167,8 @@ void AuthWidget::setupUI()
     statusLabel->setStyleSheet(QString(
                                    "border:none;"
                                    "color:%1;"
-                                   "font-size:9pt;"
+                                   "font-size:12pt;"
+                                   "font-weight: bold;"
                                    ).arg(UI_ERROR));
 
     statusLabel->hide();

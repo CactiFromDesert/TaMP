@@ -43,8 +43,41 @@ static QString inputStyle()
         "border:1px solid #1f4e79;"
         "border-radius:6px;"
         "padding:6px;"
+        "font-family:'Segoe UI';"
+        "font-weight: bold;"
+        "font-size: 12pt;"
         "}"
         "QLineEdit:focus{border-color:#3da9fc;}";
+}
+
+static QString btnStylePrimary()
+{
+    return
+        "QPushButton{"
+        "background:#3da9fc;"
+        "color:white;"
+        "border:none;"
+        "border-radius:6px;"
+        "padding:7px;"
+        "font-weight: bold;"
+        "font-size: 12pt;"
+        "}"
+        "QPushButton:hover{background:#74c0fc;}";
+}
+
+static QString btnStyleSecondary()
+{
+    return
+        "QPushButton{"
+        "background:transparent;"
+        "color:#e6f2ff;"
+        "border:1px solid #1f4e79;"
+        "border-radius:6px;"
+        "padding:6px;"
+        "font-weight: bold;"
+        "font-size: 12pt;"
+        "}"
+        "QPushButton:hover{background:#1f4e79;}";
 }
 
 // ── Constructor ──────────────────────────────
@@ -67,6 +100,8 @@ ResetWidget::ResetWidget(QWidget *parent)
         "background:#0b1e2d;"
         "color:#e6f2ff;"
         "font-family:'Segoe UI';"
+        "font-weight: bold;"
+        "font-size: 12pt;"
         );
 
     setupUI();
@@ -81,21 +116,24 @@ void ResetWidget::setupUI()
     outer->addStretch();
 
     QWidget *card = new QWidget(this);
-    card->setFixedWidth(380);
+    card->setFixedWidth(340);
     card->setStyleSheet(
         "background:#102a43;"
         "border:1px solid #1f4e79;"
-        "border-radius:10px;"
+        "border-radius:12px;"
+        "font-weight: bold;"
         );
 
     QVBoxLayout *l = new QVBoxLayout(card);
+    l->setSpacing(10);
+    l->setContentsMargins(20,20,20,20);
 
     QLabel *title = new QLabel("Password recovery", card);
     title->setAlignment(Qt::AlignCenter);
     title->setStyleSheet(
         "border:none;"
         "font-size:16pt;"
-        "font-weight:600;"
+        "font-weight: bold;"
         );
 
     l->addWidget(title);
@@ -104,6 +142,7 @@ void ResetWidget::setupUI()
 
     step1Widget = new QWidget(card);
     QVBoxLayout *s1 = new QVBoxLayout(step1Widget);
+    s1->setSpacing(10);
 
     emailEdit = new QLineEdit(step1Widget);
     emailEdit->setFrame(false);
@@ -118,11 +157,13 @@ void ResetWidget::setupUI()
     s1->addWidget(emailEdit);
 
     emailErrorLabel = new QLabel(step1Widget);
+    emailErrorLabel->setStyleSheet("border:none; color:#ff6b6b; font-weight: bold; font-size: 12pt;");
     emailErrorLabel->hide();
     s1->addWidget(emailErrorLabel);
 
     continueBtn = new QPushButton("Continue", step1Widget);
     continueBtn->setEnabled(false);
+    continueBtn->setStyleSheet(btnStylePrimary());
 
     connect(continueBtn,
             &QPushButton::clicked,
@@ -137,13 +178,16 @@ void ResetWidget::setupUI()
 
     step2Widget = new QWidget(card);
     QVBoxLayout *s2 = new QVBoxLayout(step2Widget);
+    s2->setSpacing(10);
 
     codeStatusLabel = new QLabel(step2Widget);
+    codeStatusLabel->setStyleSheet("border:none; color:#4cd4b0; font-weight: bold; font-size: 12pt;");
     codeStatusLabel->hide();
     s2->addWidget(codeStatusLabel);
 
     codeEdit = new QLineEdit(step2Widget);
     codeEdit->setPlaceholderText("Code");
+    codeEdit->setStyleSheet(inputStyle());
 
     connect(codeEdit,
             &QLineEdit::textChanged,
@@ -153,11 +197,13 @@ void ResetWidget::setupUI()
     s2->addWidget(codeEdit);
 
     codeErrorLabel = new QLabel(step2Widget);
+    codeErrorLabel->setStyleSheet("border:none; color:#ff6b6b; font-weight: bold; font-size: 12pt;");
     codeErrorLabel->hide();
     s2->addWidget(codeErrorLabel);
 
     verifyCodeBtn = new QPushButton("Verify", step2Widget);
     verifyCodeBtn->setEnabled(false);
+    verifyCodeBtn->setStyleSheet(btnStylePrimary());
 
     connect(verifyCodeBtn,
             &QPushButton::clicked,
@@ -172,9 +218,12 @@ void ResetWidget::setupUI()
 
     step3Widget = new QWidget(card);
     QVBoxLayout *s3 = new QVBoxLayout(step3Widget);
+    s3->setSpacing(10);
 
     newPasswordEdit = new QLineEdit(step3Widget);
     newPasswordEdit->setPlaceholderText("New password");
+    newPasswordEdit->setEchoMode(QLineEdit::Password);
+    newPasswordEdit->setStyleSheet(inputStyle());
 
     connect(newPasswordEdit,
             &QLineEdit::textChanged,
@@ -185,6 +234,8 @@ void ResetWidget::setupUI()
 
     confirmPasswordEdit = new QLineEdit(step3Widget);
     confirmPasswordEdit->setPlaceholderText("Confirm password");
+    confirmPasswordEdit->setEchoMode(QLineEdit::Password);
+    confirmPasswordEdit->setStyleSheet(inputStyle());
 
     connect(confirmPasswordEdit,
             &QLineEdit::textChanged,
@@ -195,6 +246,7 @@ void ResetWidget::setupUI()
 
     saveBtn = new QPushButton("Save", step3Widget);
     saveBtn->setEnabled(false);
+    saveBtn->setStyleSheet(btnStylePrimary());
 
     connect(saveBtn,
             &QPushButton::clicked,
@@ -206,6 +258,7 @@ void ResetWidget::setupUI()
     l->addWidget(step3Widget);
 
     backBtn = new QPushButton("Back", card);
+    backBtn->setStyleSheet(btnStyleSecondary());
 
     connect(backBtn,
             &QPushButton::clicked,

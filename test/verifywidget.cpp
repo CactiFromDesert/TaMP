@@ -41,6 +41,7 @@ static QString inputStyle()
                " padding:6px 10px;"
                " font-family:'%4';"
                " font-size:%5pt;"
+               " font-weight: bold;"
                "}"
                "QLineEdit:focus { border-color:%6; }"
                ).arg(GH_INPUT_BG, GH_TEXT, GH_BORDER, FONT_FAMILY)
@@ -55,7 +56,8 @@ static QString primaryBtnStyle()
                " color:#fff;"
                " border-radius:6px;"
                " padding:6px 16px;"
-               " font-weight:bold;"
+               " font-weight: bold;"
+               " font-size: 12pt;"
                "}"
                "QPushButton:hover { background:%2; }"
                "QPushButton:disabled {"
@@ -74,6 +76,7 @@ static QString linkBtnStyle()
                " background:transparent;"
                " font-family:'%2';"
                " font-size:%3pt;"
+               " font-weight: bold;"
                "}"
                "QPushButton:hover {"
                " color:%4;"
@@ -104,7 +107,7 @@ VerifyWidget::VerifyWidget(QWidget *parent)
             &VerifyWidget::onVerifyResponseReceived);
 
     setStyleSheet(QString(
-                      "QWidget { background:%1; color:%2; font-family:'%3'; font-size:%4pt; }"
+                      "QWidget { background:%1; color:%2; font-family:'%3'; font-size:%4pt; font-weight: bold; }"
                       ).arg(GH_BG, GH_TEXT, FONT_FAMILY)
                       .arg(FONT_SIZE_INPUT));
 
@@ -148,6 +151,7 @@ void VerifyWidget::setupUI()
                             "background:%1;"
                             "border:1px solid %2;"
                             "border-radius:10px;"
+                            "font-weight: bold;"
                             ).arg(GH_CARD, GH_BORDER));
 
     QVBoxLayout *cardLayout = new QVBoxLayout(card);
@@ -156,12 +160,12 @@ void VerifyWidget::setupUI()
 
     QLabel *title = new QLabel("Подтверждение входа", card);
     title->setAlignment(Qt::AlignCenter);
-    title->setStyleSheet(QString("color:%1;").arg(GH_TEXT));
+    title->setStyleSheet(QString("color:%1; font-weight: bold; font-size: 14pt;").arg(GH_TEXT));
     cardLayout->addWidget(title);
 
     infoLabel = new QLabel("Код отправлен на вашу почту", card);
     infoLabel->setAlignment(Qt::AlignCenter);
-    infoLabel->setStyleSheet(QString("color:%1;").arg(GH_MUTED));
+    infoLabel->setStyleSheet(QString("color:%1; font-weight: bold;").arg(GH_MUTED));
     cardLayout->addWidget(infoLabel);
 
     codeEdit = new QLineEdit(card);
@@ -169,17 +173,19 @@ void VerifyWidget::setupUI()
     codeEdit->setMaxLength(6);
     codeEdit->setAlignment(Qt::AlignCenter);
     codeEdit->setStyleSheet(inputStyle() +
-                            "QLineEdit { font-size:15pt; letter-spacing:4px; }");
+                            "QLineEdit { font-size:15pt; letter-spacing:4px; font-weight: bold; }");
     cardLayout->addWidget(codeEdit);
 
     statusLabel = new QLabel(card);
     statusLabel->setAlignment(Qt::AlignCenter);
     statusLabel->setWordWrap(true);
+    statusLabel->setStyleSheet("font-weight: bold;");
     statusLabel->hide();
     cardLayout->addWidget(statusLabel);
 
     attemptsLabel = new QLabel(card);
     attemptsLabel->setAlignment(Qt::AlignCenter);
+    attemptsLabel->setStyleSheet("font-weight: bold;");
     attemptsLabel->hide();
     cardLayout->addWidget(attemptsLabel);
 
@@ -217,7 +223,7 @@ void VerifyWidget::applyLock(int minutes, const QString &message)
     verifyBtn->setEnabled(false);
 
     statusLabel->setText(message);
-    statusLabel->setStyleSheet(QString("color:%1;").arg(GH_RED));
+    statusLabel->setStyleSheet(QString("color:%1; font-weight: bold;").arg(GH_RED));
     statusLabel->show();
 
     attemptsLabel->hide();
@@ -254,7 +260,7 @@ void VerifyWidget::onVerifyClicked()
     QString code = codeEdit->text().trimmed();
     if (code.isEmpty()) {
         statusLabel->setText("Введите код.");
-        statusLabel->setStyleSheet(QString("color:%1;").arg(GH_RED));
+        statusLabel->setStyleSheet(QString("color:%1; font-weight: bold;").arg(GH_RED));
         statusLabel->show();
         return;
     }
@@ -263,7 +269,7 @@ void VerifyWidget::onVerifyClicked()
     verifyBtn->setEnabled(false);
 
     statusLabel->setText("Проверка...");
-    statusLabel->setStyleSheet(QString("color:%1;").arg(GH_MUTED));
+    statusLabel->setStyleSheet(QString("color:%1; font-weight: bold;").arg(GH_MUTED));
     statusLabel->show();
 
     ClientSingleton::instance().sendRequestAsync(
@@ -283,14 +289,14 @@ void VerifyWidget::onVerifyResponseReceived(const QString &response)
     if (r.isEmpty()) {
         verifyBtn->setEnabled(true);
         statusLabel->setText("Ошибка соединения.");
-        statusLabel->setStyleSheet(QString("color:%1;").arg(GH_RED));
+        statusLabel->setStyleSheet(QString("color:%1; font-weight: bold;").arg(GH_RED));
         statusLabel->show();
         return;
     }
 
     if (r.startsWith("auth+")) {
         statusLabel->setText("Успешный вход!");
-        statusLabel->setStyleSheet(QString("color:%1;").arg(GH_GREEN_H));
+        statusLabel->setStyleSheet(QString("color:%1; font-weight: bold;").arg(GH_GREEN_H));
         statusLabel->show();
 
         verifyBtn->setEnabled(false);
@@ -308,7 +314,7 @@ void VerifyWidget::onVerifyResponseReceived(const QString &response)
             statusLabel->setText(
                 QString("Неверный код (%1/4)").arg(failedAttempts)
                 );
-            statusLabel->setStyleSheet(QString("color:%1;").arg(GH_RED));
+            statusLabel->setStyleSheet(QString("color:%1; font-weight: bold;").arg(GH_RED));
             statusLabel->show();
             verifyBtn->setEnabled(true);
             return;
