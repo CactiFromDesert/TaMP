@@ -15,5 +15,11 @@ docker compose --profile client up calculation_client
 ## 4. Запустить аутентификацию (новый терминал)
 docker compose run --rm auth
 
-## 5. Остановить всё
+## 3. Остановить всё (не удаляя)
+Остановить выполнение программы - ctrl + C 
+docker compose stop calc_server
+docker compose stop calc_server
+docker compose stop auth_postgres
+
+## 6. Остановить и удалить всё
 docker compose down
