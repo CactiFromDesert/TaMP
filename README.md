@@ -17,8 +17,11 @@ docker compose run --rm auth
 
 ## 3. Остановить всё (не удаляя)
 Остановить выполнение программы - ctrl + C 
+
 docker compose stop calc_server
+
 docker compose stop calc_server
+
 docker compose stop auth_postgres
 
 ## 6. Остановить и удалить всё
