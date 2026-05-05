@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
+<<<<<<<< HEAD:test/test.pro.user
 <!-- Written by QtCreator 17.0.0, 2026-04-23T22:10:22. -->
+========
+<!-- Written by QtCreator 19.0.0, 2026-05-05T19:30:56. -->
+>>>>>>>> my-real-code:test/.qtcreator/test.pro.user
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>

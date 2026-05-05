@@ -1,48 +1,20 @@
 #include "authwidget.h"
-
 #include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QFrame>
 #include <QTimer>
 
-// ── Sky Blue UI palette ───────────────────────
-
-#define UI_BG         "#0b1e2d"
-#define UI_CARD       "#102a43"
-#define UI_BORDER     "#1f4e79"
-#define UI_TEXT       "#e6f2ff"
-#define UI_MUTED      "#9ecae6"
-
-#define UI_PRIMARY    "#3da9fc"
-#define UI_PRIMARY_H  "#74c0fc"
-
-#define UI_ERROR      "#ff6b6b"
-
-#define FONT_FAMILY   "Segoe UI"
-#define FONT_SIZE_SMALL 9
-
+#define UI_BG "#0b1e2d"
+#define UI_TEXT "#e6f2ff"
+#define UI_PRIMARY "#3da9fc"
+#define UI_PRIMARY_H "#74c0fc"
+#define UI_BORDER "#1f4e79"
 
 AuthWidget::AuthWidget(QWidget *parent)
-    : QWidget(parent),
-    failedAttempts(0),
-    lockLevel(0),
-    isLocked(false),
-    m_waitingForAuth(false)
+    : QWidget(parent)
 {
-    lockTimer = new QTimer(this);
-    lockTimer->setSingleShot(true);
-    connect(lockTimer, &QTimer::timeout,
-            this, &AuthWidget::onLockTimerFired);
-
     setupUI();
 }
 
 AuthWidget::~AuthWidget() = default;
-
-
-// ─────────────────────────────────────────────
-// UI STYLE HELPERS
-// ─────────────────────────────────────────────
 
 static QString inputStyle()
 {
@@ -66,7 +38,7 @@ static QString inputStyle()
         .arg(UI_PRIMARY);
 }
 
-static QString btnStylePrimary()
+static QString btnStyle()
 {
     return QString(
                "QPushButton {"
@@ -144,12 +116,13 @@ void AuthWidget::setupUI()
     loginEdit->setPlaceholderText("Login");
     loginEdit->setStyleSheet(inputStyle());
 
-
-    passwordEdit = new QLineEdit(card);
+    passwordEdit = new QLineEdit(this);
     passwordEdit->setPlaceholderText("Password");
     passwordEdit->setEchoMode(QLineEdit::Password);
     passwordEdit->setStyleSheet(inputStyle());
 
+    loginBtn = new QPushButton("Login", this);
+    loginBtn->setStyleSheet(btnStyle());
 
     loginBtn = new QPushButton("Login", card);
     loginBtn->setStyleSheet(btnStylePrimary());
@@ -170,78 +143,35 @@ void AuthWidget::setupUI()
                                    "font-size:12pt;"
                                    "font-weight: bold;"
                                    ).arg(UI_ERROR));
-
     statusLabel->hide();
-
 
     layout->addWidget(loginEdit);
     layout->addWidget(passwordEdit);
     layout->addWidget(loginBtn);
-    layout->addWidget(registerBtn);
-    layout->addWidget(forgotBtn);
     layout->addWidget(statusLabel);
 
-
-    connect(loginBtn,
-            &QPushButton::clicked,
-            this,
-            &AuthWidget::onLoginClicked);
-
-    connect(registerBtn,
-            &QPushButton::clicked,
-            this,
-            &AuthWidget::onRegisterClicked);
-
-    connect(forgotBtn,
-            &QPushButton::clicked,
-            this,
-            &AuthWidget::onForgotClicked);
-
-
-    outer->addWidget(card, 0, Qt::AlignCenter);
-    outer->addStretch();
+    connect(loginBtn, &QPushButton::clicked,
+            this, &AuthWidget::onLoginClicked);
 }
-
-
-// ─────────────────────────────────────────────
-// LOGIN (FAKE)
-// ─────────────────────────────────────────────
 
 void AuthWidget::onLoginClicked()
 {
-    QString login = loginEdit->text().trimmed();
-    QString pass  = passwordEdit->text();
+    QString login = loginEdit->text();
+    QString pass = passwordEdit->text();
 
-    if (login.isEmpty() || pass.isEmpty())
-    {
-        statusLabel->setText("Enter login & password");
+    if (login.isEmpty() || pass.isEmpty()) {
+        statusLabel->setText("Fill fields");
         statusLabel->show();
         return;
     }
 
-    loginBtn->setEnabled(false);
-
-    statusLabel->setText("Logging in (UI mock)...");
+    statusLabel->setText("Logging in...");
     statusLabel->show();
 
-    m_waitingForAuth = true;
-
-    QTimer::singleShot(800, this, [this, login]()
-                       {
-                           m_waitingForAuth = false;
-                           loginBtn->setEnabled(true);
-
-                           statusLabel->setText("Login success (UI)");
-                           statusLabel->show();
-
-                           emit loginSuccess(login);
-                       });
+    QTimer::singleShot(500, this, [this, login]() {
+        emit loginSuccess(login);
+    });
 }
-
-
-// ─────────────────────────────────────────────
-// PASSWORD TOGGLE
-// ─────────────────────────────────────────────
 
 void AuthWidget::onTogglePassword()
 {
@@ -251,33 +181,3 @@ void AuthWidget::onTogglePassword()
             : QLineEdit::Password
         );
 }
-
-
-// ─────────────────────────────────────────────
-// LOCK (stub)
-// ─────────────────────────────────────────────
-
-void AuthWidget::applyLock(int, const QString &) {}
-void AuthWidget::onLockTimerFired() {}
-
-
-// ─────────────────────────────────────────────
-// NAVIGATION
-// ─────────────────────────────────────────────
-
-void AuthWidget::onRegisterClicked()
-{
-    emit showRegister();
-}
-
-void AuthWidget::onForgotClicked()
-{
-    emit showReset();
-}
-
-
-// ─────────────────────────────────────────────
-// RESPONSE (stub)
-// ─────────────────────────────────────────────
-
-void AuthWidget::onAuthResponseReceived(const QString &) {}

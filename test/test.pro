@@ -8,8 +8,6 @@ QT += core gui widgets
 # ─────────────────────────────────────────────
 CONFIG += c++17
 CONFIG += warn_on
-
-# приложение с GUI
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 # ─────────────────────────────────────────────
@@ -18,10 +16,28 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = client
 TEMPLATE = app
 
+LIBS += -lcurl
+# PostgreSQL
+INCLUDEPATH += C:/libpqxx/include
+LIBS += -LC:/libpqxx/lib -lpqxx -lpq
+
+# libsodium
+INCLUDEPATH += C:/libsodium/include
+LIBS += -LC:/libsodium/lib -lsodium
+
+# ─────────────────────────────────────────────
+# 🔥 INCLUDE PATH (ВАЖНО)
+# ─────────────────────────────────────────────
+INCLUDEPATH += \
+    $$PWD/Auth
+
 # ─────────────────────────────────────────────
 # Sources
 # ─────────────────────────────────────────────
 SOURCES += \
+    Auth/auth.cpp \
+    Auth/database.cpp \
+    Auth/email_service.cpp \
     main.cpp \
     mainwindow.cpp \
     authwidget.cpp \
@@ -37,6 +53,11 @@ SOURCES += \
 # Headers
 # ─────────────────────────────────────────────
 HEADERS += \
+    Auth/auth.h \
+    Auth/common.h \
+    Auth/database.h \
+    Auth/email_config.h \
+    Auth/email_service.h \
     mainwindow.h \
     authwidget.h \
     regwidget.h \
@@ -52,13 +73,9 @@ HEADERS += \
 # ─────────────────────────────────────────────
 DEFINES += QT_DEPRECATED_WARNINGS
 
-# можно включить ещё жёстче при желании:
-# DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000
-
 # ─────────────────────────────────────────────
-# Output directory (безопасный вариант)
+# Output directory (optional)
 # ─────────────────────────────────────────────
-# если хочешь кастомную папку сборки — раскомментируй
 # DESTDIR = $$PWD/../build
 
 # ─────────────────────────────────────────────
@@ -66,5 +83,4 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # ─────────────────────────────────────────────
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
-
 !isEmpty(target.path): INSTALLS += target

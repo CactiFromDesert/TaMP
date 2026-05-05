@@ -13,4 +13,4 @@ server_app
 *.swo
 .DS_Store
 *.log
-postgres_data/
+postgres_data/"test/build/" 

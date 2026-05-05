@@ -1,14 +1,5 @@
 #include "verifywidget.h"
-#include "clientsingleton.h"
-
 #include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QLabel>
-#include <QLineEdit>
-#include <QPushButton>
-#include <QTimer>
-#include <QFont>
-#include <QFrame>
 
 // ── GitHub dark palette ─────────────────────────────────────
 #define GH_BG          "#0d1117"
@@ -88,12 +79,10 @@ static QString linkBtnStyle()
 }
 
 // ── Constructor ──────────────────────────────────────────────
+=======
+>>>>>>> my-real-code
 VerifyWidget::VerifyWidget(QWidget *parent)
-    : QWidget(parent),
-    failedAttempts(0),
-    lockLevel(0),
-    isLocked(false),
-    m_waitingForVerify(false)
+    : QWidget(parent)
 {
     lockTimer = new QTimer(this);
     lockTimer->setSingleShot(true);
@@ -114,37 +103,20 @@ VerifyWidget::VerifyWidget(QWidget *parent)
     setupUI();
 }
 
-VerifyWidget::~VerifyWidget() {}
+VerifyWidget::~VerifyWidget() = default;
 
-// ── Set login ───────────────────────────────────────────────
-void VerifyWidget::setLogin(const QString &loginVal)
+static QString btnStyle()
 {
-    login = loginVal;
-
-    failedAttempts = 0;
-    lockLevel = 0;
-    isLocked = false;
-    m_waitingForVerify = false;
-
-    if (lockTimer->isActive())
-        lockTimer->stop();
-
-    statusLabel->hide();
-    attemptsLabel->hide();
-    verifyBtn->setEnabled(true);
-    codeEdit->clear();
+    return "QPushButton {background:#238636;color:white;padding:8px;font-weight:bold;}";
 }
 
-// ── UI ───────────────────────────────────────────────────────
 void VerifyWidget::setupUI()
 {
-    QVBoxLayout *outerV = new QVBoxLayout(this);
-    outerV->setContentsMargins(0, 0, 0, 0);
-    outerV->addStretch();
+    auto *layout = new QVBoxLayout(this);
 
-    QHBoxLayout *outerH = new QHBoxLayout();
-    outerH->addStretch();
+    infoLabel = new QLabel("Enter code", this);
 
+<<<<<<< HEAD
     QWidget *card = new QWidget(this);
     card->setFixedWidth(340);
     card->setStyleSheet(QString(
@@ -154,10 +126,10 @@ void VerifyWidget::setupUI()
                             "font-weight: bold;"
                             ).arg(GH_CARD, GH_BORDER));
 
-    QVBoxLayout *cardLayout = new QVBoxLayout(card);
-    cardLayout->setContentsMargins(28, 28, 28, 28);
-    cardLayout->setSpacing(10);
+    verifyBtn = new QPushButton("Verify", this);
+    verifyBtn->setStyleSheet(btnStyle());
 
+<<<<<<< HEAD
     QLabel *title = new QLabel("Подтверждение входа", card);
     title->setAlignment(Qt::AlignCenter);
     title->setStyleSheet(QString("color:%1; font-weight: bold; font-size: 14pt;").arg(GH_TEXT));
@@ -192,33 +164,28 @@ void VerifyWidget::setupUI()
     verifyBtn = new QPushButton("Подтвердить", card);
     verifyBtn->setMinimumHeight(38);
     verifyBtn->setStyleSheet(primaryBtnStyle());
+=======
+    backBtn = new QPushButton("Back", this);
+
+    statusLabel = new QLabel(this);
+
+    layout->addWidget(infoLabel);
+    layout->addWidget(codeEdit);
+    layout->addWidget(verifyBtn);
+    layout->addWidget(backBtn);
+    layout->addWidget(statusLabel);
+
+>>>>>>> my-real-code
     connect(verifyBtn, &QPushButton::clicked,
             this, &VerifyWidget::onVerifyClicked);
-    cardLayout->addWidget(verifyBtn);
 
-    QFrame *line = new QFrame(card);
-    line->setFrameShape(QFrame::HLine);
-    line->setStyleSheet(QString("background:%1; max-height:1px;").arg(GH_BORDER));
-    cardLayout->addWidget(line);
-
-    backBtn = new QPushButton("Назад", card);
-    backBtn->setStyleSheet(linkBtnStyle());
     connect(backBtn, &QPushButton::clicked,
             this, &VerifyWidget::onBackClicked);
-    cardLayout->addWidget(backBtn, 0, Qt::AlignCenter);
-
-    outerH->addWidget(card);
-    outerH->addStretch();
-
-    outerV->addLayout(outerH);
-    outerV->addStretch();
-
-    setLayout(outerV);
 }
 
-// ── Lock ─────────────────────────────────────────────────────
-void VerifyWidget::applyLock(int minutes, const QString &message)
+void VerifyWidget::setLogin(const QString &l)
 {
+<<<<<<< HEAD
     isLocked = true;
     verifyBtn->setEnabled(false);
 
@@ -231,32 +198,19 @@ void VerifyWidget::applyLock(int minutes, const QString &message)
     lockTimer->start(minutes == 0
                          ? 30 * 1000
                          : minutes * 60 * 1000);
+=======
+    login = l;
+>>>>>>> my-real-code
 }
 
-void VerifyWidget::onLockTimerFired()
-{
-    isLocked = false;
-    verifyBtn->setEnabled(true);
-    statusLabel->hide();
-    attemptsLabel->hide();
-}
-
-// ── Verify click ─────────────────────────────────────────────
 void VerifyWidget::onVerifyClicked()
 {
-    if (isLocked) {
-        int sec = lockTimer->remainingTime() / 1000;
-        int min = sec / 60;
-        int rem = sec % 60;
-
-        statusLabel->setText(min > 0
-                                 ? QString("Заблокировано: %1 мин %2 сек").arg(min).arg(rem)
-                                 : QString("Заблокировано: %1 сек").arg(sec));
-
-        statusLabel->show();
+    if (codeEdit->text().isEmpty()) {
+        statusLabel->setText("Empty code");
         return;
     }
 
+<<<<<<< HEAD
     QString code = codeEdit->text().trimmed();
     if (code.isEmpty()) {
         statusLabel->setText("Введите код.");
@@ -336,20 +290,14 @@ void VerifyWidget::onVerifyResponseReceived(const QString &response)
 }
 
 // ── Back ─────────────────────────────────────────────────────
+=======
+    statusLabel->setText("Success (mock)");
+
+    emit verificationSuccess(login);
+}
+
+>>>>>>> my-real-code
 void VerifyWidget::onBackClicked()
 {
-    if (lockTimer->isActive())
-        lockTimer->stop();
-
-    isLocked = false;
-    failedAttempts = 0;
-    lockLevel = 0;
-    m_waitingForVerify = false;
-
-    statusLabel->hide();
-    attemptsLabel->hide();
-    verifyBtn->setEnabled(true);
-    codeEdit->clear();
-
     emit backToAuth();
 }

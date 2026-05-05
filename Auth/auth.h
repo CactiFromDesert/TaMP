@@ -4,23 +4,29 @@
 #include "database.h"
 #include "email_service.h"
 
+enum class AuthResult {
+    Success,
+    WrongPassword,
+    UserNotFound,
+    NeedVerification,
+    Error
+};
+
 class Auth {
 private:
-    Database& db; // Ссылка на объект Database 
+    Database& db;
 
-    // Методы работы с паролями
-    std::string hashPassword(const std::string& password); // Хэширование пароля
-    bool verifyPassword(const std::string& password, const std::string& hash); // Проверка пароля
+    std::string hashPassword(const std::string& password);
+    bool verifyPassword(const std::string& password, const std::string& hash);
+
+    std::string m_pendingEmail;
+    std::string m_pendingName;
 
 public:
-    Auth(Database& database); // Конструктор принимающий ссылку на Database
+    Auth(Database& database);
 
-    // Данные пользователя при регистрации и заходе
-    bool registerUser(const std::string& name,
-                      const std::string& login,
-                      const std::string& password,
-                      const std::string& email);
-    
-    bool loginUser(const std::string& login,
-                   const std::string& password);
+    AuthResult loginUser(const std::string& login,
+                         const std::string& password);
+
+    bool verifyLoginCode(const std::string& code);
 };
