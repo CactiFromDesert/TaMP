@@ -25,26 +25,17 @@ signals:
 private slots:
     void onVerifyClicked();
     void onBackClicked();
-    void onLockTimerFired();
-    void onVerifyResponseReceived(const QString &response);
 
 private:
-    QLabel      *infoLabel;
-    QLineEdit   *codeEdit;
+    QLabel *infoLabel;
+    QLineEdit *codeEdit;
     QPushButton *verifyBtn;
-    QLabel      *statusLabel;
-    QLabel      *attemptsLabel;
     QPushButton *backBtn;
+    QLabel *statusLabel;
 
-    int    failedAttempts;
-    int    lockLevel;
-    QTimer *lockTimer;
-    bool   isLocked;
-    bool   m_waitingForVerify;
     QString login;
 
     void setupUI();
-    void applyLock(int minutes, const QString &message);
 };
 
-#endif // VERIFYWIDGET_H
+#endif
