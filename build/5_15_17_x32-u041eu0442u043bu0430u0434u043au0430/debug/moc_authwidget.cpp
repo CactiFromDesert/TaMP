@@ -43,16 +43,9 @@ template <> constexpr inline auto AuthWidget::qt_create_metaobjectdata<qt_meta_t
         "loginSuccess",
         "",
         "login",
-        "showRegister",
         "showVerifyAuth",
-        "showReset",
         "onLoginClicked",
-        "onTogglePassword",
-        "onLockTimerFired",
-        "onRegisterClicked",
-        "onForgotClicked",
-        "onAuthResponseReceived",
-        "response"
+        "onTogglePassword"
     };
 
     QtMocHelpers::UintData qt_methods {
@@ -60,28 +53,14 @@ template <> constexpr inline auto AuthWidget::qt_create_metaobjectdata<qt_meta_t
         QtMocHelpers::SignalData<void(const QString &)>(1, 2, QMC::AccessPublic, QMetaType::Void, {{
             { QMetaType::QString, 3 },
         }}),
-        // Signal 'showRegister'
-        QtMocHelpers::SignalData<void()>(4, 2, QMC::AccessPublic, QMetaType::Void),
         // Signal 'showVerifyAuth'
-        QtMocHelpers::SignalData<void(const QString &)>(5, 2, QMC::AccessPublic, QMetaType::Void, {{
+        QtMocHelpers::SignalData<void(const QString &)>(4, 2, QMC::AccessPublic, QMetaType::Void, {{
             { QMetaType::QString, 3 },
         }}),
-        // Signal 'showReset'
-        QtMocHelpers::SignalData<void()>(6, 2, QMC::AccessPublic, QMetaType::Void),
         // Slot 'onLoginClicked'
-        QtMocHelpers::SlotData<void()>(7, 2, QMC::AccessPrivate, QMetaType::Void),
+        QtMocHelpers::SlotData<void()>(5, 2, QMC::AccessPrivate, QMetaType::Void),
         // Slot 'onTogglePassword'
-        QtMocHelpers::SlotData<void()>(8, 2, QMC::AccessPrivate, QMetaType::Void),
-        // Slot 'onLockTimerFired'
-        QtMocHelpers::SlotData<void()>(9, 2, QMC::AccessPrivate, QMetaType::Void),
-        // Slot 'onRegisterClicked'
-        QtMocHelpers::SlotData<void()>(10, 2, QMC::AccessPrivate, QMetaType::Void),
-        // Slot 'onForgotClicked'
-        QtMocHelpers::SlotData<void()>(11, 2, QMC::AccessPrivate, QMetaType::Void),
-        // Slot 'onAuthResponseReceived'
-        QtMocHelpers::SlotData<void(const QString &)>(12, 2, QMC::AccessPrivate, QMetaType::Void, {{
-            { QMetaType::QString, 13 },
-        }}),
+        QtMocHelpers::SlotData<void()>(6, 2, QMC::AccessPrivate, QMetaType::Void),
     };
     QtMocHelpers::UintData qt_properties {
     };
@@ -106,26 +85,16 @@ void AuthWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
     if (_c == QMetaObject::InvokeMetaMethod) {
         switch (_id) {
         case 0: _t->loginSuccess((*reinterpret_cast<std::add_pointer_t<QString>>(_a[1]))); break;
-        case 1: _t->showRegister(); break;
-        case 2: _t->showVerifyAuth((*reinterpret_cast<std::add_pointer_t<QString>>(_a[1]))); break;
-        case 3: _t->showReset(); break;
-        case 4: _t->onLoginClicked(); break;
-        case 5: _t->onTogglePassword(); break;
-        case 6: _t->onLockTimerFired(); break;
-        case 7: _t->onRegisterClicked(); break;
-        case 8: _t->onForgotClicked(); break;
-        case 9: _t->onAuthResponseReceived((*reinterpret_cast<std::add_pointer_t<QString>>(_a[1]))); break;
+        case 1: _t->showVerifyAuth((*reinterpret_cast<std::add_pointer_t<QString>>(_a[1]))); break;
+        case 2: _t->onLoginClicked(); break;
+        case 3: _t->onTogglePassword(); break;
         default: ;
         }
     }
     if (_c == QMetaObject::IndexOfMethod) {
         if (QtMocHelpers::indexOfMethod<void (AuthWidget::*)(const QString & )>(_a, &AuthWidget::loginSuccess, 0))
             return;
-        if (QtMocHelpers::indexOfMethod<void (AuthWidget::*)()>(_a, &AuthWidget::showRegister, 1))
-            return;
-        if (QtMocHelpers::indexOfMethod<void (AuthWidget::*)(const QString & )>(_a, &AuthWidget::showVerifyAuth, 2))
-            return;
-        if (QtMocHelpers::indexOfMethod<void (AuthWidget::*)()>(_a, &AuthWidget::showReset, 3))
+        if (QtMocHelpers::indexOfMethod<void (AuthWidget::*)(const QString & )>(_a, &AuthWidget::showVerifyAuth, 1))
             return;
     }
 }
@@ -149,14 +118,14 @@ int AuthWidget::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 10)
+        if (_id < 4)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 10;
+        _id -= 4;
     }
     if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 10)
+        if (_id < 4)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 10;
+        _id -= 4;
     }
     return _id;
 }
@@ -168,20 +137,8 @@ void AuthWidget::loginSuccess(const QString & _t1)
 }
 
 // SIGNAL 1
-void AuthWidget::showRegister()
-{
-    QMetaObject::activate(this, &staticMetaObject, 1, nullptr);
-}
-
-// SIGNAL 2
 void AuthWidget::showVerifyAuth(const QString & _t1)
 {
-    QMetaObject::activate<void>(this, &staticMetaObject, 2, nullptr, _t1);
-}
-
-// SIGNAL 3
-void AuthWidget::showReset()
-{
-    QMetaObject::activate(this, &staticMetaObject, 3, nullptr);
+    QMetaObject::activate<void>(this, &staticMetaObject, 1, nullptr, _t1);
 }
 QT_WARNING_POP
