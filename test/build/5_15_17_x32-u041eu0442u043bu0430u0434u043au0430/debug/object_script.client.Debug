@@ -1,3 +1,6 @@
+debug/auth.o
+debug/database.o
+debug/email_service.o
 debug/main.o
 debug/mainwindow.o
 debug/authwidget.o

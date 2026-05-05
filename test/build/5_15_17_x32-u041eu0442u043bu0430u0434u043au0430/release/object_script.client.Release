@@ -1,3 +1,6 @@
+release/auth.o
+release/database.o
+release/email_service.o
 release/main.o
 release/mainwindow.o
 release/authwidget.o
