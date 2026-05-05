@@ -1,9 +1,13 @@
 # Инструкция по запуску через докер
 
 ## 1. Клонировать проект
-cd folder
+cd путь до папки где лежит корень проекта
 
-git clone url
+git clone https://github.com/CactiFromDesert/TaMP.git
+
+ИЛИ (если уже был скачан проект)
+
+git pull origin main
 
 ## 2. Запустить сервер и БД
 docker compose up -d postgres
@@ -24,5 +28,5 @@ docker compose stop calc_server
 
 docker compose stop auth_postgres
 
-## 6. Остановить и удалить всё
+## 5.1. Остановить и удалить всё
 docker compose down
