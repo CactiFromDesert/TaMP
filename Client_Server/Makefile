@@ -1,9 +1,9 @@
 CXX = g++
 CXXFLAGS = -Wall -Wextra -std=c++17 -pthread
-LDFLAGS = -pthread
+LDFLAGS = -pthread -lm
 
-# Для сервера
-SERVER_SRC = main_server.cpp TCPServer.cpp
+# Для сервера (добавлен func.cpp)
+SERVER_SRC = main_server.cpp TCPServer.cpp func.cpp
 SERVER_TARGET = server
 
 # Для клиента
@@ -12,12 +12,12 @@ CLIENT_TARGET = client
 
 # Сборка сервера
 build_server: $(SERVER_SRC)
-	$(CXX) $(CXXFLAGS) $(SERVER_SRC) -o $(SERVER_TARGET)
+	$(CXX) $(CXXFLAGS) $(SERVER_SRC) -o $(SERVER_TARGET) $(LDFLAGS)
 	@echo "✅ Сервер успешно собран: ./$(SERVER_TARGET)"
 
 # Сборка клиента
 build_client: $(CLIENT_SRC)
-	$(CXX) $(CXXFLAGS) $(CLIENT_SRC) -o $(CLIENT_TARGET)
+	$(CXX) $(CXXFLAGS) $(CLIENT_SRC) -o $(CLIENT_TARGET) $(LDFLAGS)
 	@echo "✅ Клиент успешно собран: ./$(CLIENT_TARGET)"
 
 # Запуск сервера

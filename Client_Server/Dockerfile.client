@@ -3,6 +3,7 @@ FROM gcc:14
 WORKDIR /app
 COPY Client_Server/ /app/
 
+# Добавлен func.cpp и -lm для математических функций
 RUN g++ -std=c++17 -o client_app main_client.cpp TCPClient.cpp
 
 CMD ["sh", "-c", "sleep 2 && ./client_app"]

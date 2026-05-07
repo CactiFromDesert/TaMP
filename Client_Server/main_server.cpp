@@ -1,22 +1,56 @@
 #include "TCPServer.hpp"
+#include "func.hpp"
+#include <sstream>
+#include <iomanip>
 
 TCPServer tcp; 
 
 void* loop(void* m)
 {
-    (void)m;  // Убираем предупреждение о неиспользуемом параметре
+    (void)m;
     pthread_detach(pthread_self());
+    
+    // Параметры функции (можно задать здесь или получать от клиента)
+    double a = 1.0;
+    double b = 2.0;
+    double c = 3.0;
+    
     while(1)
     {
-        srand(time(NULL));
-        char ch = 'a' + rand() % 26;
-        std::string s(1, ch);
         std::string str = tcp.getMessage();
         if(str != "")
         {
-            std::cout << "Message: " << str << '\n';
-            tcp.Send("[client message: " + str + "] " + s);
-            tcp.clean();
+            try {
+                // Преобразуем полученное число из строки в double
+                double x = std::stod(str);
+                std::cout << "Received x = " << x << std::endl;
+                
+                // Вычисляем функцию
+                double result = calculateFunction(x, a, b, c);
+                
+                // Формируем ответ
+                std::ostringstream response;
+                if (std::isnan(result))
+                {
+                    response << "Error: Invalid argument for function";
+                }
+                else
+                {
+                    response << std::fixed << std::setprecision(6) << result;
+                }
+                
+                // Отправляем результат обратно клиенту
+                tcp.Send(response.str());
+                std::cout << "Sent result: " << response.str() << std::endl;
+                
+                tcp.clean();
+            }
+            catch (const std::exception& e)
+            {
+                std::cout << "Error parsing number: " << e.what() << std::endl;
+                tcp.Send("Error: Invalid number format");
+                tcp.clean();
+            }
         }
         usleep(1000);
     }
@@ -34,12 +68,12 @@ int main()
     std::cout << "Waiting for client connection...\n";
     
     while(1) {
-        std::string client_ip = tcp.receive();  // Получаем IP клиента
+        std::string client_ip = tcp.receive();
         std::cout << "Client connected from: " << client_ip << std::endl;
         
         if(pthread_create(&msg, NULL, loop, NULL) == 0)
         {
-            pthread_join(msg, NULL);  // Ждем завершения потока
+            pthread_join(msg, NULL);
         }
     }
     

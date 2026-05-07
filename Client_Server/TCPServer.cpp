@@ -1,6 +1,6 @@
 #include "TCPServer.hpp"
 
-std::string TCPServer::Message;
+std::string TCPServer::Message = "";
 
 void* TCPServer::Task(void *arg)
 {
