@@ -6,9 +6,10 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /app
 COPY Client_Server/ /app/
+COPY Functoin/ /app/
 
 RUN g++ -std=c++17 -pthread -o server_app \
-    main_server.cpp TCPServer.cpp -lpthread
+    main_server.cpp TCPServer.cpp func.cpp -lpthread -lm
 
 EXPOSE 11999
 CMD ["./server_app"]

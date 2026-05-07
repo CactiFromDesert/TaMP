@@ -20,15 +20,11 @@ double calculateFunction(double x, double a, double b, double c)
         }
         return asin(argument) + b;
     }
-    else
-    {
+   else{
         // Третья ветка: arccos(x / π) - c, где x >= π
         double argument = x / PI;
-        // Проверка, что аргумент arccos в диапазоне [-1, 1]
-        if (argument < -1.0 || argument > 1.0) {
-            std::cerr << "Ошибка: аргумент arccos вне диапазона [-1, 1] для x = " << x << "\n";
-            return NAN;
-        }
+        if (argument > 1.0) argument = 1.0;  // ограничиваем аргумент
+        if (argument < -1.0) argument = -1.0;
         return acos(argument) - c;
     }
 }
