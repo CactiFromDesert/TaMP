@@ -1,30 +1,30 @@
 #include "graphwidget.h"
+#include "clientsingleton.h"
 
 #include <QPainter>
 #include <QPen>
+#include <QJsonDocument>
+#include <QJsonArray>
+#include <QJsonObject>
 #include <cmath>
 
-// ─────────────────────────────────────────────
-// CONSTRUCTOR
-// ─────────────────────────────────────────────
 GraphWidget::GraphWidget(QWidget *parent)
     : QWidget(parent)
-    , currentA(1.0)
-    , currentB(1.0)
-    , currentC(1.0)
 {
     setupUI();
 
-    // безопасный старт (если UI ещё не готов — не падаем)
+    // Подключаемся к серверу
+    ClientSingleton::instance().connectToServer("calc_server", 11999);
+
+    connect(&ClientSingleton::instance(), &ClientSingleton::responseReceived,
+            this, &GraphWidget::onServerResponse);
+
     if (spinA && spinB && spinC)
         updateGraph();
 }
 
 GraphWidget::~GraphWidget() = default;
 
-// ─────────────────────────────────────────────
-// UI SETUP
-// ─────────────────────────────────────────────
 void GraphWidget::setupUI()
 {
     auto *mainLayout = new QHBoxLayout(this);
@@ -33,74 +33,54 @@ void GraphWidget::setupUI()
     leftPanel = new QWidget(this);
     leftPanel->setFixedWidth(320);
 
-    setupLeftPanel(); // теперь ОБЯЗАТЕЛЬНО должен существовать (stub допустим)
+    setupLeftPanel();
 
     mainLayout->addWidget(leftPanel);
     setLayout(mainLayout);
 
-    // Make all text bold except table
     setStyleSheet("font-weight: bold; QTableWidget, QTableWidget::item { font-weight: normal; }");
 }
 
-// ─────────────────────────────────────────────
-// SLIDERS → SPINS (SAFE)
-// ─────────────────────────────────────────────
 void GraphWidget::onSliderAChanged(int v)
 {
-    if (spinA) spinA->setValue(v / 10.0);
+    if (spinA) { spinA->blockSignals(true); spinA->setValue(v / 10.0); spinA->blockSignals(false); }
     updateGraph();
 }
 
 void GraphWidget::onSliderBChanged(int v)
 {
-    if (spinB) spinB->setValue(v / 10.0);
+    if (spinB) { spinB->blockSignals(true); spinB->setValue(v / 10.0); spinB->blockSignals(false); }
     updateGraph();
 }
 
 void GraphWidget::onSliderCChanged(int v)
 {
-    if (spinC) spinC->setValue(v / 10.0);
+    if (spinC) { spinC->blockSignals(true); spinC->setValue(v / 10.0); spinC->blockSignals(false); }
     updateGraph();
 }
 
 void GraphWidget::onSpinAChanged(double v)
 {
-    if (sliderA) sliderA->setValue(int(v * 10));
+    if (sliderA) { sliderA->blockSignals(true); sliderA->setValue(int(v * 10)); sliderA->blockSignals(false); }
     updateGraph();
 }
 
 void GraphWidget::onSpinBChanged(double v)
 {
-    if (sliderB) sliderB->setValue(int(v * 10));
+    if (sliderB) { sliderB->blockSignals(true); sliderB->setValue(int(v * 10)); sliderB->blockSignals(false); }
     updateGraph();
 }
 
 void GraphWidget::onSpinCChanged(double v)
 {
-    if (sliderC) sliderC->setValue(int(v * 10));
+    if (sliderC) { sliderC->blockSignals(true); sliderC->setValue(int(v * 10)); sliderC->blockSignals(false); }
     updateGraph();
 }
 
-// ─────────────────────────────────────────────
-// MATH ONLY (NO BACKEND)
-// ─────────────────────────────────────────────
-double GraphWidget::calculate(double x, double a, double b, double c) const
-{
-    if (x < -2.0)
-        return std::fabs(x * a) - 2.0;
-    else if (x < 2.0)
-        return b * x * x + x + 1.0;
-    else
-        return std::fabs(x - 2.0) + c;
-}
-
-// ─────────────────────────────────────────────
-// GRAPH UPDATE
-// ─────────────────────────────────────────────
 void GraphWidget::updateGraph()
 {
     if (!spinA || !spinB || !spinC || !table)
-        return; // UI stub safety
+        return;
 
     double a = spinA->value();
     double b = spinB->value();
@@ -110,74 +90,91 @@ void GraphWidget::updateGraph()
     currentB = b;
     currentC = c;
 
+    requestServerUpdate(a, b, c);
+}
+
+void GraphWidget::requestServerUpdate(double a, double b, double c)
+{
+    // Отправляем на сервер: a;b;c
+    QString req = QString("%1;%2;%3").arg(a, 0, 'f', 2).arg(b, 0, 'f', 2).arg(c, 0, 'f', 2);
+    ClientSingleton::instance().sendRequest(req);
+}
+
+void GraphWidget::onServerResponse(const QString &response)
+{
+    // Ответ от сервера — JSON-массив точек [[x1,y1],[x2,y2],...]
+    QJsonDocument doc = QJsonDocument::fromJson(response.toUtf8());
+    if (!doc.isArray()) return;
+
+    QJsonArray arr = doc.array();
     pointsBranch1.clear();
     pointsBranch2.clear();
     pointsBranch3.clear();
 
-    for (double x = -10; x <= 10; x += 0.1)
-    {
-        double y = calculate(x, a, b, c);
-        QPointF pt(x, y);
+    for (int i = 0; i < arr.size(); i++) {
+        QJsonArray pt = arr[i].toArray();
+        if (pt.size() < 2) continue;
+        double x = pt[0].toDouble();
+        double y = pt[1].toDouble();
 
-        if (x < -2) pointsBranch1.append(pt);
-        else if (x < 2) pointsBranch2.append(pt);
-        else pointsBranch3.append(pt);
+        if (x < -2.0)
+            pointsBranch1.append(QPointF(x, y));
+        else if (x < 2.0)
+            pointsBranch2.append(QPointF(x, y));
+        else
+            pointsBranch3.append(QPointF(x, y));
     }
 
-    fillTable(a, b, c);
-    update();
+    fillTable(currentA, currentB, currentC);
+    update(); // перерисовка
 }
 
-// ─────────────────────────────────────────────
-// TABLE
-// ─────────────────────────────────────────────
 void GraphWidget::fillTable(double a, double b, double c)
 {
-    if (!table)
-        return;
+    Q_UNUSED(a); Q_UNUSED(b); Q_UNUSED(c);
+    if (!table) return;
 
     table->setRowCount(21);
-
     int row = 0;
-    for (int x = -10; x <= 10; x++)
-    {
-        double y = calculate(x, a, b, c);
 
-        table->setItem(row, 0, new QTableWidgetItem(QString::number(x)));
+    // Выводим из полученных точек (шаг ~1)
+    for (int i = 0; i <= 200; i += 10) {
+        double x = -10.0 + i * 0.1;
+        double y = 0;
+        // Ищем точку в объединённом массиве
+        QPointF *all[] = { pointsBranch1.data(), pointsBranch2.data(), pointsBranch3.data() };
+        int sizes[] = { pointsBranch1.size(), pointsBranch2.size(), pointsBranch3.size() };
+        for (int j = 0; j < 3; j++) {
+            for (int k = 0; k < sizes[j]; k++) {
+                if (std::fabs(all[j][k].x() - x) < 0.05) {
+                    y = all[j][k].y();
+                    break;
+                }
+            }
+        }
+
+        table->setItem(row, 0, new QTableWidgetItem(QString::number(x, 'f', 1)));
         table->setItem(row, 1, new QTableWidgetItem(QString::number(y, 'f', 2)));
-
         row++;
     }
 }
 
-// ─────────────────────────────────────────────
-// LOGOUT
-// ─────────────────────────────────────────────
+void GraphWidget::paintEvent(QPaintEvent *event)
+{
+    QWidget::paintEvent(event);
+    Q_UNUSED(event);
+}
+
 void GraphWidget::onLogoutClicked()
 {
     emit logout();
 }
 
-// ─────────────────────────────────────────────
-// USER
-// ─────────────────────────────────────────────
 void GraphWidget::setUserLogin(const QString &login)
 {
     userLogin = login;
-
     if (userLabel)
         userLabel->setText("Пользователь: " + login);
-}
-
-// ─────────────────────────────────────────────
-// PAINT
-// ─────────────────────────────────────────────
-void GraphWidget::paintEvent(QPaintEvent *event)
-{
-    QWidget::paintEvent(event);
-
-    // оставлено как hook для будущего кастомного рендера
-    Q_UNUSED(event);
 }
 
 void GraphWidget::setupLeftPanel()
@@ -190,106 +187,67 @@ void GraphWidget::setupLeftPanel()
     formulaLabel->setStyleSheet("font-weight: bold; font-size: 13pt;");
     formulaLabel->setAlignment(Qt::AlignCenter);
     layout->addWidget(formulaLabel);
-
     layout->addSpacing(10);
 
-    // Parameter A
-    QHBoxLayout *aTopLayout = new QHBoxLayout();
-    QLabel *labelA = new QLabel("a", leftPanel);
-    labelA->setStyleSheet("font-weight: bold; color: #ff6b6b; font-size: 11pt;");
-    labelA->setFixedWidth(30);
-    aTopLayout->addWidget(labelA);
-
+    // A
+    QHBoxLayout *aTop = new QHBoxLayout();
+    QLabel *la = new QLabel("a", leftPanel);
+    la->setStyleSheet("font-weight: bold; color: #ff6b6b; font-size: 11pt;");
+    la->setFixedWidth(30);
+    aTop->addWidget(la);
     spinA = new QDoubleSpinBox(leftPanel);
+    spinA->setRange(0, 10); spinA->setValue(1.0); spinA->setFixedWidth(100);
+    spinA->setDecimals(1); spinA->setSingleStep(0.1);
     spinA->setStyleSheet("font-weight: bold; font-size: 11pt;");
-    spinA->setRange(0, 10);
-    spinA->setValue(1.0);
-    spinA->setFixedWidth(100);
-    spinA->setDecimals(1);
-    spinA->setSingleStep(0.1);
-    aTopLayout->addWidget(spinA);
-    aTopLayout->addStretch();
-    layout->addLayout(aTopLayout);
-
+    aTop->addWidget(spinA); aTop->addStretch();
+    layout->addLayout(aTop);
     sliderA = new QSlider(Qt::Horizontal, leftPanel);
-    sliderA->setRange(0, 100);
-    sliderA->setValue(10);
-    sliderA->setStyleSheet(
-        "QSlider::groove:horizontal { height: 3px; background: #ff6b6b; border-radius: 1.5px; }"
-        "QSlider::handle:horizontal { background: #ff6b6b; width: 10px; height: 10px; margin: -4px 0; border-radius: 5px; }"
-        "QSlider::handle:horizontal:hover { background: #ff8888; }"
-        "QSlider::sub-page:horizontal { background: #ff6b6b; border-radius: 1.5px; }");
+    sliderA->setRange(0, 100); sliderA->setValue(10);
+    sliderA->setStyleSheet("QSlider::groove:horizontal{height:3px;background:#ff6b6b;border-radius:1.5px;}QSlider::handle:horizontal{background:#ff6b6b;width:10px;height:10px;margin:-4px 0;border-radius:5px;}QSlider::sub-page:horizontal{background:#ff6b6b;border-radius:1.5px;}");
     layout->addWidget(sliderA);
-
     layout->addSpacing(15);
 
-    // Parameter B
-    QHBoxLayout *bTopLayout = new QHBoxLayout();
-    QLabel *labelB = new QLabel("b", leftPanel);
-    labelB->setStyleSheet("font-weight: bold; color: #4cd4b0; font-size: 11pt;");
-    labelB->setFixedWidth(30);
-    bTopLayout->addWidget(labelB);
-
+    // B
+    QHBoxLayout *bTop = new QHBoxLayout();
+    QLabel *lb = new QLabel("b", leftPanel);
+    lb->setStyleSheet("font-weight: bold; color: #4cd4b0; font-size: 11pt;");
+    lb->setFixedWidth(30);
+    bTop->addWidget(lb);
     spinB = new QDoubleSpinBox(leftPanel);
+    spinB->setRange(0, 10); spinB->setValue(1.0); spinB->setFixedWidth(100);
+    spinB->setDecimals(1); spinB->setSingleStep(0.1);
     spinB->setStyleSheet("font-weight: bold; font-size: 11pt;");
-    spinB->setRange(0, 10);
-    spinB->setValue(1.0);
-    spinB->setFixedWidth(100);
-    spinB->setDecimals(1);
-    spinB->setSingleStep(0.1);
-    bTopLayout->addWidget(spinB);
-    bTopLayout->addStretch();
-    layout->addLayout(bTopLayout);
-
+    bTop->addWidget(spinB); bTop->addStretch();
+    layout->addLayout(bTop);
     sliderB = new QSlider(Qt::Horizontal, leftPanel);
-    sliderB->setRange(0, 100);
-    sliderB->setValue(10);
-    sliderB->setStyleSheet(
-        "QSlider::groove:horizontal { height: 3px; background: #4cd4b0; border-radius: 1.5px; }"
-        "QSlider::handle:horizontal { background: #4cd4b0; width: 10px; height: 10px; margin: -4px 0; border-radius: 5px; }"
-        "QSlider::handle:horizontal:hover { background: #6ee0c4; }"
-        "QSlider::sub-page:horizontal { background: #4cd4b0; border-radius: 1.5px; }");
+    sliderB->setRange(0, 100); sliderB->setValue(10);
+    sliderB->setStyleSheet("QSlider::groove:horizontal{height:3px;background:#4cd4b0;border-radius:1.5px;}QSlider::handle:horizontal{background:#4cd4b0;width:10px;height:10px;margin:-4px 0;border-radius:5px;}QSlider::sub-page:horizontal{background:#4cd4b0;border-radius:1.5px;}");
     layout->addWidget(sliderB);
-
     layout->addSpacing(15);
 
-    // Parameter C
-    QHBoxLayout *cTopLayout = new QHBoxLayout();
-    QLabel *labelC = new QLabel("c", leftPanel);
-    labelC->setStyleSheet("font-weight: bold; color: #74c0fc; font-size: 11pt;");
-    labelC->setFixedWidth(30);
-    cTopLayout->addWidget(labelC);
-
+    // C
+    QHBoxLayout *cTop = new QHBoxLayout();
+    QLabel *lc = new QLabel("c", leftPanel);
+    lc->setStyleSheet("font-weight: bold; color: #74c0fc; font-size: 11pt;");
+    lc->setFixedWidth(30);
+    cTop->addWidget(lc);
     spinC = new QDoubleSpinBox(leftPanel);
+    spinC->setRange(0, 10); spinC->setValue(1.0); spinC->setFixedWidth(100);
+    spinC->setDecimals(1); spinC->setSingleStep(0.1);
     spinC->setStyleSheet("font-weight: bold; font-size: 11pt;");
-    spinC->setRange(0, 10);
-    spinC->setValue(1.0);
-    spinC->setFixedWidth(100);
-    spinC->setDecimals(1);
-    spinC->setSingleStep(0.1);
-    cTopLayout->addWidget(spinC);
-    cTopLayout->addStretch();
-    layout->addLayout(cTopLayout);
-
+    cTop->addWidget(spinC); cTop->addStretch();
+    layout->addLayout(cTop);
     sliderC = new QSlider(Qt::Horizontal, leftPanel);
-    sliderC->setRange(0, 100);
-    sliderC->setValue(10);
-    sliderC->setStyleSheet(
-        "QSlider::groove:horizontal { height: 3px; background: #74c0fc; border-radius: 1.5px; }"
-        "QSlider::handle:horizontal { background: #74c0fc; width: 10px; height: 10px; margin: -4px 0; border-radius: 5px; }"
-        "QSlider::handle:horizontal:hover { background: #90d4ff; }"
-        "QSlider::sub-page:horizontal { background: #74c0fc; border-radius: 1.5px; }");
+    sliderC->setRange(0, 100); sliderC->setValue(10);
+    sliderC->setStyleSheet("QSlider::groove:horizontal{height:3px;background:#74c0fc;border-radius:1.5px;}QSlider::handle:horizontal{background:#74c0fc;width:10px;height:10px;margin:-4px 0;border-radius:5px;}QSlider::sub-page:horizontal{background:#74c0fc;border-radius:1.5px;}");
     layout->addWidget(sliderC);
-
     layout->addSpacing(20);
 
     table = new QTableWidget(leftPanel);
     table->setColumnCount(2);
     table->setHorizontalHeaderLabels(QStringList() << "x" << "y");
-    table->setStyleSheet("QTableWidget { font-weight: normal; } QTableWidget::item { font-weight: normal; }");
     table->setMinimumHeight(200);
     layout->addWidget(table);
-
     layout->addStretch();
 
     userLabel = new QLabel(leftPanel);
@@ -300,24 +258,11 @@ void GraphWidget::setupLeftPanel()
     logoutBtn->setStyleSheet("font-weight: bold; font-size: 10pt; padding: 6px;");
     layout->addWidget(logoutBtn);
 
-    connect(sliderA, &QSlider::valueChanged,
-            this, &GraphWidget::onSliderAChanged);
-
-    connect(sliderB, &QSlider::valueChanged,
-            this, &GraphWidget::onSliderBChanged);
-
-    connect(sliderC, &QSlider::valueChanged,
-            this, &GraphWidget::onSliderCChanged);
-
-    connect(spinA, QOverload<double>::of(&QDoubleSpinBox::valueChanged),
-            this, &GraphWidget::onSpinAChanged);
-
-    connect(spinB, QOverload<double>::of(&QDoubleSpinBox::valueChanged),
-            this, &GraphWidget::onSpinBChanged);
-
-    connect(spinC, QOverload<double>::of(&QDoubleSpinBox::valueChanged),
-            this, &GraphWidget::onSpinCChanged);
-
-    connect(logoutBtn, &QPushButton::clicked,
-            this, &GraphWidget::onLogoutClicked);
+    connect(sliderA, &QSlider::valueChanged, this, &GraphWidget::onSliderAChanged);
+    connect(sliderB, &QSlider::valueChanged, this, &GraphWidget::onSliderBChanged);
+    connect(sliderC, &QSlider::valueChanged, this, &GraphWidget::onSliderCChanged);
+    connect(spinA, QOverload<double>::of(&QDoubleSpinBox::valueChanged), this, &GraphWidget::onSpinAChanged);
+    connect(spinB, QOverload<double>::of(&QDoubleSpinBox::valueChanged), this, &GraphWidget::onSpinBChanged);
+    connect(spinC, QOverload<double>::of(&QDoubleSpinBox::valueChanged), this, &GraphWidget::onSpinCChanged);
+    connect(logoutBtn, &QPushButton::clicked, this, &GraphWidget::onLogoutClicked);
 }

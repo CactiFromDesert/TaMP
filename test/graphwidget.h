@@ -12,8 +12,6 @@
 #include <QString>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
-#include <QPainter>
-#include <QPaintEvent>
 
 class GraphWidget : public QWidget
 {
@@ -24,10 +22,7 @@ public:
     ~GraphWidget();
 
     void setUserLogin(const QString &login);
-
-    // ✅ ВАЖНО: теперь доступен из MainWindow
     void updateGraph();
-
 signals:
     void logout();
 
@@ -42,16 +37,12 @@ private slots:
     void onSpinBChanged(double value);
     void onSpinCChanged(double value);
     void onLogoutClicked();
+    void onServerResponse(const QString &response);
 
 private:
-    // UI
     QWidget *leftPanel;
 
     QLabel *formulaLabel;
-    QLabel *labelA;
-    QLabel *labelB;
-    QLabel *labelC;
-
     QSlider *sliderA;
     QSlider *sliderB;
     QSlider *sliderC;
@@ -64,34 +55,20 @@ private:
     QPushButton *logoutBtn;
     QLabel *userLabel;
 
-    static const int LEFT_PANEL_WIDTH = 280;
-
-    // Data
     QVector<QPointF> pointsBranch1;
     QVector<QPointF> pointsBranch2;
     QVector<QPointF> pointsBranch3;
 
-    double currentA;
-    double currentB;
-    double currentC;
+    double currentA = 1.0;
+    double currentB = 1.0;
+    double currentC = 1.0;
 
     QString userLogin;
 
-    // Logic
     void setupUI();
     void setupLeftPanel();
-    void updateFormulaLabel();
     void fillTable(double a, double b, double c);
-    double calculate(double x, double a, double b, double c) const;
-
-    // Anti-loop flags
-    bool blockSliderA = false;
-    bool blockSliderB = false;
-    bool blockSliderC = false;
-
-    bool blockSpinA = false;
-    bool blockSpinB = false;
-    bool blockSpinC = false;
+    void requestServerUpdate(double a, double b, double c);
 };
 
 #endif // GRAPHWIDGET_H

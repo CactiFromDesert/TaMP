@@ -3,10 +3,16 @@
 ClientSingleton::ClientSingleton(QObject *parent)
     : QObject(parent)
 {
-    m_connected = false;
+    m_socket = new QTcpSocket(this);
+    connect(m_socket, &QTcpSocket::readyRead, this, &ClientSingleton::onReadyRead);
+    connect(m_socket, &QTcpSocket::connected, this, &ClientSingleton::onConnected);
+    connect(m_socket, &QTcpSocket::disconnected, this, &ClientSingleton::onDisconnected);
 }
 
-ClientSingleton::~ClientSingleton() {}
+ClientSingleton::~ClientSingleton()
+{
+    disconnectFromServer();
+}
 
 ClientSingleton& ClientSingleton::instance()
 {
@@ -14,41 +20,55 @@ ClientSingleton& ClientSingleton::instance()
     return inst;
 }
 
-
-
-bool ClientSingleton::connectToServer(const QString &, int)
+bool ClientSingleton::connectToServer(const QString &host, int port)
 {
-    // UI stub — всегда "успех", но ничего не делает
-    m_connected = true;
-    return true;
+    if (m_socket->state() == QAbstractSocket::ConnectedState)
+        return true;
+
+    m_socket->connectToHost(host, port);
+    return m_socket->waitForConnected(3000);
 }
 
 void ClientSingleton::disconnectFromServer()
 {
-    m_connected = false;
+    if (m_socket->state() == QAbstractSocket::ConnectedState)
+        m_socket->disconnectFromHost();
 }
 
 bool ClientSingleton::isConnected() const
 {
-    return m_connected;
+    return m_socket->state() == QAbstractSocket::ConnectedState;
 }
 
-// ─────────────────────────────
-// STUB: синхронный запрос
-// ─────────────────────────────
-QString ClientSingleton::sendRequest(const QString &)
+void ClientSingleton::sendRequest(const QString &request)
 {
-    // ничего не обрабатываем
-    return QString();
+    if (m_socket->state() == QAbstractSocket::ConnectedState) {
+        QByteArray data = request.toUtf8() + "\n";
+        m_socket->write(data);
+        m_socket->flush();
+    }
 }
 
-// ─────────────────────────────
-// STUB: асинхронный запрос
-// ─────────────────────────────
-void ClientSingleton::sendRequestAsync(const QString &)
+void ClientSingleton::onReadyRead()
 {
-    // ничего не отправляем
-    // просто оставляем точку расширения
+    m_buffer.append(m_socket->readAll());
 
-    emit responseReceived(QString());
+    while (m_buffer.contains('\n')) {
+        int idx = m_buffer.indexOf('\n');
+        QByteArray line = m_buffer.left(idx).trimmed();
+        m_buffer.remove(0, idx + 1);
+
+        if (!line.isEmpty())
+            emit responseReceived(QString::fromUtf8(line));
+    }
+}
+
+void ClientSingleton::onConnected()
+{
+    emit connected();
+}
+
+void ClientSingleton::onDisconnected()
+{
+    emit disconnected();
 }

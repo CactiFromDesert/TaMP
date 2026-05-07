@@ -1,0 +1,17 @@
+FROM gcc:14
+
+RUN apt-get update && apt-get install -y \
+    libpqxx-dev \
+    libsodium-dev \
+    libcurl4-openssl-dev \
+    ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+COPY Auth/ /app/
+
+RUN g++ -std=c++20 -o auth_app \
+    main.cpp auth.cpp database.cpp email_service.cpp \
+    -lpqxx -lpq -lsodium -lcurl
+
+CMD ["sh", "-c", "./auth_app; echo ''; echo 'Press Enter to exit...'; read"]

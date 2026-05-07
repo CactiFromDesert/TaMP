@@ -1,0 +1,27 @@
+FROM ubuntu:22.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+ENV LANG=en_US.UTF-8
+ENV LC_ALL=en_US.UTF-8
+
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    qtbase5-dev \
+    qt5-qmake \
+    libpqxx-dev \
+    libsodium-dev \
+    libcurl4-openssl-dev \
+    ca-certificates \
+    locales \
+    x11-xkb-utils \
+    && locale-gen en_US.UTF-8 \
+    && update-locale LANG=en_US.UTF-8 \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+COPY . /app/
+
+RUN qmake test.pro -o Makefile && make
+
+CMD ["sh", "-c", "setxkbmap us && ./client"]

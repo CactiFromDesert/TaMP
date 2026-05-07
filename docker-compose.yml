@@ -62,6 +62,23 @@ services:
       - app_network
     profiles:
       - client
+    
+  qt_client:
+    build:
+      context: ./test
+      dockerfile: Dockerfile.qt
+    container_name: qt_gui
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      - DISPLAY=host.docker.internal:0.0
+      - QT_X11_NO_MITSHM=1
+      - QT_IM_MODULE=xim
+    networks:
+      - app_network
+    stdin_open: true
+    tty: true
 
 networks:
   app_network:

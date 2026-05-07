@@ -40,18 +40,21 @@ MainWindow::MainWindow(Database& db, QWidget *parent)
     : QMainWindow(parent),
     m_db(db)
 {
-    m_auth = new Auth(m_db); // 🔥 ЕДИНСТВЕННОЕ ВАЖНОЕ ДОБАВЛЕНИЕ
+    m_auth = new Auth(m_db);
 
+    // Устанавливаем фон только для QMainWindow, не для всех QWidget
     setStyleSheet(QString(
-                      "QMainWindow { background-color: %1; font-weight: bold; }"
-                      "QWidget { background-color: %1; color: %2; font-family: '%3'; font-weight: bold; }"
-                      ).arg(UI_BG).arg(UI_TEXT).arg(FONT_FAMILY));
+                      "QMainWindow { background-color: %1; }"
+                      ).arg(UI_BG));
+
+    // Фон для centralWidget задаём отдельно
 
     setupUI();
     connectSignals();
 
     QTimer::singleShot(0, this, [this]() {
         stackedWidget->setCurrentIndex(IDX_AUTH);
+        stackedWidget->setMinimumSize(1000, 700);
     });
 }
 
@@ -63,10 +66,14 @@ MainWindow::~MainWindow() {}
 
 void MainWindow::setupUI()
 {
+    // ── Цвет для иконок ─────────────────────
+    const QColor iconColor(230, 242, 255);  // UI_TEXT
+
     setWindowTitle("ТиМП — Подгруппа 2");
     setMinimumSize(1000, 700);
 
     centralWidget = new QWidget(this);
+    centralWidget->setStyleSheet(QString("background-color: %1;").arg(UI_BG));
     setCentralWidget(centralWidget);
 
     mainVLayout = new QVBoxLayout(centralWidget);
@@ -101,12 +108,8 @@ void MainWindow::setupUI()
                               .arg(UI_BTN_PRESS)
                           );
 
-
     topBarLayout = new QHBoxLayout(topBar);
     topBarLayout->setContentsMargins(12, 0, 12, 0);
-
-    taskBtn = new QPushButton("Задание", topBar);
-    schemaBtn = new QPushButton("Блок-схема", topBar);
 
     taskBtn = new QPushButton(topBar);
     taskBtn->setIcon(tintIcon(
@@ -144,10 +147,10 @@ void MainWindow::setupUI()
     // ── STACK ───────────────────────────────
     stackedWidget = new QStackedWidget(centralWidget);
 
-    authWidget   = new AuthWidget(stackedWidget);
-    regWidget    = new RegWidget(stackedWidget);
-    verifyWidget = new VerifyWidget(stackedWidget);
-    resetWidget  = new ResetWidget(stackedWidget);
+    authWidget = new AuthWidget(m_auth, stackedWidget);
+    regWidget = new RegWidget(m_db, stackedWidget);
+    verifyWidget = new VerifyWidget(m_auth, stackedWidget);
+    resetWidget = new ResetWidget(m_db, m_auth, stackedWidget);
     graphWidget  = new GraphWidget(stackedWidget);
 
     stackedWidget->addWidget(authWidget);
@@ -161,35 +164,72 @@ void MainWindow::setupUI()
 }
 
 // ─────────────────────────────────────────────
-// SIGNALS (НЕ ТРОГАЕМ ЛОГИКУ)
+// SIGNALS 
 // ─────────────────────────────────────────────
 
 void MainWindow::connectSignals()
-{   connect(taskBtn, &QPushButton::clicked,
+{
+    connect(taskBtn, &QPushButton::clicked,
             this, &MainWindow::onTaskBtnClicked);
 
     connect(schemaBtn, &QPushButton::clicked,
             this, &MainWindow::onSchemaBtnClicked);
 
+    // ── AuthWidget ────────────────────────────
     connect(authWidget, &AuthWidget::showVerifyAuth,
             this, &MainWindow::onShowVerifyAuth);
 
-    connect(authWidget, &AuthWidget::loginSuccess,
-            this, [this](const QString &login) {
-                graphWidget->setUserLogin(login);
-                stackedWidget->setCurrentIndex(IDX_GRAPH);
-            });
+    connect(authWidget, &AuthWidget::showRegister,
+            this, &MainWindow::onShowRegister);
 
+    connect(authWidget, &AuthWidget::showReset,
+            this, &MainWindow::onShowReset);
+
+    connect(authWidget, &AuthWidget::suggestReset,
+            this, &MainWindow::onShowReset);
+
+    // ── RegWidget ─────────────────────────────
+    connect(regWidget, &RegWidget::registrationSuccess,
+            this, &MainWindow::onRegistrationSuccess);
+
+    connect(regWidget, &RegWidget::showAuth,
+            this, &MainWindow::onBackToAuth);
+
+    // ── VerifyWidget ──────────────────────────
     connect(verifyWidget, &VerifyWidget::verificationSuccess,
             this, &MainWindow::onVerificationSuccess);
+
+    connect(verifyWidget, &VerifyWidget::backToAuth,
+            this, &MainWindow::onBackToAuth);
+
+    // ── ResetWidget ───────────────────────────
+    connect(resetWidget, &ResetWidget::backToAuth,
+            this, &MainWindow::onBackToAuth);
+
+    connect(resetWidget, &ResetWidget::resetSuccess,
+            this, &MainWindow::onResetSuccess);
+
+    // ── GraphWidget ───────────────────────────
+    connect(graphWidget, &GraphWidget::logout,
+            this, &MainWindow::onLogout);
 }
 
 // ─────────────────────────────────────────────
 // NAVIGATION (100% твоя логика)
 // ─────────────────────────────────────────────
 
-void MainWindow::onShowRegister()  { stackedWidget->setCurrentIndex(IDX_REG); }
-void MainWindow::onShowAuth()      { stackedWidget->setCurrentIndex(IDX_AUTH); }
+void MainWindow::onShowRegister()
+{
+    regWidget->clearFields();
+    stackedWidget->setCurrentIndex(IDX_REG);
+}
+
+void MainWindow::onShowAuth()
+{
+    authWidget->clearFields();
+    stackedWidget->setCurrentIndex(IDX_AUTH);
+}
+
 void MainWindow::onShowReset()     { stackedWidget->setCurrentIndex(IDX_RESET); }
 
 void MainWindow::onShowVerifyAuth(const QString &login)
@@ -211,10 +251,9 @@ void MainWindow::onBackToAuth()
 
 void MainWindow::onRegistrationSuccess(const QString &login)
 {
-    graphWidget->setUserLogin(login);
-    stackedWidget->setCurrentIndex(IDX_GRAPH);
+    // После успешной регистрации — на экран логина
+    stackedWidget->setCurrentIndex(IDX_AUTH);
 }
-
 void MainWindow::onLogout()
 {
     stackedWidget->setCurrentIndex(IDX_AUTH);

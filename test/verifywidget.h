@@ -8,12 +8,14 @@
 #include <QTimer>
 #include <QString>
 
+class Auth;  // forward declaration
+
 class VerifyWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit VerifyWidget(QWidget *parent = nullptr);
+    explicit VerifyWidget(class Auth *auth, QWidget *parent = nullptr);
     ~VerifyWidget();
 
     void setLogin(const QString &login);
@@ -27,11 +29,13 @@ private slots:
     void onBackClicked();
 
 private:
-    QLabel *infoLabel;
-    QLineEdit *codeEdit;
-    QPushButton *verifyBtn;
-    QPushButton *backBtn;
-    QLabel *statusLabel;
+    class Auth *m_auth;
+
+    QLabel *infoLabel = nullptr;
+    QLineEdit *codeEdit = nullptr;
+    QPushButton *verifyBtn = nullptr;
+    QPushButton *backBtn = nullptr;
+    QLabel *statusLabel = nullptr;
 
     QString login;
 

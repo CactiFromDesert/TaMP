@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
 
     a.setApplicationName("ТиМП — Подгруппа 2");
     a.setApplicationVersion("1.0");
-    a.setStyleSheet("font-weight: bold;");
+    a.setStyleSheet("* { font-weight: bold; }");
 
     // ─── INIT BACKEND ─────────────────────────
 

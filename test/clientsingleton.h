@@ -2,6 +2,7 @@
 #define CLIENTSINGLETON_H
 
 #include <QObject>
+#include <QTcpSocket>
 #include <QString>
 
 class ClientSingleton : public QObject
@@ -11,16 +12,21 @@ class ClientSingleton : public QObject
 public:
     static ClientSingleton& instance();
 
-    // ── STUB API (без логики) ──
-    bool connectToServer(const QString &host = QString(), int port = 0);
+    bool connectToServer(const QString &host, int port);
     void disconnectFromServer();
     bool isConnected() const;
 
-    QString sendRequest(const QString &request);
-    void sendRequestAsync(const QString &request);
+    void sendRequest(const QString &request);
 
 signals:
     void responseReceived(const QString &response);
+    void connected();
+    void disconnected();
+
+private slots:
+    void onReadyRead();
+    void onConnected();
+    void onDisconnected();
 
 private:
     explicit ClientSingleton(QObject *parent = nullptr);
@@ -29,7 +35,8 @@ private:
     ClientSingleton(const ClientSingleton&) = delete;
     ClientSingleton& operator=(const ClientSingleton&) = delete;
 
-    bool m_connected = false;
+    QTcpSocket *m_socket = nullptr;
+    QByteArray m_buffer;
 };
 
 #endif // CLIENTSINGLETON_H
