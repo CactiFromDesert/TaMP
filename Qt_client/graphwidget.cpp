@@ -37,9 +37,8 @@ void GraphCanvas::paintEvent(QPaintEvent *)
     int w = width(), h = height();
     int margin = 50;
 
-    // X от -2 до PI (чтобы видеть все 3 ветви + π)
-    double xmin = -2.0, xmax = PI + 0.5;
-    double ymin = -5.0, ymax = 5.0;
+    double xmin = -2.5, xmax = PI + 1.0;
+    double ymin = -5.5, ymax = 5.5;
 
     auto toScreen = [&](double x, double y) -> QPointF {
         double sx = margin + (x - xmin) / (xmax - xmin) * (w - 2 * margin);

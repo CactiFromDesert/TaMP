@@ -65,7 +65,7 @@ services:
     
   qt_client:
     build:
-      context: ./test
+      context: ./Qt_client
       dockerfile: Dockerfile.qt
     container_name: qt_gui
     depends_on:
