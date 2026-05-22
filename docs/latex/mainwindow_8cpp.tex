@@ -1,0 +1,84 @@
+\doxysection{Qt\+\_\+client/\+mainwindow.cpp File Reference}
+\hypertarget{mainwindow_8cpp}{}\label{mainwindow_8cpp}\index{Qt\_client/mainwindow.cpp@{Qt\_client/mainwindow.cpp}}
+{\ttfamily \+\#include "{}mainwindow.\+h"{}}\newline
+{\ttfamily \+\#include "{}taskdialog.\+h"{}}\newline
+{\ttfamily \+\#include "{}schemadialog.\+h"{}}\newline
+{\ttfamily \+\#include $<$QStyle$>$}\newline
+{\ttfamily \+\#include $<$QApplication$>$}\newline
+{\ttfamily \+\#include $<$QFrame$>$}\newline
+{\ttfamily \+\#include $<$QPainter$>$}\newline
+{\ttfamily \+\#include $<$QPixmap$>$}\newline
+{\ttfamily \+\#include $<$QIcon$>$}\newline
+{\ttfamily \+\#include $<$QTimer$>$}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{mainwindow_8cpp_a7feb48d8f112e8b5770c4338ed75ae02}{UI\+\_\+\+BG}}~"{}\+\#0b1e2d"{}
+\item 
+\+\#define \doxymbox{\hyperlink{mainwindow_8cpp_a126c7ba3b79626423fc4478ad29c9945}{UI\+\_\+\+TOPBAR}}~"{}\+\#102a43"{}
+\item 
+\+\#define \doxymbox{\hyperlink{mainwindow_8cpp_a9fdafdbeac311771a41e999d66190a36}{UI\+\_\+\+BORDER}}~"{}\+\#1f4e79"{}
+\item 
+\+\#define \doxymbox{\hyperlink{mainwindow_8cpp_a5973affb3c0b314bc46922d0f34bf4bc}{UI\+\_\+\+TEXT}}~"{}\+\#e6f2ff"{}
+\item 
+\+\#define \doxymbox{\hyperlink{mainwindow_8cpp_acbe8266ae5511db697fde586f42c5a92}{UI\+\_\+\+BTN}}~"{}\+\#3da9fc"{}
+\item 
+\+\#define \doxymbox{\hyperlink{mainwindow_8cpp_a2047649f23eaa792ef8f9e9d9f622631}{UI\+\_\+\+BTN\+\_\+\+HOVER}}~"{}\+\#74c0fc"{}
+\item 
+\+\#define \doxymbox{\hyperlink{mainwindow_8cpp_a378507e1e1f18c9232012cc0368ac820}{UI\+\_\+\+BTN\+\_\+\+PRESS}}~"{}\+\#2f8fe6"{}
+\item 
+\+\#define \doxymbox{\hyperlink{mainwindow_8cpp_a1f86a89716ada4d7063c047811d1076b}{FONT\+\_\+\+FAMILY}}~"{}Segoe UI"{}
+\end{DoxyCompactItemize}
+
+
+\label{mainwindow_8cpp_doc-define-members}
+\Hypertarget{mainwindow_8cpp_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{mainwindow_8cpp_a1f86a89716ada4d7063c047811d1076b}\index{mainwindow.cpp@{mainwindow.cpp}!FONT\_FAMILY@{FONT\_FAMILY}}
+\index{FONT\_FAMILY@{FONT\_FAMILY}!mainwindow.cpp@{mainwindow.cpp}}
+\doxysubsubsection{\texorpdfstring{FONT\_FAMILY}{FONT\_FAMILY}}
+{\footnotesize\ttfamily \label{mainwindow_8cpp_a1f86a89716ada4d7063c047811d1076b} 
+\+\#define FONT\+\_\+\+FAMILY~"{}Segoe UI"{}}
+
+\Hypertarget{mainwindow_8cpp_a7feb48d8f112e8b5770c4338ed75ae02}\index{mainwindow.cpp@{mainwindow.cpp}!UI\_BG@{UI\_BG}}
+\index{UI\_BG@{UI\_BG}!mainwindow.cpp@{mainwindow.cpp}}
+\doxysubsubsection{\texorpdfstring{UI\_BG}{UI\_BG}}
+{\footnotesize\ttfamily \label{mainwindow_8cpp_a7feb48d8f112e8b5770c4338ed75ae02} 
+\+\#define UI\+\_\+\+BG~"{}\+\#0b1e2d"{}}
+
+\Hypertarget{mainwindow_8cpp_a9fdafdbeac311771a41e999d66190a36}\index{mainwindow.cpp@{mainwindow.cpp}!UI\_BORDER@{UI\_BORDER}}
+\index{UI\_BORDER@{UI\_BORDER}!mainwindow.cpp@{mainwindow.cpp}}
+\doxysubsubsection{\texorpdfstring{UI\_BORDER}{UI\_BORDER}}
+{\footnotesize\ttfamily \label{mainwindow_8cpp_a9fdafdbeac311771a41e999d66190a36} 
+\+\#define UI\+\_\+\+BORDER~"{}\+\#1f4e79"{}}
+
+\Hypertarget{mainwindow_8cpp_acbe8266ae5511db697fde586f42c5a92}\index{mainwindow.cpp@{mainwindow.cpp}!UI\_BTN@{UI\_BTN}}
+\index{UI\_BTN@{UI\_BTN}!mainwindow.cpp@{mainwindow.cpp}}
+\doxysubsubsection{\texorpdfstring{UI\_BTN}{UI\_BTN}}
+{\footnotesize\ttfamily \label{mainwindow_8cpp_acbe8266ae5511db697fde586f42c5a92} 
+\+\#define UI\+\_\+\+BTN~"{}\+\#3da9fc"{}}
+
+\Hypertarget{mainwindow_8cpp_a2047649f23eaa792ef8f9e9d9f622631}\index{mainwindow.cpp@{mainwindow.cpp}!UI\_BTN\_HOVER@{UI\_BTN\_HOVER}}
+\index{UI\_BTN\_HOVER@{UI\_BTN\_HOVER}!mainwindow.cpp@{mainwindow.cpp}}
+\doxysubsubsection{\texorpdfstring{UI\_BTN\_HOVER}{UI\_BTN\_HOVER}}
+{\footnotesize\ttfamily \label{mainwindow_8cpp_a2047649f23eaa792ef8f9e9d9f622631} 
+\+\#define UI\+\_\+\+BTN\+\_\+\+HOVER~"{}\+\#74c0fc"{}}
+
+\Hypertarget{mainwindow_8cpp_a378507e1e1f18c9232012cc0368ac820}\index{mainwindow.cpp@{mainwindow.cpp}!UI\_BTN\_PRESS@{UI\_BTN\_PRESS}}
+\index{UI\_BTN\_PRESS@{UI\_BTN\_PRESS}!mainwindow.cpp@{mainwindow.cpp}}
+\doxysubsubsection{\texorpdfstring{UI\_BTN\_PRESS}{UI\_BTN\_PRESS}}
+{\footnotesize\ttfamily \label{mainwindow_8cpp_a378507e1e1f18c9232012cc0368ac820} 
+\+\#define UI\+\_\+\+BTN\+\_\+\+PRESS~"{}\+\#2f8fe6"{}}
+
+\Hypertarget{mainwindow_8cpp_a5973affb3c0b314bc46922d0f34bf4bc}\index{mainwindow.cpp@{mainwindow.cpp}!UI\_TEXT@{UI\_TEXT}}
+\index{UI\_TEXT@{UI\_TEXT}!mainwindow.cpp@{mainwindow.cpp}}
+\doxysubsubsection{\texorpdfstring{UI\_TEXT}{UI\_TEXT}}
+{\footnotesize\ttfamily \label{mainwindow_8cpp_a5973affb3c0b314bc46922d0f34bf4bc} 
+\+\#define UI\+\_\+\+TEXT~"{}\+\#e6f2ff"{}}
+
+\Hypertarget{mainwindow_8cpp_a126c7ba3b79626423fc4478ad29c9945}\index{mainwindow.cpp@{mainwindow.cpp}!UI\_TOPBAR@{UI\_TOPBAR}}
+\index{UI\_TOPBAR@{UI\_TOPBAR}!mainwindow.cpp@{mainwindow.cpp}}
+\doxysubsubsection{\texorpdfstring{UI\_TOPBAR}{UI\_TOPBAR}}
+{\footnotesize\ttfamily \label{mainwindow_8cpp_a126c7ba3b79626423fc4478ad29c9945} 
+\+\#define UI\+\_\+\+TOPBAR~"{}\+\#102a43"{}}
+

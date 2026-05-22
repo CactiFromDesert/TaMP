@@ -7,7 +7,18 @@
 
 TCPServer tcp;
 
-// Функция для генерации JSON с точками графика
+/**
+ * @brief Генерирует JSON-массив точек для построения графика функции.
+ * 
+ * Функция вычисляет значения f(x) на интервале [-2.0; π+0.5] 
+ * и возвращает их в формате JSON для отправки клиенту.
+ * 
+ * @param a Коэффициент a для ветви x < 0 (√(-x) + a)
+ * @param b Коэффициент b для ветви 0 ≤ x < π (arcsin(x/π) + b)
+ * @param c Коэффициент c для ветви x ≥ π (arccos(x/π) - c)
+ * @param numPoints Количество точек для генерации (по умолчанию 20)
+ * @return std::string JSON-строка вида [[x1,y1],[x2,y2],...]
+ */
 std::string generatePointsJSON(double a, double b, double c, int numPoints = 20) {
     std::ostringstream json;
     json << "[";
@@ -23,7 +34,7 @@ std::string generatePointsJSON(double a, double b, double c, int numPoints = 20)
         json << "[" << std::fixed << std::setprecision(2) << x << ",";
         
         if (std::isnan(y) || std::isinf(y)) {
-            json << "null";
+            json << "null";  ///< Нечисловые значения заменяем на null
         } else {
             json << std::fixed << std::setprecision(6) << y;
         }
@@ -34,6 +45,19 @@ std::string generatePointsJSON(double a, double b, double c, int numPoints = 20)
     return json.str();
 }
 
+/**
+ * @brief Потоковая функция для обработки входящих соединений.
+ * 
+ * Работает в отдельном потоке для каждого клиента. 
+ * Читает сообщения от клиента и отправляет ответы.
+ * 
+ * Форматы запросов:
+ * - "x" → возвращает f(x) с параметрами по умолчанию (a=1, b=2, c=3)
+ * - "a;b;c" → возвращает JSON со всеми точками графика
+ * 
+ * @param m Указатель на данные потока (не используется)
+ * @return void* Всегда возвращает NULL
+ */
 void* loop(void* m) {
     (void)m;
     pthread_detach(pthread_self());
@@ -54,7 +78,7 @@ void* loop(void* m) {
                 }
                 
                 if (tokens.size() == 1) {
-                    // Старый формат - одно значение x
+                    /// Режим 1: вычисление для одного x
                     double x = std::stod(tokens[0]);
                     double result = calculateFunction(x, 1.0, 2.0, 3.0);
                     
@@ -67,7 +91,7 @@ void* loop(void* m) {
                     tcp.Send(response.str());
                     
                 } else if (tokens.size() == 3) {
-                    // Новый формат - параметры a;b;c
+                    /// Режим 2: генерация графика с параметрами a,b,c
                     double a = std::stod(tokens[0]);
                     double b = std::stod(tokens[1]);
                     double c = std::stod(tokens[2]);
@@ -92,6 +116,14 @@ void* loop(void* m) {
     return NULL;
 }
 
+/**
+ * @brief Главная функция сервера вычислений.
+ * 
+ * Запускает TCP-сервер на порту 11999 и принимает входящие соединения.
+ * Для каждого клиента создаётся отдельный поток.
+ * 
+ * @return int Всегда возвращает 0
+ */
 int main() {
     std::cout << "Calculation Server starting on port 11999...\n";
     std::cout << "Supports both:\n";
@@ -107,7 +139,7 @@ int main() {
         std::cout << "Client connected from: " << client_ip << std::endl;
         
         if(pthread_create(&msg, NULL, loop, NULL) == 0) {
-            pthread_detach(msg);  // Не ждем, разрешаем множественные подключения
+            pthread_detach(msg);  ///< Не ждем, разрешаем множественные подключения
         }
     }
     

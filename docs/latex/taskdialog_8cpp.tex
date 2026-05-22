@@ -1,0 +1,78 @@
+\doxysection{Qt\+\_\+client/\+taskdialog.cpp File Reference}
+\hypertarget{taskdialog_8cpp}{}\label{taskdialog_8cpp}\index{Qt\_client/taskdialog.cpp@{Qt\_client/taskdialog.cpp}}
+{\ttfamily \+\#include "{}taskdialog.\+h"{}}\newline
+{\ttfamily \+\#include $<$QVBox\+Layout$>$}\newline
+{\ttfamily \+\#include $<$QHBox\+Layout$>$}\newline
+{\ttfamily \+\#include $<$QFrame$>$}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{taskdialog_8cpp_a9a85fef90bad6eab392e2471a65f8d4f}{GH\+\_\+\+BG}}~"{}\+\#0b1e2d"{}
+\item 
+\+\#define \doxymbox{\hyperlink{taskdialog_8cpp_afca1d0e2b834be063994059dc1b061e5}{GH\+\_\+\+CARD}}~"{}\+\#102a43"{}
+\item 
+\+\#define \doxymbox{\hyperlink{taskdialog_8cpp_a38738d697be4294cef70da505776fd3a}{GH\+\_\+\+BORDER}}~"{}\+\#1f4e79"{}
+\item 
+\+\#define \doxymbox{\hyperlink{taskdialog_8cpp_a76923ca4d575de2db881bfd1e2ed8fc6}{GH\+\_\+\+TEXT}}~"{}\+\#e6f2ff"{}
+\item 
+\+\#define \doxymbox{\hyperlink{taskdialog_8cpp_ae8746773945bc183eb687ba96b77b05c}{GH\+\_\+\+MUTED}}~"{}\+\#9ecae6"{}
+\item 
+\+\#define \doxymbox{\hyperlink{taskdialog_8cpp_a9d20cf908492c430163af5d2a12856b7}{GH\+\_\+\+BLUE}}~"{}\+\#3da9fc"{}
+\item 
+\+\#define \doxymbox{\hyperlink{taskdialog_8cpp_a42a7d8f7fd32b675ebe65742eddf8b30}{GH\+\_\+\+BLUE\+\_\+H}}~"{}\+\#74c0fc"{}
+\item 
+\+\#define \doxymbox{\hyperlink{taskdialog_8cpp_a1f86a89716ada4d7063c047811d1076b}{FONT\+\_\+\+FAMILY}}~"{}Segoe UI"{}
+\end{DoxyCompactItemize}
+
+
+\label{taskdialog_8cpp_doc-define-members}
+\Hypertarget{taskdialog_8cpp_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{taskdialog_8cpp_a1f86a89716ada4d7063c047811d1076b}\index{taskdialog.cpp@{taskdialog.cpp}!FONT\_FAMILY@{FONT\_FAMILY}}
+\index{FONT\_FAMILY@{FONT\_FAMILY}!taskdialog.cpp@{taskdialog.cpp}}
+\doxysubsubsection{\texorpdfstring{FONT\_FAMILY}{FONT\_FAMILY}}
+{\footnotesize\ttfamily \label{taskdialog_8cpp_a1f86a89716ada4d7063c047811d1076b} 
+\+\#define FONT\+\_\+\+FAMILY~"{}Segoe UI"{}}
+
+\Hypertarget{taskdialog_8cpp_a9a85fef90bad6eab392e2471a65f8d4f}\index{taskdialog.cpp@{taskdialog.cpp}!GH\_BG@{GH\_BG}}
+\index{GH\_BG@{GH\_BG}!taskdialog.cpp@{taskdialog.cpp}}
+\doxysubsubsection{\texorpdfstring{GH\_BG}{GH\_BG}}
+{\footnotesize\ttfamily \label{taskdialog_8cpp_a9a85fef90bad6eab392e2471a65f8d4f} 
+\+\#define GH\+\_\+\+BG~"{}\+\#0b1e2d"{}}
+
+\Hypertarget{taskdialog_8cpp_a9d20cf908492c430163af5d2a12856b7}\index{taskdialog.cpp@{taskdialog.cpp}!GH\_BLUE@{GH\_BLUE}}
+\index{GH\_BLUE@{GH\_BLUE}!taskdialog.cpp@{taskdialog.cpp}}
+\doxysubsubsection{\texorpdfstring{GH\_BLUE}{GH\_BLUE}}
+{\footnotesize\ttfamily \label{taskdialog_8cpp_a9d20cf908492c430163af5d2a12856b7} 
+\+\#define GH\+\_\+\+BLUE~"{}\+\#3da9fc"{}}
+
+\Hypertarget{taskdialog_8cpp_a42a7d8f7fd32b675ebe65742eddf8b30}\index{taskdialog.cpp@{taskdialog.cpp}!GH\_BLUE\_H@{GH\_BLUE\_H}}
+\index{GH\_BLUE\_H@{GH\_BLUE\_H}!taskdialog.cpp@{taskdialog.cpp}}
+\doxysubsubsection{\texorpdfstring{GH\_BLUE\_H}{GH\_BLUE\_H}}
+{\footnotesize\ttfamily \label{taskdialog_8cpp_a42a7d8f7fd32b675ebe65742eddf8b30} 
+\+\#define GH\+\_\+\+BLUE\+\_\+H~"{}\+\#74c0fc"{}}
+
+\Hypertarget{taskdialog_8cpp_a38738d697be4294cef70da505776fd3a}\index{taskdialog.cpp@{taskdialog.cpp}!GH\_BORDER@{GH\_BORDER}}
+\index{GH\_BORDER@{GH\_BORDER}!taskdialog.cpp@{taskdialog.cpp}}
+\doxysubsubsection{\texorpdfstring{GH\_BORDER}{GH\_BORDER}}
+{\footnotesize\ttfamily \label{taskdialog_8cpp_a38738d697be4294cef70da505776fd3a} 
+\+\#define GH\+\_\+\+BORDER~"{}\+\#1f4e79"{}}
+
+\Hypertarget{taskdialog_8cpp_afca1d0e2b834be063994059dc1b061e5}\index{taskdialog.cpp@{taskdialog.cpp}!GH\_CARD@{GH\_CARD}}
+\index{GH\_CARD@{GH\_CARD}!taskdialog.cpp@{taskdialog.cpp}}
+\doxysubsubsection{\texorpdfstring{GH\_CARD}{GH\_CARD}}
+{\footnotesize\ttfamily \label{taskdialog_8cpp_afca1d0e2b834be063994059dc1b061e5} 
+\+\#define GH\+\_\+\+CARD~"{}\+\#102a43"{}}
+
+\Hypertarget{taskdialog_8cpp_ae8746773945bc183eb687ba96b77b05c}\index{taskdialog.cpp@{taskdialog.cpp}!GH\_MUTED@{GH\_MUTED}}
+\index{GH\_MUTED@{GH\_MUTED}!taskdialog.cpp@{taskdialog.cpp}}
+\doxysubsubsection{\texorpdfstring{GH\_MUTED}{GH\_MUTED}}
+{\footnotesize\ttfamily \label{taskdialog_8cpp_ae8746773945bc183eb687ba96b77b05c} 
+\+\#define GH\+\_\+\+MUTED~"{}\+\#9ecae6"{}}
+
+\Hypertarget{taskdialog_8cpp_a76923ca4d575de2db881bfd1e2ed8fc6}\index{taskdialog.cpp@{taskdialog.cpp}!GH\_TEXT@{GH\_TEXT}}
+\index{GH\_TEXT@{GH\_TEXT}!taskdialog.cpp@{taskdialog.cpp}}
+\doxysubsubsection{\texorpdfstring{GH\_TEXT}{GH\_TEXT}}
+{\footnotesize\ttfamily \label{taskdialog_8cpp_a76923ca4d575de2db881bfd1e2ed8fc6} 
+\+\#define GH\+\_\+\+TEXT~"{}\+\#e6f2ff"{}}
+

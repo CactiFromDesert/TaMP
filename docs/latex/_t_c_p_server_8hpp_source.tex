@@ -1,0 +1,45 @@
+\doxysection{TCPServer.\+hpp}
+\hypertarget{_t_c_p_server_8hpp_source}{}\label{_t_c_p_server_8hpp_source}\index{Client\_Server/TCPServer.hpp@{Client\_Server/TCPServer.hpp}}
+\doxymbox{\hyperlink{_t_c_p_server_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#ifndef\ TCP\_SERVER\_H}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#define\ TCP\_SERVER\_H}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <stdio.h>}\ \ \ \ \ \ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <string.h>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <unistd.h>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <sys/types.h>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <sys/socket.h>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <netinet/in.h>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <arpa/inet.h>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <pthread.h>}\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <cstring>}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#define\ MAXPACKETSIZE\ 4096\ }}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_t_c_p_server}{TCPServer}}}
+\DoxyCodeLine{00022\ \{\ }
+\DoxyCodeLine{00023\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{class_t_c_p_server_a5760b0d1dad5583ccf109256ff28cc08}{sockfd}},\ \doxymbox{\hyperlink{class_t_c_p_server_a05a6844c0e14b608838936d5fcfe8276}{newsockfd}},\ \doxymbox{\hyperlink{class_t_c_p_server_aed56ffdf9decb8e932eb1373737596b1}{n}},\ \doxymbox{\hyperlink{class_t_c_p_server_ad9d74f690b71ff410bf2271d1b880818}{pid}};}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{struct\ }sockaddr\_in\ \doxymbox{\hyperlink{class_t_c_p_server_a8158542abc8b434935935452e7bbba5e}{serverAddress}};}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{struct\ }sockaddr\_in\ \doxymbox{\hyperlink{class_t_c_p_server_ad701eade413d190ae412033e924df362}{clientAddress}};}
+\DoxyCodeLine{00027\ \ \ \ \ pthread\_t\ \doxymbox{\hyperlink{class_t_c_p_server_ab8871398b81e5062b1b169d31b5a8e21}{serverThread}};}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{char}\ \doxymbox{\hyperlink{class_t_c_p_server_af65dae4c6d5cfb3b72b3c5b723e8fad6}{msg}}[\doxymbox{\hyperlink{_t_c_p_server_8hpp_ac5b738d467a1bbf9325bcc0eaf4f5efa}{MAXPACKETSIZE}}];}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{static}\ std::string\ \doxymbox{\hyperlink{class_t_c_p_server_a8dcffc5a7b50a1c5ff66fa2883c77f81}{Message}};}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_t_c_p_server_a5fe156c6ef8e554b61805a5093bc3f72}{setup}}(\textcolor{keywordtype}{int}\ port);}
+\DoxyCodeLine{00031\ \ \ \ \ std::string\ \doxymbox{\hyperlink{class_t_c_p_server_ab28c42ec05193f229f607f2c56c74e9b}{receive}}();}
+\DoxyCodeLine{00032\ \ \ \ \ std::string\ \doxymbox{\hyperlink{class_t_c_p_server_adb8ddf3421b44c73a8b711f83dd82627}{getMessage}}();}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_t_c_p_server_a8d6b5d183eb93579ec13be9ebe5e6a0c}{Send}}(std::string\ \doxymbox{\hyperlink{class_t_c_p_server_af65dae4c6d5cfb3b72b3c5b723e8fad6}{msg}});}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_t_c_p_server_a57852edb522bf1a10ae80d425ccf567c}{detach}}();}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_t_c_p_server_a132d304b321be037a8d419b44a7530d1}{clean}}();}
+\DoxyCodeLine{00036\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ *\ Task(\textcolor{keywordtype}{void}\ *\ argv);}
+\DoxyCodeLine{00038\ \};}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

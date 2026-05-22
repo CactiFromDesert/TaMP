@@ -1,0 +1,72 @@
+\doxysection{Qt\+\_\+client/\+authwidget.cpp File Reference}
+\hypertarget{authwidget_8cpp}{}\label{authwidget_8cpp}\index{Qt\_client/authwidget.cpp@{Qt\_client/authwidget.cpp}}
+{\ttfamily \+\#include "{}authwidget.\+h"{}}\newline
+{\ttfamily \+\#include "{}auth.\+h"{}}\newline
+{\ttfamily \+\#include $<$QVBox\+Layout$>$}\newline
+{\ttfamily \+\#include $<$QHBox\+Layout$>$}\newline
+{\ttfamily \+\#include $<$QTimer$>$}\newline
+{\ttfamily \+\#include $<$QMessage\+Box$>$}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{authwidget_8cpp_a7feb48d8f112e8b5770c4338ed75ae02}{UI\+\_\+\+BG}}~"{}\+\#0b1e2d"{}
+\item 
+\+\#define \doxymbox{\hyperlink{authwidget_8cpp_ae5a0d1036f17daa748e85cd20411a878}{UI\+\_\+\+CARD}}~"{}\+\#102a43"{}
+\item 
+\+\#define \doxymbox{\hyperlink{authwidget_8cpp_a5973affb3c0b314bc46922d0f34bf4bc}{UI\+\_\+\+TEXT}}~"{}\+\#e6f2ff"{}
+\item 
+\+\#define \doxymbox{\hyperlink{authwidget_8cpp_a16770b715d2ee3c9a8042e7ade7bc7fb}{UI\+\_\+\+PRIMARY}}~"{}\+\#3da9fc"{}
+\item 
+\+\#define \doxymbox{\hyperlink{authwidget_8cpp_ab03f2e44a64869b068bd1d89d9892fe8}{UI\+\_\+\+PRIMARY\+\_\+H}}~"{}\+\#74c0fc"{}
+\item 
+\+\#define \doxymbox{\hyperlink{authwidget_8cpp_a9fdafdbeac311771a41e999d66190a36}{UI\+\_\+\+BORDER}}~"{}\+\#1f4e79"{}
+\item 
+\+\#define \doxymbox{\hyperlink{authwidget_8cpp_ad2f66bdc1ddd977073fe0a1d9dd68425}{UI\+\_\+\+ERROR}}~"{}\+\#ff6b6b"{}
+\end{DoxyCompactItemize}
+
+
+\label{authwidget_8cpp_doc-define-members}
+\Hypertarget{authwidget_8cpp_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{authwidget_8cpp_a7feb48d8f112e8b5770c4338ed75ae02}\index{authwidget.cpp@{authwidget.cpp}!UI\_BG@{UI\_BG}}
+\index{UI\_BG@{UI\_BG}!authwidget.cpp@{authwidget.cpp}}
+\doxysubsubsection{\texorpdfstring{UI\_BG}{UI\_BG}}
+{\footnotesize\ttfamily \label{authwidget_8cpp_a7feb48d8f112e8b5770c4338ed75ae02} 
+\+\#define UI\+\_\+\+BG~"{}\+\#0b1e2d"{}}
+
+\Hypertarget{authwidget_8cpp_a9fdafdbeac311771a41e999d66190a36}\index{authwidget.cpp@{authwidget.cpp}!UI\_BORDER@{UI\_BORDER}}
+\index{UI\_BORDER@{UI\_BORDER}!authwidget.cpp@{authwidget.cpp}}
+\doxysubsubsection{\texorpdfstring{UI\_BORDER}{UI\_BORDER}}
+{\footnotesize\ttfamily \label{authwidget_8cpp_a9fdafdbeac311771a41e999d66190a36} 
+\+\#define UI\+\_\+\+BORDER~"{}\+\#1f4e79"{}}
+
+\Hypertarget{authwidget_8cpp_ae5a0d1036f17daa748e85cd20411a878}\index{authwidget.cpp@{authwidget.cpp}!UI\_CARD@{UI\_CARD}}
+\index{UI\_CARD@{UI\_CARD}!authwidget.cpp@{authwidget.cpp}}
+\doxysubsubsection{\texorpdfstring{UI\_CARD}{UI\_CARD}}
+{\footnotesize\ttfamily \label{authwidget_8cpp_ae5a0d1036f17daa748e85cd20411a878} 
+\+\#define UI\+\_\+\+CARD~"{}\+\#102a43"{}}
+
+\Hypertarget{authwidget_8cpp_ad2f66bdc1ddd977073fe0a1d9dd68425}\index{authwidget.cpp@{authwidget.cpp}!UI\_ERROR@{UI\_ERROR}}
+\index{UI\_ERROR@{UI\_ERROR}!authwidget.cpp@{authwidget.cpp}}
+\doxysubsubsection{\texorpdfstring{UI\_ERROR}{UI\_ERROR}}
+{\footnotesize\ttfamily \label{authwidget_8cpp_ad2f66bdc1ddd977073fe0a1d9dd68425} 
+\+\#define UI\+\_\+\+ERROR~"{}\+\#ff6b6b"{}}
+
+\Hypertarget{authwidget_8cpp_a16770b715d2ee3c9a8042e7ade7bc7fb}\index{authwidget.cpp@{authwidget.cpp}!UI\_PRIMARY@{UI\_PRIMARY}}
+\index{UI\_PRIMARY@{UI\_PRIMARY}!authwidget.cpp@{authwidget.cpp}}
+\doxysubsubsection{\texorpdfstring{UI\_PRIMARY}{UI\_PRIMARY}}
+{\footnotesize\ttfamily \label{authwidget_8cpp_a16770b715d2ee3c9a8042e7ade7bc7fb} 
+\+\#define UI\+\_\+\+PRIMARY~"{}\+\#3da9fc"{}}
+
+\Hypertarget{authwidget_8cpp_ab03f2e44a64869b068bd1d89d9892fe8}\index{authwidget.cpp@{authwidget.cpp}!UI\_PRIMARY\_H@{UI\_PRIMARY\_H}}
+\index{UI\_PRIMARY\_H@{UI\_PRIMARY\_H}!authwidget.cpp@{authwidget.cpp}}
+\doxysubsubsection{\texorpdfstring{UI\_PRIMARY\_H}{UI\_PRIMARY\_H}}
+{\footnotesize\ttfamily \label{authwidget_8cpp_ab03f2e44a64869b068bd1d89d9892fe8} 
+\+\#define UI\+\_\+\+PRIMARY\+\_\+H~"{}\+\#74c0fc"{}}
+
+\Hypertarget{authwidget_8cpp_a5973affb3c0b314bc46922d0f34bf4bc}\index{authwidget.cpp@{authwidget.cpp}!UI\_TEXT@{UI\_TEXT}}
+\index{UI\_TEXT@{UI\_TEXT}!authwidget.cpp@{authwidget.cpp}}
+\doxysubsubsection{\texorpdfstring{UI\_TEXT}{UI\_TEXT}}
+{\footnotesize\ttfamily \label{authwidget_8cpp_a5973affb3c0b314bc46922d0f34bf4bc} 
+\+\#define UI\+\_\+\+TEXT~"{}\+\#e6f2ff"{}}
+

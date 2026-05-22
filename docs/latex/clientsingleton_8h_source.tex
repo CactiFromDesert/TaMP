@@ -1,0 +1,50 @@
+\doxysection{clientsingleton.\+h}
+\hypertarget{clientsingleton_8h_source}{}\label{clientsingleton_8h_source}\index{Qt\_client/clientsingleton.h@{Qt\_client/clientsingleton.h}}
+\doxymbox{\hyperlink{clientsingleton_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ CLIENTSINGLETON\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ CLIENTSINGLETON\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <QObject>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <QTcpSocket>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <QString>}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{class\ }ClientSingleton\ :\ \textcolor{keyword}{public}\ QObject}
+\DoxyCodeLine{00015\ \{}
+\DoxyCodeLine{00016\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{static}\ ClientSingleton\&\ \doxymbox{\hyperlink{class_client_singleton_adfa7d069d54822402ccdd5c5dd85bd75}{instance}}();}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{class_client_singleton_a8ea7e3d2391a4ac5fbcf191b6e271943}{connectToServer}}(\textcolor{keyword}{const}\ QString\ \&host,\ \textcolor{keywordtype}{int}\ port);}
+\DoxyCodeLine{00033\ \ \ \ \ }
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_client_singleton_a79e501736a61dff6d2fba78fb7673adb}{disconnectFromServer}}();}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{class_client_singleton_a1dce91d90b453205981ef4ce4590c47f}{isConnected}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_client_singleton_ad1c1daea6cca441ea0fc4e15eebbf09e}{sendRequest}}(\textcolor{keyword}{const}\ QString\ \&request);}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ signals:}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_client_singleton_a617880b5df66ad9b92db34c759f5626a}{responseReceived}}(\textcolor{keyword}{const}\ QString\ \&response);}
+\DoxyCodeLine{00049\ \ \ \ \ }
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_client_singleton_a12321da6b787431d545d11e46e3eb743}{connected}}();}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_client_singleton_aa24c7d3ddbdcaf9967a210dda7b10599}{disconnected}}();}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{keyword}{private}\ slots:}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{void}\ onReadyRead();\ \ \ \ \ }
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{void}\ onConnected();\ \ \ \ \ }
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordtype}{void}\ onDisconnected();\ \ }
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keyword}{explicit}\ ClientSingleton(QObject\ *parent\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00060\ \ \ \ \ \string~ClientSingleton();}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \ \ ClientSingleton(\textcolor{keyword}{const}\ ClientSingleton\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00063\ \ \ \ \ ClientSingleton\&\ operator=(\textcolor{keyword}{const}\ ClientSingleton\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \ \ QTcpSocket\ *m\_socket\ =\ \textcolor{keyword}{nullptr};\ \ \ }
+\DoxyCodeLine{00066\ \ \ \ \ QByteArray\ m\_buffer;\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00067\ \};}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ CLIENTSINGLETON\_H}}
+
+\end{DoxyCode}

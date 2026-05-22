@@ -1,0 +1,55 @@
+\doxysection{email\+\_\+service.\+h}
+\hypertarget{_qt__client_2_auth_2email__service_8h_source}{}\label{_qt__client_2_auth_2email__service_8h_source}\index{Qt\_client/Auth/email\_service.h@{Qt\_client/Auth/email\_service.h}}
+\doxymbox{\hyperlink{_qt__client_2_auth_2email__service_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{_qt__client_2_auth_2common_8h}{common.h}}"{}}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{_qt__client_2_auth_2email__config_8h}{email\_config.h}}"{}}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00009\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{struct_email_message}{EmailMessage}}\ \{}
+\DoxyCodeLine{00010\ \ \ \ \ std::string\ \doxymbox{\hyperlink{struct_email_message_a409602fa6222564e095c1b34a797b6ed}{to\_email}};\ \ }
+\DoxyCodeLine{00011\ \ \ \ \ std::string\ \doxymbox{\hyperlink{struct_email_message_a53b00c4c2e2bba01a0d180cc409d7382}{to\_name}};\ \ \ }
+\DoxyCodeLine{00012\ \ \ \ \ std::string\ \doxymbox{\hyperlink{struct_email_message_a1792abe6ffc6bb77303e994f60d9f5a5}{subject}};\ \ \ }
+\DoxyCodeLine{00013\ \ \ \ \ std::string\ \doxymbox{\hyperlink{struct_email_message_afc109aa6ad062877732c60d74d44a3a8}{body}};\ \ \ \ \ \ }
+\DoxyCodeLine{00014\ \};}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{struct_verification_code}{VerificationCode}}\ \{}
+\DoxyCodeLine{00020\ \ \ \ \ std::string\ \doxymbox{\hyperlink{struct_verification_code_a93b5c0a1acf84c8f03f589d7feea44d7}{code}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00021\ \ \ \ \ std::chrono::system\_clock::time\_point\ \doxymbox{\hyperlink{struct_verification_code_a6cf42fd576e344d4889350fdf777998a}{expires\_at}};\ \ \ \ \ \ }
+\DoxyCodeLine{00022\ \};}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00027\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{struct_upload_status}{UploadStatus}}\ \{}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{const}\ std::string*\ \doxymbox{\hyperlink{struct_upload_status_a5ebe62cb7bc3df0eec496d01b6e68051}{data}};\ \ \ \ \ \ }
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \doxymbox{\hyperlink{struct_upload_status_a1c312f452145e6a1aa845b56bbdd9774}{bytes\_read}};\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00030\ \ \ \ \ }
+\DoxyCodeLine{00031\ \ \ \ \ \doxymbox{\hyperlink{struct_upload_status_a73ca91daf9c97c4653d3a2690f8a3311}{UploadStatus}}(\textcolor{keyword}{const}\ std::string*\ d)\ :\ \doxymbox{\hyperlink{struct_upload_status_a5ebe62cb7bc3df0eec496d01b6e68051}{data}}(d),\ \doxymbox{\hyperlink{struct_upload_status_a1c312f452145e6a1aa845b56bbdd9774}{bytes\_read}}(0)\ \{\}}
+\DoxyCodeLine{00032\ \};}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00040\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_email_service}{EmailService}}\ \{}
+\DoxyCodeLine{00041\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{static}\ std::map<std::string,\ VerificationCode>\ pending\_codes;}
+\DoxyCodeLine{00044\ \ \ \ \ }
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{size\_t}\ write\_callback(\textcolor{keywordtype}{void}*\ contents,\ \textcolor{keywordtype}{size\_t}\ size,\ \textcolor{keywordtype}{size\_t}\ nmemb,\ std::string*\ output);}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{size\_t}\ read\_callback(\textcolor{keywordtype}{char}*\ ptr,\ \textcolor{keywordtype}{size\_t}\ size,\ \textcolor{keywordtype}{size\_t}\ nmemb,\ \textcolor{keywordtype}{void}*\ userdata);}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keyword}{static}\ std::string\ formatEmailMessage(\textcolor{keyword}{const}\ EmailMessage\&\ msg);}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keyword}{static}\ std::string\ getRFC822Date();}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keyword}{static}\ std::string\ base64\_encode(\textcolor{keyword}{const}\ std::string\&\ input);}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keyword}{static}\ std::string\ \doxymbox{\hyperlink{class_email_service_ade1cff8469250f5337545995167afc84}{generateVerificationCode}}();}
+\DoxyCodeLine{00057\ \ \ \ \ }
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{class_email_service_af32637ef7586491dc18952ff72305ae5}{sendVerificationEmail}}(\textcolor{keyword}{const}\ std::string\&\ to\_email,\ }
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\&\ user\_name\ =\ \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{00067\ \ \ \ \ }
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{class_email_service_afbafe8ecb6cf47c6468505332476e573}{verifyCode}}(\textcolor{keyword}{const}\ std::string\&\ email,\ \textcolor{keyword}{const}\ std::string\&\ code);}
+\DoxyCodeLine{00076\ \ \ \ \ }
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{class_email_service_afd3b26193ad3a1968dfda349543c8a76}{isValidEmail}}(\textcolor{keyword}{const}\ std::string\&\ email);}
+\DoxyCodeLine{00084\ \ \ \ \ }
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{class_email_service_a8176d53af9a708aa1159ac970390e7e0}{sendEmail}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{struct_email_message}{EmailMessage}}\&\ message);}
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{class_email_service_a7cad78cfa48c56609532c0d9f1e9d5b5}{testSmtpConnection}}();}
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_email_service_a8a72adcacd534a007932d5b5b472ec3d}{cleanupExpiredCodes}}();}
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_email_service_a1aa2c545a04a9d1f06f2b5a925047fd4}{clearAllCodes}}();}
+\DoxyCodeLine{00089\ \};}
+
+\end{DoxyCode}

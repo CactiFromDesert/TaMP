@@ -1,0 +1,110 @@
+\doxysection{Graph\+Canvas Class Reference}
+\hypertarget{class_graph_canvas}{}\label{class_graph_canvas}\index{GraphCanvas@{GraphCanvas}}
+
+
+Виджет для отрисовки графика математической функции.  
+
+
+
+
+{\ttfamily \+\#include $<$graphwidget.\+h$>$}
+
+Inheritance diagram for Graph\+Canvas:\+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_graph_canvas}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_graph_canvas_aaf662538e1a1f2b081abc4f6b0bb37e8}{Graph\+Canvas}} (QWidget \texorpdfstring{$\ast$}{*}parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Конструктор холста для графика. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_graph_canvas_a310e643d3a93c59216821173d50330f9}{set\+Points}} (const QVector$<$ QPointF $>$ \&branch1, const QVector$<$ QPointF $>$ \&branch2, const QVector$<$ QPointF $>$ \&branch3)
+\begin{DoxyCompactList}\small\item\em Устанавливает точки для отрисовки трёх ветвей функции. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{class_graph_canvas_a654664f237b64806a9cc0d2111c08a91}{paint\+Event}} (QPaint\+Event \texorpdfstring{$\ast$}{*}event) override
+\begin{DoxyCompactList}\small\item\em Обработчик события перерисовки виджета. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Виджет для отрисовки графика математической функции. 
+
+Отвечает за визуализацию трёх ветвей функции:\+
+\begin{DoxyItemize}
+\item f₁(x) = √(-\/x) + a (x \texorpdfstring{$<$}{<} 0)
+\item f₂(x) = arcsin(x/\+π) + b (0 ≤ x \texorpdfstring{$<$}{<} π)
+\item f₃(x) = arccos(x/\+π) -\/ c (x ≥ π) 
+\end{DoxyItemize}
+
+\label{class_graph_canvas_doc-constructors}
+\Hypertarget{class_graph_canvas_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_graph_canvas_aaf662538e1a1f2b081abc4f6b0bb37e8}\index{GraphCanvas@{GraphCanvas}!GraphCanvas@{GraphCanvas}}
+\index{GraphCanvas@{GraphCanvas}!GraphCanvas@{GraphCanvas}}
+\doxysubsubsection{\texorpdfstring{GraphCanvas()}{GraphCanvas()}}
+{\footnotesize\ttfamily \label{class_graph_canvas_aaf662538e1a1f2b081abc4f6b0bb37e8} 
+Graph\+Canvas::\+\+Graph\+Canvas (\begin{DoxyParamCaption}\item[{QWidget \texorpdfstring{$\ast$}{*}}]{parent}{ = {\ttfamily nullptr}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Конструктор холста для графика. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em parent} & Родительский виджет \\
+\hline
+\end{DoxyParams}
+
+
+\label{class_graph_canvas_doc-func-members}
+\Hypertarget{class_graph_canvas_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_graph_canvas_a654664f237b64806a9cc0d2111c08a91}\index{GraphCanvas@{GraphCanvas}!paintEvent@{paintEvent}}
+\index{paintEvent@{paintEvent}!GraphCanvas@{GraphCanvas}}
+\doxysubsubsection{\texorpdfstring{paintEvent()}{paintEvent()}}
+{\footnotesize\ttfamily \label{class_graph_canvas_a654664f237b64806a9cc0d2111c08a91} 
+void Graph\+Canvas::\+paint\+Event (\begin{DoxyParamCaption}\item[{QPaint\+Event \texorpdfstring{$\ast$}{*}}]{event}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}}
+
+
+
+Обработчик события перерисовки виджета. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em event} & Событие перерисовки\\
+\hline
+\end{DoxyParams}
+Рисует:\+
+\begin{DoxyItemize}
+\item Координатные оси
+\item Сетку с делениями
+\item Подписи чисел и π
+\item Три ветви функции разными цветами 
+\end{DoxyItemize}\Hypertarget{class_graph_canvas_a310e643d3a93c59216821173d50330f9}\index{GraphCanvas@{GraphCanvas}!setPoints@{setPoints}}
+\index{setPoints@{setPoints}!GraphCanvas@{GraphCanvas}}
+\doxysubsubsection{\texorpdfstring{setPoints()}{setPoints()}}
+{\footnotesize\ttfamily \label{class_graph_canvas_a310e643d3a93c59216821173d50330f9} 
+void Graph\+Canvas::\+set\+Points (\begin{DoxyParamCaption}\item[{const QVector$<$ QPointF $>$ \&}]{branch1}{, }\item[{const QVector$<$ QPointF $>$ \&}]{branch2}{, }\item[{const QVector$<$ QPointF $>$ \&}]{branch3}{}\end{DoxyParamCaption})}
+
+
+
+Устанавливает точки для отрисовки трёх ветвей функции. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em branch1} & Точки для x \texorpdfstring{$<$}{<} 0 (красный цвет) \\
+\hline
+{\em branch2} & Точки для 0 ≤ x \texorpdfstring{$<$}{<} π (зелёный цвет) \\
+\hline
+{\em branch3} & Точки для x ≥ π (синий цвет) \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files:\+\begin{DoxyCompactItemize}
+\item 
+Qt\+\_\+client/\+\doxymbox{\hyperlink{graphwidget_8h}{graphwidget.\+h}}\item 
+Qt\+\_\+client/\+\doxymbox{\hyperlink{graphwidget_8cpp}{graphwidget.\+cpp}}\end{DoxyCompactItemize}

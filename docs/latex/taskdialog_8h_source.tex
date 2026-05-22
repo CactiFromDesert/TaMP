@@ -1,0 +1,34 @@
+\doxysection{taskdialog.\+h}
+\hypertarget{taskdialog_8h_source}{}\label{taskdialog_8h_source}\index{Qt\_client/taskdialog.h@{Qt\_client/taskdialog.h}}
+\doxymbox{\hyperlink{taskdialog_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ TASKDIALOG\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ TASKDIALOG\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <QDialog>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <QPushButton>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <QLabel>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <QVBoxLayout>}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_task_dialog_ab0c4ebb04bc3ad9761644eceeaf90859}{TaskDialog}}\ :\ \textcolor{keyword}{public}\ QDialog}
+\DoxyCodeLine{00018\ \{}
+\DoxyCodeLine{00019\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{explicit}\ \doxymbox{\hyperlink{class_task_dialog_ab0c4ebb04bc3ad9761644eceeaf90859}{TaskDialog}}(QWidget\ *parent\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00027\ \ \ \ \ \doxymbox{\hyperlink{class_task_dialog_a7ff6ac64f23ad841822c6dfc8607cdb0}{\string~TaskDialog}}();}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00030\ \ \ \ \ QLabel\ *titleLabel;\ \ \ \ \ \ \ }
+\DoxyCodeLine{00031\ \ \ \ \ QLabel\ *workTitleLabel;\ \ \ }
+\DoxyCodeLine{00032\ \ \ \ \ QLabel\ *groupLabel;\ \ \ \ \ \ \ }
+\DoxyCodeLine{00033\ \ \ \ \ QLabel\ *membersLabel;\ \ \ \ \ }
+\DoxyCodeLine{00034\ \ \ \ \ QLabel\ *formulaLabel;\ \ \ \ \ }
+\DoxyCodeLine{00035\ \ \ \ \ QPushButton\ *closeBtn;\ \ \ \ }
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{void}\ setupUI();\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00038\ \};}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ TASKDIALOG\_H}}
+
+\end{DoxyCode}

@@ -1,0 +1,51 @@
+\doxysection{verifywidget.\+h}
+\hypertarget{verifywidget_8h_source}{}\label{verifywidget_8h_source}\index{Qt\_client/verifywidget.h@{Qt\_client/verifywidget.h}}
+\doxymbox{\hyperlink{verifywidget_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ VERIFYWIDGET\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ VERIFYWIDGET\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <QWidget>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <QLineEdit>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <QPushButton>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <QLabel>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <QTimer>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <QString>}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_auth}{Auth}};}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_verify_widget_af513abd6fcdcfcc3ce837bfe790494f9}{VerifyWidget}}\ :\ \textcolor{keyword}{public}\ QWidget}
+\DoxyCodeLine{00020\ \{}
+\DoxyCodeLine{00021\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{explicit}\ \doxymbox{\hyperlink{class_verify_widget_af513abd6fcdcfcc3ce837bfe790494f9}{VerifyWidget}}(\textcolor{keyword}{class}\ \doxymbox{\hyperlink{class_auth}{Auth}}\ *auth,\ QWidget\ *parent\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00025\ \ \ \ \ \doxymbox{\hyperlink{class_verify_widget_a84c3621007d655d2af43421c0157fda4}{\string~VerifyWidget}}();}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_verify_widget_aa51aed6e8d8cfff96a6727c8653998ef}{setLogin}}(\textcolor{keyword}{const}\ QString\ \&login);}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ signals:}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_verify_widget_a3385b37432077b02c6af753c7b2e0d4d}{verificationSuccess}}(QString\ login);\ \ }
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_verify_widget_a809975925f75296a1437c82f08d42efa}{backToAuth}}();\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{keyword}{private}\ slots:}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{void}\ onVerifyClicked();\ \ }
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{void}\ onBackClicked();\ \ \ \ }
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_auth}{Auth}}\ *m\_auth;\ \ \ \ \ \ \ }
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ QLabel\ *infoLabel;\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00045\ \ \ \ \ QLineEdit\ *codeEdit;\ \ \ \ \ \ }
+\DoxyCodeLine{00046\ \ \ \ \ QPushButton\ *verifyBtn;\ \ \ }
+\DoxyCodeLine{00047\ \ \ \ \ QPushButton\ *backBtn;\ \ \ \ \ }
+\DoxyCodeLine{00048\ \ \ \ \ QLabel\ *statusLabel;\ \ \ \ \ \ }
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ QString\ login;\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordtype}{void}\ setupUI();\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00053\ \};}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

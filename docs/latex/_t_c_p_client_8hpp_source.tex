@@ -1,0 +1,60 @@
+\doxysection{TCPClient.\+hpp}
+\hypertarget{_t_c_p_client_8hpp_source}{}\label{_t_c_p_client_8hpp_source}\index{Client\_Server/TCPClient.hpp@{Client\_Server/TCPClient.hpp}}
+\doxymbox{\hyperlink{_t_c_p_client_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#ifndef\ TCP\_CLIENT\_H\ }}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#define\ TCP\_CLIENT\_H\ }}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <iostream>}\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <signal.h>}\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <unistd.h>}\ \ \ \ \ \ \textcolor{comment}{//\ для\ sleep(),\ close()}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <string.h>}\ \ \ \ \ \ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <sys/types.h>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <sys/socket.h>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <netinet/in.h>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <arpa/inet.h>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <netdb.h>}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <vector>}\ }
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <string>}\ \ \ \ \ \ \ \ \textcolor{comment}{//\ для\ std::string,\ std::to\_string()}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <ctime>}\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ для\ time()}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <cstdlib>}\ \ \ \ \ \ \ \textcolor{comment}{//\ для\ rand(),\ srand()}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{_t_c_p_client_8hpp_aec903d5c024090e44518064a916f268e}{sig\_exit}}(\textcolor{keywordtype}{int}\ s);}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_t_c_p_client_ad37bba4f2ebcc899b9871656802dcbe9}{TCPClient}}\ }
+\DoxyCodeLine{00026\ \{\ }
+\DoxyCodeLine{00027\ \textcolor{keyword}{private}:\ \ }
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{int}\ sock;\ }
+\DoxyCodeLine{00029\ \ \ \ \ std::string\ address;}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{int}\ port;\ }
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{struct\ }sockaddr\_in\ server;\textcolor{comment}{//\ Объявляем\ структуру,\ но\ не\ инициализируем\ здесь}}
+\DoxyCodeLine{00032\ \ \ \ \ }
+\DoxyCodeLine{00033\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00034\ \ \ \ \ \doxymbox{\hyperlink{class_t_c_p_client_ad37bba4f2ebcc899b9871656802dcbe9}{TCPClient}}()}
+\DoxyCodeLine{00035\ \ \ \ \ \{}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ port\ =\ 0;}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ address\ =\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ sock\ =\ -\/1;}
+\DoxyCodeLine{00039\ \ \ \ \ \}}
+\DoxyCodeLine{00040\ \ \ \ \ }
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{class_t_c_p_client_ae35b94fd59333c619f4b3634a3db37b9}{setup}}(std::string\ address,\ \textcolor{keywordtype}{int}\ port);}
+\DoxyCodeLine{00042\ \ \ \ \ }
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{class_t_c_p_client_af80950ad35154a8345403a72941573ea}{Send}}(std::string\ data);}
+\DoxyCodeLine{00044\ \ \ \ \ }
+\DoxyCodeLine{00045\ \ \ \ \ std::string\ \doxymbox{\hyperlink{class_t_c_p_client_ab28d2526be3137bf39deb222ac3e5d84}{receive}}(\textcolor{keywordtype}{int}\ size\ =\ 1024);}
+\DoxyCodeLine{00046\ \ \ \ \ }
+\DoxyCodeLine{00047\ \ \ \ \ std::string\ \doxymbox{\hyperlink{class_t_c_p_client_a89a493a23bd43441d794586c768b4338}{read}}();}
+\DoxyCodeLine{00048\ \ \ \ \ }
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_t_c_p_client_ad9c61efb1d8f0e2ab3285f0e9c4ecbcd}{exit}}();}
+\DoxyCodeLine{00050\ \ \ \ \ }
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{class_t_c_p_client_a4496517a66180a42f3dc00df73c2e407}{connectToServer}}();}
+\DoxyCodeLine{00052\ \ \ \ \ }
+\DoxyCodeLine{00053\ \};\ }
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#endif\ }}
+
+\end{DoxyCode}

@@ -1,0 +1,213 @@
+\doxysection{Email\+Service Class Reference}
+\hypertarget{class_email_service}{}\label{class_email_service}\index{EmailService@{EmailService}}
+
+
+Сервис для отправки email через SMTP и верификации кодов.  
+
+
+
+
+{\ttfamily \+\#include $<$email\+\_\+service.\+h$>$}
+
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static std::\+string \doxymbox{\hyperlink{class_email_service_aa387e09b49acc442a12c925fa93784ee}{generate\+Verification\+Code}} ()
+\item 
+static bool \doxymbox{\hyperlink{class_email_service_a3fa37752ce64be335e34f673c576d591}{send\+Verification\+Email}} (const std::\+string \&to\+\_\+email, const std::\+string \&user\+\_\+name="{}"{})
+\item 
+static bool \doxymbox{\hyperlink{class_email_service_a625c446d8bedfbc54516db7287d99430}{verify\+Code}} (const std::\+string \&email, const std::\+string \&code)
+\item 
+static bool \doxymbox{\hyperlink{class_email_service_a7aa5fc8831662906b59e585a2fea0ee6}{is\+Valid\+Email}} (const std::\+string \&email)
+\item 
+static bool \doxymbox{\hyperlink{class_email_service_a6b1de298a7d458d7496195865df3011b}{send\+Email}} (const \doxymbox{\hyperlink{struct_email_message}{Email\+Message}} \&message)
+\item 
+static bool \doxymbox{\hyperlink{class_email_service_a70b029446648ffa8f0b0263bcc99eae3}{test\+Smtp\+Connection}} ()
+\item 
+static void \doxymbox{\hyperlink{class_email_service_ae0da1c48944968aa72bede8478aeca1d}{cleanup\+Expired\+Codes}} ()
+\item 
+static void \doxymbox{\hyperlink{class_email_service_a93fc8b98af97a7d31388e18237929f80}{clear\+All\+Codes}} ()
+\item 
+static std::\+string \doxymbox{\hyperlink{class_email_service_ade1cff8469250f5337545995167afc84}{generate\+Verification\+Code}} ()
+\begin{DoxyCompactList}\small\item\em Генерирует 6-\/значный случайный код верификации. \end{DoxyCompactList}\item 
+static bool \doxymbox{\hyperlink{class_email_service_af32637ef7586491dc18952ff72305ae5}{send\+Verification\+Email}} (const std::\+string \&to\+\_\+email, const std::\+string \&user\+\_\+name="{}"{})
+\begin{DoxyCompactList}\small\item\em Отправляет email с кодом верификации на указанный адрес. \end{DoxyCompactList}\item 
+static bool \doxymbox{\hyperlink{class_email_service_afbafe8ecb6cf47c6468505332476e573}{verify\+Code}} (const std::\+string \&email, const std::\+string \&code)
+\begin{DoxyCompactList}\small\item\em Проверяет код верификации для указанного email. \end{DoxyCompactList}\item 
+static bool \doxymbox{\hyperlink{class_email_service_afd3b26193ad3a1968dfda349543c8a76}{is\+Valid\+Email}} (const std::\+string \&email)
+\begin{DoxyCompactList}\small\item\em Проверяет корректность формата email. \end{DoxyCompactList}\item 
+static bool \doxymbox{\hyperlink{class_email_service_a8176d53af9a708aa1159ac970390e7e0}{send\+Email}} (const \doxymbox{\hyperlink{struct_email_message}{Email\+Message}} \&message)
+\item 
+static bool \doxymbox{\hyperlink{class_email_service_a7cad78cfa48c56609532c0d9f1e9d5b5}{test\+Smtp\+Connection}} ()
+\item 
+static void \doxymbox{\hyperlink{class_email_service_a8a72adcacd534a007932d5b5b472ec3d}{cleanup\+Expired\+Codes}} ()
+\item 
+static void \doxymbox{\hyperlink{class_email_service_a1aa2c545a04a9d1f06f2b5a925047fd4}{clear\+All\+Codes}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Сервис для отправки email через SMTP и верификации кодов. 
+
+Использует библиотеку CURL для взаимодействия с SMTP-\/сервером. Коды верификации хранятся в оперативной памяти с ограничением времени жизни. 
+
+\label{class_email_service_doc-func-members}
+\Hypertarget{class_email_service_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_email_service_ae0da1c48944968aa72bede8478aeca1d}\index{EmailService@{EmailService}!cleanupExpiredCodes@{cleanupExpiredCodes}}
+\index{cleanupExpiredCodes@{cleanupExpiredCodes}!EmailService@{EmailService}}
+\doxysubsubsection{\texorpdfstring{cleanupExpiredCodes()}{cleanupExpiredCodes()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_email_service_ae0da1c48944968aa72bede8478aeca1d} 
+void Email\+Service::\+cleanup\+Expired\+Codes (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{class_email_service_a8a72adcacd534a007932d5b5b472ec3d}\index{EmailService@{EmailService}!cleanupExpiredCodes@{cleanupExpiredCodes}}
+\index{cleanupExpiredCodes@{cleanupExpiredCodes}!EmailService@{EmailService}}
+\doxysubsubsection{\texorpdfstring{cleanupExpiredCodes()}{cleanupExpiredCodes()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_email_service_a8a72adcacd534a007932d5b5b472ec3d} 
+void Email\+Service::\+cleanup\+Expired\+Codes (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{class_email_service_a93fc8b98af97a7d31388e18237929f80}\index{EmailService@{EmailService}!clearAllCodes@{clearAllCodes}}
+\index{clearAllCodes@{clearAllCodes}!EmailService@{EmailService}}
+\doxysubsubsection{\texorpdfstring{clearAllCodes()}{clearAllCodes()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_email_service_a93fc8b98af97a7d31388e18237929f80} 
+void Email\+Service::\+clear\+All\+Codes (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{class_email_service_a1aa2c545a04a9d1f06f2b5a925047fd4}\index{EmailService@{EmailService}!clearAllCodes@{clearAllCodes}}
+\index{clearAllCodes@{clearAllCodes}!EmailService@{EmailService}}
+\doxysubsubsection{\texorpdfstring{clearAllCodes()}{clearAllCodes()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_email_service_a1aa2c545a04a9d1f06f2b5a925047fd4} 
+void Email\+Service::\+clear\+All\+Codes (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{class_email_service_aa387e09b49acc442a12c925fa93784ee}\index{EmailService@{EmailService}!generateVerificationCode@{generateVerificationCode}}
+\index{generateVerificationCode@{generateVerificationCode}!EmailService@{EmailService}}
+\doxysubsubsection{\texorpdfstring{generateVerificationCode()}{generateVerificationCode()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_email_service_aa387e09b49acc442a12c925fa93784ee} 
+std::\+string Email\+Service::\+generate\+Verification\+Code (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{class_email_service_ade1cff8469250f5337545995167afc84}\index{EmailService@{EmailService}!generateVerificationCode@{generateVerificationCode}}
+\index{generateVerificationCode@{generateVerificationCode}!EmailService@{EmailService}}
+\doxysubsubsection{\texorpdfstring{generateVerificationCode()}{generateVerificationCode()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_email_service_ade1cff8469250f5337545995167afc84} 
+std::\+string Email\+Service::\+generate\+Verification\+Code (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Генерирует 6-\/значный случайный код верификации. 
+
+\begin{DoxyReturn}{Returns}
+std::\+string Код из 6 цифр 
+\end{DoxyReturn}
+\Hypertarget{class_email_service_a7aa5fc8831662906b59e585a2fea0ee6}\index{EmailService@{EmailService}!isValidEmail@{isValidEmail}}
+\index{isValidEmail@{isValidEmail}!EmailService@{EmailService}}
+\doxysubsubsection{\texorpdfstring{isValidEmail()}{isValidEmail()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_email_service_a7aa5fc8831662906b59e585a2fea0ee6} 
+bool Email\+Service::\+is\+Valid\+Email (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{email}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{class_email_service_afd3b26193ad3a1968dfda349543c8a76}\index{EmailService@{EmailService}!isValidEmail@{isValidEmail}}
+\index{isValidEmail@{isValidEmail}!EmailService@{EmailService}}
+\doxysubsubsection{\texorpdfstring{isValidEmail()}{isValidEmail()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_email_service_afd3b26193ad3a1968dfda349543c8a76} 
+bool Email\+Service::\+is\+Valid\+Email (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{email}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Проверяет корректность формата email. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em email} & Проверяемый email \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true Формат корректен 
+
+false Некорректный email 
+\end{DoxyReturn}
+\Hypertarget{class_email_service_a6b1de298a7d458d7496195865df3011b}\index{EmailService@{EmailService}!sendEmail@{sendEmail}}
+\index{sendEmail@{sendEmail}!EmailService@{EmailService}}
+\doxysubsubsection{\texorpdfstring{sendEmail()}{sendEmail()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_email_service_a6b1de298a7d458d7496195865df3011b} 
+bool Email\+Service::\+send\+Email (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{struct_email_message}{Email\+Message}} \&}]{message}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{class_email_service_a8176d53af9a708aa1159ac970390e7e0}\index{EmailService@{EmailService}!sendEmail@{sendEmail}}
+\index{sendEmail@{sendEmail}!EmailService@{EmailService}}
+\doxysubsubsection{\texorpdfstring{sendEmail()}{sendEmail()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_email_service_a8176d53af9a708aa1159ac970390e7e0} 
+bool Email\+Service::\+send\+Email (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{struct_email_message}{Email\+Message}} \&}]{message}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{class_email_service_a3fa37752ce64be335e34f673c576d591}\index{EmailService@{EmailService}!sendVerificationEmail@{sendVerificationEmail}}
+\index{sendVerificationEmail@{sendVerificationEmail}!EmailService@{EmailService}}
+\doxysubsubsection{\texorpdfstring{sendVerificationEmail()}{sendVerificationEmail()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_email_service_a3fa37752ce64be335e34f673c576d591} 
+bool Email\+Service::\+send\+Verification\+Email (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{to\+\_\+email}{, }\item[{const std::\+string \&}]{user\+\_\+name}{ = {\ttfamily "{}"{}}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{class_email_service_af32637ef7586491dc18952ff72305ae5}\index{EmailService@{EmailService}!sendVerificationEmail@{sendVerificationEmail}}
+\index{sendVerificationEmail@{sendVerificationEmail}!EmailService@{EmailService}}
+\doxysubsubsection{\texorpdfstring{sendVerificationEmail()}{sendVerificationEmail()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_email_service_af32637ef7586491dc18952ff72305ae5} 
+bool Email\+Service::\+send\+Verification\+Email (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{to\+\_\+email}{, }\item[{const std::\+string \&}]{user\+\_\+name}{ = {\ttfamily "{}"{}}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Отправляет email с кодом верификации на указанный адрес. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em to\+\_\+email} & Email получателя \\
+\hline
+{\em user\+\_\+name} & Имя получателя (для персонализации) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true Письмо успешно отправлено 
+
+false Ошибка отправки 
+\end{DoxyReturn}
+\Hypertarget{class_email_service_a70b029446648ffa8f0b0263bcc99eae3}\index{EmailService@{EmailService}!testSmtpConnection@{testSmtpConnection}}
+\index{testSmtpConnection@{testSmtpConnection}!EmailService@{EmailService}}
+\doxysubsubsection{\texorpdfstring{testSmtpConnection()}{testSmtpConnection()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_email_service_a70b029446648ffa8f0b0263bcc99eae3} 
+bool Email\+Service::\+test\+Smtp\+Connection (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{class_email_service_a7cad78cfa48c56609532c0d9f1e9d5b5}\index{EmailService@{EmailService}!testSmtpConnection@{testSmtpConnection}}
+\index{testSmtpConnection@{testSmtpConnection}!EmailService@{EmailService}}
+\doxysubsubsection{\texorpdfstring{testSmtpConnection()}{testSmtpConnection()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_email_service_a7cad78cfa48c56609532c0d9f1e9d5b5} 
+bool Email\+Service::\+test\+Smtp\+Connection (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{class_email_service_a625c446d8bedfbc54516db7287d99430}\index{EmailService@{EmailService}!verifyCode@{verifyCode}}
+\index{verifyCode@{verifyCode}!EmailService@{EmailService}}
+\doxysubsubsection{\texorpdfstring{verifyCode()}{verifyCode()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_email_service_a625c446d8bedfbc54516db7287d99430} 
+bool Email\+Service::\+verify\+Code (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{email}{, }\item[{const std::\+string \&}]{code}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{class_email_service_afbafe8ecb6cf47c6468505332476e573}\index{EmailService@{EmailService}!verifyCode@{verifyCode}}
+\index{verifyCode@{verifyCode}!EmailService@{EmailService}}
+\doxysubsubsection{\texorpdfstring{verifyCode()}{verifyCode()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_email_service_afbafe8ecb6cf47c6468505332476e573} 
+bool Email\+Service::\+verify\+Code (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{email}{, }\item[{const std::\+string \&}]{code}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Проверяет код верификации для указанного email. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em email} & Email, на который был отправлен код \\
+\hline
+{\em code} & Введённый пользователем код \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true Код верен и не истек 
+
+false Код неверен или истек 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files:\+\begin{DoxyCompactItemize}
+\item 
+Auth/\+\doxymbox{\hyperlink{_auth_2email__service_8h}{email\+\_\+service.\+h}}\item 
+Qt\+\_\+client/\+\+Auth/\+\doxymbox{\hyperlink{_qt__client_2_auth_2email__service_8h}{email\+\_\+service.\+h}}\item 
+Auth/\+\doxymbox{\hyperlink{_auth_2email__service_8cpp}{email\+\_\+service.\+cpp}}\item 
+Qt\+\_\+client/\+\+Auth/\+\doxymbox{\hyperlink{_qt__client_2_auth_2email__service_8cpp}{email\+\_\+service.\+cpp}}\end{DoxyCompactItemize}

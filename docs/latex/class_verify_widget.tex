@@ -1,0 +1,101 @@
+\doxysection{Verify\+Widget Class Reference}
+\hypertarget{class_verify_widget}{}\label{class_verify_widget}\index{VerifyWidget@{VerifyWidget}}
+
+
+Виджет для двухфакторной верификации при входе.  
+
+
+
+
+{\ttfamily \+\#include $<$verifywidget.\+h$>$}
+
+Inheritance diagram for Verify\+Widget:\+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_verify_widget}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{class_verify_widget_a3385b37432077b02c6af753c7b2e0d4d}{verification\+Success}} (QString login)
+\begin{DoxyCompactList}\small\item\em Код верен, вход выполнен \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_verify_widget_a809975925f75296a1437c82f08d42efa}{back\+To\+Auth}} ()
+\begin{DoxyCompactList}\small\item\em Вернуться на форму входа \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_verify_widget_af513abd6fcdcfcc3ce837bfe790494f9}{Verify\+Widget}} (class \doxymbox{\hyperlink{class_auth}{Auth}} \texorpdfstring{$\ast$}{*}auth, QWidget \texorpdfstring{$\ast$}{*}parent=nullptr)
+\item 
+\doxymbox{\hyperlink{class_verify_widget_a84c3621007d655d2af43421c0157fda4}{\texorpdfstring{$\sim$}{\string~}\+Verify\+Widget}} ()
+\item 
+void \doxymbox{\hyperlink{class_verify_widget_aa51aed6e8d8cfff96a6727c8653998ef}{set\+Login}} (const QString \&login)
+\begin{DoxyCompactList}\small\item\em Устанавливает логин пользователя для верификации. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Виджет для двухфакторной верификации при входе. 
+
+Отображается после успешной проверки пароля. Пользователь должен ввести код, отправленный на email. 
+
+\label{class_verify_widget_doc-constructors}
+\Hypertarget{class_verify_widget_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_verify_widget_af513abd6fcdcfcc3ce837bfe790494f9}\index{VerifyWidget@{VerifyWidget}!VerifyWidget@{VerifyWidget}}
+\index{VerifyWidget@{VerifyWidget}!VerifyWidget@{VerifyWidget}}
+\doxysubsubsection{\texorpdfstring{VerifyWidget()}{VerifyWidget()}}
+{\footnotesize\ttfamily \label{class_verify_widget_af513abd6fcdcfcc3ce837bfe790494f9} 
+Verify\+Widget::\+\+Verify\+Widget (\begin{DoxyParamCaption}\item[{class \doxymbox{\hyperlink{class_auth}{Auth}} \texorpdfstring{$\ast$}{*}}]{auth}{, }\item[{QWidget \texorpdfstring{$\ast$}{*}}]{parent}{ = {\ttfamily nullptr}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+\Hypertarget{class_verify_widget_a84c3621007d655d2af43421c0157fda4}\index{VerifyWidget@{VerifyWidget}!````~VerifyWidget@{\texorpdfstring{$\sim$}{\string~}VerifyWidget}}
+\index{````~VerifyWidget@{\texorpdfstring{$\sim$}{\string~}VerifyWidget}!VerifyWidget@{VerifyWidget}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}VerifyWidget()}{\string~VerifyWidget()}}
+{\footnotesize\ttfamily \label{class_verify_widget_a84c3621007d655d2af43421c0157fda4} 
+Verify\+Widget::\+\texorpdfstring{$\sim$}{\string~}\+Verify\+Widget (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
+\label{class_verify_widget_doc-func-members}
+\Hypertarget{class_verify_widget_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_verify_widget_a809975925f75296a1437c82f08d42efa}\index{VerifyWidget@{VerifyWidget}!backToAuth@{backToAuth}}
+\index{backToAuth@{backToAuth}!VerifyWidget@{VerifyWidget}}
+\doxysubsubsection{\texorpdfstring{backToAuth}{backToAuth}}
+{\footnotesize\ttfamily \label{class_verify_widget_a809975925f75296a1437c82f08d42efa} 
+void Verify\+Widget::\+back\+To\+Auth (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Вернуться на форму входа 
+
+\Hypertarget{class_verify_widget_aa51aed6e8d8cfff96a6727c8653998ef}\index{VerifyWidget@{VerifyWidget}!setLogin@{setLogin}}
+\index{setLogin@{setLogin}!VerifyWidget@{VerifyWidget}}
+\doxysubsubsection{\texorpdfstring{setLogin()}{setLogin()}}
+{\footnotesize\ttfamily \label{class_verify_widget_aa51aed6e8d8cfff96a6727c8653998ef} 
+void Verify\+Widget::\+set\+Login (\begin{DoxyParamCaption}\item[{const QString \&}]{login}{}\end{DoxyParamCaption})}
+
+
+
+Устанавливает логин пользователя для верификации. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em login} & Логин, переданный из \doxylink{class_auth_widget}{Auth\+Widget} \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_verify_widget_a3385b37432077b02c6af753c7b2e0d4d}\index{VerifyWidget@{VerifyWidget}!verificationSuccess@{verificationSuccess}}
+\index{verificationSuccess@{verificationSuccess}!VerifyWidget@{VerifyWidget}}
+\doxysubsubsection{\texorpdfstring{verificationSuccess}{verificationSuccess}}
+{\footnotesize\ttfamily \label{class_verify_widget_a3385b37432077b02c6af753c7b2e0d4d} 
+void Verify\+Widget::\+verification\+Success (\begin{DoxyParamCaption}\item[{QString}]{login}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Код верен, вход выполнен 
+
+
+
+The documentation for this class was generated from the following files:\+\begin{DoxyCompactItemize}
+\item 
+Qt\+\_\+client/\+\doxymbox{\hyperlink{verifywidget_8h}{verifywidget.\+h}}\item 
+Qt\+\_\+client/\+\doxymbox{\hyperlink{verifywidget_8cpp}{verifywidget.\+cpp}}\end{DoxyCompactItemize}

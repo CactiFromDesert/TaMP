@@ -1,0 +1,111 @@
+\doxysection{Graph\+Widget Class Reference}
+\hypertarget{class_graph_widget}{}\label{class_graph_widget}\index{GraphWidget@{GraphWidget}}
+
+
+Главный виджет для управления графиком.  
+
+
+
+
+{\ttfamily \+\#include $<$graphwidget.\+h$>$}
+
+Inheritance diagram for Graph\+Widget:\+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_graph_widget}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{class_graph_widget_aafaa8f64b822bdb49df25793f2bf4a2c}{logout}} ()
+\begin{DoxyCompactList}\small\item\em Сигнал выхода из системы. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_graph_widget_a6df7c301e5551dff21bbdc5b6cd7ffc9}{Graph\+Widget}} (QWidget \texorpdfstring{$\ast$}{*}parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Конструктор виджета графика. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{class_graph_widget_aded42c6a0505efca3bee8d763ae3647f}{\texorpdfstring{$\sim$}{\string~}\+Graph\+Widget}} ()
+\item 
+void \doxymbox{\hyperlink{class_graph_widget_a406b2c645f428d6b061d0f3f88f35740}{set\+User\+Login}} (const QString \&login)
+\begin{DoxyCompactList}\small\item\em Устанавливает логин пользователя для отображения. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_graph_widget_a78636de6e16cfd15d93425474e62213d}{update\+Graph}} ()
+\begin{DoxyCompactList}\small\item\em Обновляет график с текущими параметрами a,b,c. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Главный виджет для управления графиком. 
+
+Содержит элементы управления (слайдеры, спинбоксы, таблицу) и взаимодействует с сервером для получения данных. 
+
+\label{class_graph_widget_doc-constructors}
+\Hypertarget{class_graph_widget_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_graph_widget_a6df7c301e5551dff21bbdc5b6cd7ffc9}\index{GraphWidget@{GraphWidget}!GraphWidget@{GraphWidget}}
+\index{GraphWidget@{GraphWidget}!GraphWidget@{GraphWidget}}
+\doxysubsubsection{\texorpdfstring{GraphWidget()}{GraphWidget()}}
+{\footnotesize\ttfamily \label{class_graph_widget_a6df7c301e5551dff21bbdc5b6cd7ffc9} 
+Graph\+Widget::\+\+Graph\+Widget (\begin{DoxyParamCaption}\item[{QWidget \texorpdfstring{$\ast$}{*}}]{parent}{ = {\ttfamily nullptr}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Конструктор виджета графика. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em parent} & Родительский виджет \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_graph_widget_aded42c6a0505efca3bee8d763ae3647f}\index{GraphWidget@{GraphWidget}!````~GraphWidget@{\texorpdfstring{$\sim$}{\string~}GraphWidget}}
+\index{````~GraphWidget@{\texorpdfstring{$\sim$}{\string~}GraphWidget}!GraphWidget@{GraphWidget}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}GraphWidget()}{\string~GraphWidget()}}
+{\footnotesize\ttfamily \label{class_graph_widget_aded42c6a0505efca3bee8d763ae3647f} 
+Graph\+Widget::\+\texorpdfstring{$\sim$}{\string~}\+Graph\+Widget (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
+\label{class_graph_widget_doc-func-members}
+\Hypertarget{class_graph_widget_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_graph_widget_aafaa8f64b822bdb49df25793f2bf4a2c}\index{GraphWidget@{GraphWidget}!logout@{logout}}
+\index{logout@{logout}!GraphWidget@{GraphWidget}}
+\doxysubsubsection{\texorpdfstring{logout}{logout}}
+{\footnotesize\ttfamily \label{class_graph_widget_aafaa8f64b822bdb49df25793f2bf4a2c} 
+void Graph\+Widget::\+logout (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Сигнал выхода из системы. 
+
+Испускается при нажатии кнопки Logout. \Hypertarget{class_graph_widget_a406b2c645f428d6b061d0f3f88f35740}\index{GraphWidget@{GraphWidget}!setUserLogin@{setUserLogin}}
+\index{setUserLogin@{setUserLogin}!GraphWidget@{GraphWidget}}
+\doxysubsubsection{\texorpdfstring{setUserLogin()}{setUserLogin()}}
+{\footnotesize\ttfamily \label{class_graph_widget_a406b2c645f428d6b061d0f3f88f35740} 
+void Graph\+Widget::\+set\+User\+Login (\begin{DoxyParamCaption}\item[{const QString \&}]{login}{}\end{DoxyParamCaption})}
+
+
+
+Устанавливает логин пользователя для отображения. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em login} & Имя пользователя \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_graph_widget_a78636de6e16cfd15d93425474e62213d}\index{GraphWidget@{GraphWidget}!updateGraph@{updateGraph}}
+\index{updateGraph@{updateGraph}!GraphWidget@{GraphWidget}}
+\doxysubsubsection{\texorpdfstring{updateGraph()}{updateGraph()}}
+{\footnotesize\ttfamily \label{class_graph_widget_a78636de6e16cfd15d93425474e62213d} 
+void Graph\+Widget::\+update\+Graph (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Обновляет график с текущими параметрами a,b,c. 
+
+Отправляет запрос на сервер и перерисовывает холст. 
+
+The documentation for this class was generated from the following files:\+\begin{DoxyCompactItemize}
+\item 
+Qt\+\_\+client/\+\doxymbox{\hyperlink{graphwidget_8h}{graphwidget.\+h}}\item 
+Qt\+\_\+client/\+build/\+5\+\_\+15\+\_\+17\+\_\+x32-\/u041eu0442u043bu0430u0434u043au0430/\+debug/\+\doxymbox{\hyperlink{moc__graphwidget_8cpp}{moc\+\_\+graphwidget.\+cpp}}\item 
+Qt\+\_\+client/\+\doxymbox{\hyperlink{graphwidget_8cpp}{graphwidget.\+cpp}}\end{DoxyCompactItemize}

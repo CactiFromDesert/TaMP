@@ -1,0 +1,81 @@
+\doxysection{TCPClient Class Reference}
+\hypertarget{class_t_c_p_client}{}\label{class_t_c_p_client}\index{TCPClient@{TCPClient}}
+
+
+{\ttfamily \+\#include $<$TCPClient.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_t_c_p_client_ad37bba4f2ebcc899b9871656802dcbe9}{TCPClient}} ()
+\item 
+bool \doxymbox{\hyperlink{class_t_c_p_client_ae35b94fd59333c619f4b3634a3db37b9}{setup}} (std::\+string address, int port)
+\item 
+bool \doxymbox{\hyperlink{class_t_c_p_client_af80950ad35154a8345403a72941573ea}{Send}} (std::\+string data)
+\item 
+std::\+string \doxymbox{\hyperlink{class_t_c_p_client_ab28d2526be3137bf39deb222ac3e5d84}{receive}} (int size=1024)
+\item 
+std::\+string \doxymbox{\hyperlink{class_t_c_p_client_a89a493a23bd43441d794586c768b4338}{read}} ()
+\item 
+void \doxymbox{\hyperlink{class_t_c_p_client_ad9c61efb1d8f0e2ab3285f0e9c4ecbcd}{exit}} ()
+\item 
+bool \doxymbox{\hyperlink{class_t_c_p_client_a4496517a66180a42f3dc00df73c2e407}{connect\+To\+Server}} ()
+\end{DoxyCompactItemize}
+
+
+\label{class_t_c_p_client_doc-constructors}
+\Hypertarget{class_t_c_p_client_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_t_c_p_client_ad37bba4f2ebcc899b9871656802dcbe9}\index{TCPClient@{TCPClient}!TCPClient@{TCPClient}}
+\index{TCPClient@{TCPClient}!TCPClient@{TCPClient}}
+\doxysubsubsection{\texorpdfstring{TCPClient()}{TCPClient()}}
+{\footnotesize\ttfamily \label{class_t_c_p_client_ad37bba4f2ebcc899b9871656802dcbe9} 
+TCPClient::\+\+TCPClient (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\label{class_t_c_p_client_doc-func-members}
+\Hypertarget{class_t_c_p_client_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_t_c_p_client_a4496517a66180a42f3dc00df73c2e407}\index{TCPClient@{TCPClient}!connectToServer@{connectToServer}}
+\index{connectToServer@{connectToServer}!TCPClient@{TCPClient}}
+\doxysubsubsection{\texorpdfstring{connectToServer()}{connectToServer()}}
+{\footnotesize\ttfamily \label{class_t_c_p_client_a4496517a66180a42f3dc00df73c2e407} 
+bool TCPClient::\+connect\+To\+Server (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{class_t_c_p_client_ad9c61efb1d8f0e2ab3285f0e9c4ecbcd}\index{TCPClient@{TCPClient}!exit@{exit}}
+\index{exit@{exit}!TCPClient@{TCPClient}}
+\doxysubsubsection{\texorpdfstring{exit()}{exit()}}
+{\footnotesize\ttfamily \label{class_t_c_p_client_ad9c61efb1d8f0e2ab3285f0e9c4ecbcd} 
+void TCPClient::\+exit (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{class_t_c_p_client_a89a493a23bd43441d794586c768b4338}\index{TCPClient@{TCPClient}!read@{read}}
+\index{read@{read}!TCPClient@{TCPClient}}
+\doxysubsubsection{\texorpdfstring{read()}{read()}}
+{\footnotesize\ttfamily \label{class_t_c_p_client_a89a493a23bd43441d794586c768b4338} 
+std::\+string TCPClient::\+read (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{class_t_c_p_client_ab28d2526be3137bf39deb222ac3e5d84}\index{TCPClient@{TCPClient}!receive@{receive}}
+\index{receive@{receive}!TCPClient@{TCPClient}}
+\doxysubsubsection{\texorpdfstring{receive()}{receive()}}
+{\footnotesize\ttfamily \label{class_t_c_p_client_ab28d2526be3137bf39deb222ac3e5d84} 
+std::\+string TCPClient::\+receive (\begin{DoxyParamCaption}\item[{int}]{size}{ = {\ttfamily 1024}}\end{DoxyParamCaption})}
+
+\Hypertarget{class_t_c_p_client_af80950ad35154a8345403a72941573ea}\index{TCPClient@{TCPClient}!Send@{Send}}
+\index{Send@{Send}!TCPClient@{TCPClient}}
+\doxysubsubsection{\texorpdfstring{Send()}{Send()}}
+{\footnotesize\ttfamily \label{class_t_c_p_client_af80950ad35154a8345403a72941573ea} 
+bool TCPClient::\+\+Send (\begin{DoxyParamCaption}\item[{std::\+string}]{data}{}\end{DoxyParamCaption})}
+
+\Hypertarget{class_t_c_p_client_ae35b94fd59333c619f4b3634a3db37b9}\index{TCPClient@{TCPClient}!setup@{setup}}
+\index{setup@{setup}!TCPClient@{TCPClient}}
+\doxysubsubsection{\texorpdfstring{setup()}{setup()}}
+{\footnotesize\ttfamily \label{class_t_c_p_client_ae35b94fd59333c619f4b3634a3db37b9} 
+bool TCPClient::\+setup (\begin{DoxyParamCaption}\item[{std::\+string}]{address}{, }\item[{int}]{port}{}\end{DoxyParamCaption})}
+
+
+
+The documentation for this class was generated from the following files:\+\begin{DoxyCompactItemize}
+\item 
+Client\+\_\+\+Server/\+\doxymbox{\hyperlink{_t_c_p_client_8hpp}{TCPClient.\+hpp}}\item 
+Client\+\_\+\+Server/\+\doxymbox{\hyperlink{_t_c_p_client_8cpp}{TCPClient.\+cpp}}\end{DoxyCompactItemize}

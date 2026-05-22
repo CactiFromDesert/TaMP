@@ -1,0 +1,104 @@
+\doxysection{Reg\+Widget Class Reference}
+\hypertarget{class_reg_widget}{}\label{class_reg_widget}\index{RegWidget@{RegWidget}}
+
+
+Виджет для регистрации нового пользователя.  
+
+
+
+
+{\ttfamily \+\#include $<$regwidget.\+h$>$}
+
+Inheritance diagram for Reg\+Widget:\+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_reg_widget}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{class_reg_widget_abf454e11df0a80ddb3b63950d3efdca8}{clear\+Fields}} ()
+\begin{DoxyCompactList}\small\item\em Очистка всех полей ввода \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{class_reg_widget_a79e2d43c1747d252254fc8f0016d320e}{registration\+Success}} (const QString \&login)
+\begin{DoxyCompactList}\small\item\em Регистрация успешно завершена \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_reg_widget_ac173990dc8de328d78e4e6f4708c2628}{show\+Auth}} ()
+\begin{DoxyCompactList}\small\item\em Переключиться на форму входа \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_reg_widget_a3ef97baaa2b6f151f39b352bfdd287b3}{Reg\+Widget}} (\doxymbox{\hyperlink{class_database}{Database}} \&db, QWidget \texorpdfstring{$\ast$}{*}parent=nullptr)
+\item 
+\doxymbox{\hyperlink{class_reg_widget_aefe245edd81c62195537f004048390f0}{\texorpdfstring{$\sim$}{\string~}\+Reg\+Widget}} () override=default
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Виджет для регистрации нового пользователя. 
+
+Процесс регистрации состоит из двух шагов:\+
+\begin{DoxyEnumerate}
+\item Ввод данных (имя, логин, пароль, email)
+\item Подтверждение email через код верификации 
+\end{DoxyEnumerate}
+
+\label{class_reg_widget_doc-constructors}
+\Hypertarget{class_reg_widget_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_reg_widget_a3ef97baaa2b6f151f39b352bfdd287b3}\index{RegWidget@{RegWidget}!RegWidget@{RegWidget}}
+\index{RegWidget@{RegWidget}!RegWidget@{RegWidget}}
+\doxysubsubsection{\texorpdfstring{RegWidget()}{RegWidget()}}
+{\footnotesize\ttfamily \label{class_reg_widget_a3ef97baaa2b6f151f39b352bfdd287b3} 
+Reg\+Widget::\+\+Reg\+Widget (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{class_database}{Database}} \&}]{db}{, }\item[{QWidget \texorpdfstring{$\ast$}{*}}]{parent}{ = {\ttfamily nullptr}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+\Hypertarget{class_reg_widget_aefe245edd81c62195537f004048390f0}\index{RegWidget@{RegWidget}!````~RegWidget@{\texorpdfstring{$\sim$}{\string~}RegWidget}}
+\index{````~RegWidget@{\texorpdfstring{$\sim$}{\string~}RegWidget}!RegWidget@{RegWidget}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}RegWidget()}{\string~RegWidget()}}
+{\footnotesize\ttfamily \label{class_reg_widget_aefe245edd81c62195537f004048390f0} 
+Reg\+Widget::\+\texorpdfstring{$\sim$}{\string~}\+Reg\+Widget (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [default]}}
+
+
+
+\label{class_reg_widget_doc-func-members}
+\Hypertarget{class_reg_widget_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_reg_widget_abf454e11df0a80ddb3b63950d3efdca8}\index{RegWidget@{RegWidget}!clearFields@{clearFields}}
+\index{clearFields@{clearFields}!RegWidget@{RegWidget}}
+\doxysubsubsection{\texorpdfstring{clearFields}{clearFields}}
+{\footnotesize\ttfamily \label{class_reg_widget_abf454e11df0a80ddb3b63950d3efdca8} 
+void Reg\+Widget::\+clear\+Fields (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+
+
+Очистка всех полей ввода 
+
+\Hypertarget{class_reg_widget_a79e2d43c1747d252254fc8f0016d320e}\index{RegWidget@{RegWidget}!registrationSuccess@{registrationSuccess}}
+\index{registrationSuccess@{registrationSuccess}!RegWidget@{RegWidget}}
+\doxysubsubsection{\texorpdfstring{registrationSuccess}{registrationSuccess}}
+{\footnotesize\ttfamily \label{class_reg_widget_a79e2d43c1747d252254fc8f0016d320e} 
+void Reg\+Widget::\+registration\+Success (\begin{DoxyParamCaption}\item[{const QString \&}]{login}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Регистрация успешно завершена 
+
+\Hypertarget{class_reg_widget_ac173990dc8de328d78e4e6f4708c2628}\index{RegWidget@{RegWidget}!showAuth@{showAuth}}
+\index{showAuth@{showAuth}!RegWidget@{RegWidget}}
+\doxysubsubsection{\texorpdfstring{showAuth}{showAuth}}
+{\footnotesize\ttfamily \label{class_reg_widget_ac173990dc8de328d78e4e6f4708c2628} 
+void Reg\+Widget::\+show\+Auth (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Переключиться на форму входа 
+
+
+
+The documentation for this class was generated from the following files:\+\begin{DoxyCompactItemize}
+\item 
+Qt\+\_\+client/\+\doxymbox{\hyperlink{regwidget_8h}{regwidget.\+h}}\item 
+Qt\+\_\+client/\+build/\+5\+\_\+15\+\_\+17\+\_\+x32-\/u041eu0442u043bu0430u0434u043au0430/\+debug/\+\doxymbox{\hyperlink{moc__regwidget_8cpp}{moc\+\_\+regwidget.\+cpp}}\item 
+Qt\+\_\+client/\+\doxymbox{\hyperlink{regwidget_8cpp}{regwidget.\+cpp}}\end{DoxyCompactItemize}

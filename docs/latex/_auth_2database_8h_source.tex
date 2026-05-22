@@ -1,0 +1,18 @@
+\doxysection{database.\+h}
+\hypertarget{_auth_2database_8h_source}{}\label{_auth_2database_8h_source}\index{Auth/database.h@{Auth/database.h}}
+\doxymbox{\hyperlink{_auth_2database_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{_auth_2common_8h}{common.h}}"{}}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_database_a7309a4fc451951f413d49ced79441e3d}{Database}}\ \{}
+\DoxyCodeLine{00006\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00007\ \ \ \ \ pqxx::connection\ conn;\ \textcolor{comment}{//\ Подключение\ к\ PostgreSQL}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00010\ \ \ \ \ \doxymbox{\hyperlink{class_database_a7309a4fc451951f413d49ced79441e3d}{Database}}(\textcolor{keyword}{const}\ std::string\&\ conn\_str);\ \textcolor{comment}{//\ Конструктор}}
+\DoxyCodeLine{00011\ \ \ \ \ pqxx::connection\&\ \doxymbox{\hyperlink{class_database_ad367e16e29c9a550c1ae6eee33a5a6cb}{getConnection}}();\ \textcolor{comment}{//\ Геттер\ для\ доступа\ к\ conn}}
+\DoxyCodeLine{00012\ \};}
+
+\end{DoxyCode}

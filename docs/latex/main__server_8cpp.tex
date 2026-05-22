@@ -1,0 +1,107 @@
+\doxysection{Client\+\_\+\+Server/\+main\+\_\+server.cpp File Reference}
+\hypertarget{main__server_8cpp}{}\label{main__server_8cpp}\index{Client\_Server/main\_server.cpp@{Client\_Server/main\_server.cpp}}
+{\ttfamily \+\#include "{}TCPServer.\+hpp"{}}\newline
+{\ttfamily \+\#include "{}func.\+hpp"{}}\newline
+{\ttfamily \+\#include $<$sstream$>$}\newline
+{\ttfamily \+\#include $<$iomanip$>$}\newline
+{\ttfamily \+\#include $<$vector$>$}\newline
+{\ttfamily \+\#include $<$string$>$}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std::\+string \doxymbox{\hyperlink{main__server_8cpp_aa8ca608f883da3a5979f8cf0ccc6543e}{generate\+Points\+JSON}} (double a, double b, double c, int num\+Points=20)
+\begin{DoxyCompactList}\small\item\em Генерирует JSON-\/массив точек для построения графика функции. \end{DoxyCompactList}\item 
+void \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{main__server_8cpp_a2ef0a99b6a4d61de9bf2a7dc74606ddd}{loop}} (void \texorpdfstring{$\ast$}{*}m)
+\begin{DoxyCompactList}\small\item\em Потоковая функция для обработки входящих соединений. \end{DoxyCompactList}\item 
+int \doxymbox{\hyperlink{main__server_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}} ()
+\begin{DoxyCompactList}\small\item\em Главная функция сервера вычислений. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_t_c_p_server}{TCPServer}} \doxymbox{\hyperlink{main__server_8cpp_aa9812150cfe7e05133e3b529804a6d4c}{tcp}}
+\end{DoxyCompactItemize}
+
+
+\label{main__server_8cpp_doc-func-members}
+\Hypertarget{main__server_8cpp_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{main__server_8cpp_aa8ca608f883da3a5979f8cf0ccc6543e}\index{main\_server.cpp@{main\_server.cpp}!generatePointsJSON@{generatePointsJSON}}
+\index{generatePointsJSON@{generatePointsJSON}!main\_server.cpp@{main\_server.cpp}}
+\doxysubsubsection{\texorpdfstring{generatePointsJSON()}{generatePointsJSON()}}
+{\footnotesize\ttfamily \label{main__server_8cpp_aa8ca608f883da3a5979f8cf0ccc6543e} 
+std::\+string generate\+Points\+JSON (\begin{DoxyParamCaption}\item[{double}]{a}{, }\item[{double}]{b}{, }\item[{double}]{c}{, }\item[{int}]{num\+Points}{ = {\ttfamily 20}}\end{DoxyParamCaption})}
+
+
+
+Генерирует JSON-\/массив точек для построения графика функции. 
+
+Функция вычисляет значения f(x) на интервале \+[-\/2.\+0; π+0.5]\+ и возвращает их в формате JSON для отправки клиенту.
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & Коэффициент a для ветви x \texorpdfstring{$<$}{<} 0 (√(-\/x) + a) \\
+\hline
+{\em b} & Коэффициент b для ветви 0 ≤ x \texorpdfstring{$<$}{<} π (arcsin(x/\+π) + b) \\
+\hline
+{\em c} & Коэффициент c для ветви x ≥ π (arccos(x/\+π) -\/ c) \\
+\hline
+{\em num\+Points} & Количество точек для генерации (по умолчанию 20) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+std::\+string JSON-\/строка вида \+[\+[x1,y1]\+,\+[x2,y2]\+,...]\+ 
+\end{DoxyReturn}
+\texorpdfstring{$<$}{<} Нечисловые значения заменяем на null\Hypertarget{main__server_8cpp_a2ef0a99b6a4d61de9bf2a7dc74606ddd}\index{main\_server.cpp@{main\_server.cpp}!loop@{loop}}
+\index{loop@{loop}!main\_server.cpp@{main\_server.cpp}}
+\doxysubsubsection{\texorpdfstring{loop()}{loop()}}
+{\footnotesize\ttfamily \label{main__server_8cpp_a2ef0a99b6a4d61de9bf2a7dc74606ddd} 
+void \texorpdfstring{$\ast$}{*} loop (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{m}{}\end{DoxyParamCaption})}
+
+
+
+Потоковая функция для обработки входящих соединений. 
+
+Работает в отдельном потоке для каждого клиента. Читает сообщения от клиента и отправляет ответы.
+
+Форматы запросов:\+
+\begin{DoxyItemize}
+\item "{}x"{} → возвращает f(x) с параметрами по умолчанию (a=1, b=2, c=3)
+\item "{}a;b;c"{} → возвращает JSON со всеми точками графика
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}{Parameters}
+{\em m} & Указатель на данные потока (не используется) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void\texorpdfstring{$\ast$}{*} Всегда возвращает NULL 
+\end{DoxyReturn}
+Режим 1:\+ вычисление для одного x
+
+Режим 2:\+ генерация графика с параметрами a,b,c\Hypertarget{main__server_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}\index{main\_server.cpp@{main\_server.cpp}!main@{main}}
+\index{main@{main}!main\_server.cpp@{main\_server.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily \label{main__server_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4} 
+int main (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Главная функция сервера вычислений. 
+
+Запускает TCP-\/сервер на порту 11999 и принимает входящие соединения. Для каждого клиента создаётся отдельный поток.
+
+\begin{DoxyReturn}{Returns}
+int Всегда возвращает 0 
+\end{DoxyReturn}
+\texorpdfstring{$<$}{<} Не ждем, разрешаем множественные подключения
+
+\label{main__server_8cpp_doc-var-members}
+\Hypertarget{main__server_8cpp_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{main__server_8cpp_aa9812150cfe7e05133e3b529804a6d4c}\index{main\_server.cpp@{main\_server.cpp}!tcp@{tcp}}
+\index{tcp@{tcp}!main\_server.cpp@{main\_server.cpp}}
+\doxysubsubsection{\texorpdfstring{tcp}{tcp}}
+{\footnotesize\ttfamily \label{main__server_8cpp_aa9812150cfe7e05133e3b529804a6d4c} 
+\doxymbox{\hyperlink{class_t_c_p_server}{TCPServer}} tcp}
+

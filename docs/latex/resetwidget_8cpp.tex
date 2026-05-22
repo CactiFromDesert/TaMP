@@ -1,0 +1,92 @@
+\doxysection{Qt\+\_\+client/\+resetwidget.cpp File Reference}
+\hypertarget{resetwidget_8cpp}{}\label{resetwidget_8cpp}\index{Qt\_client/resetwidget.cpp@{Qt\_client/resetwidget.cpp}}
+{\ttfamily \+\#include "{}resetwidget.\+h"{}}\newline
+{\ttfamily \+\#include "{}auth.\+h"{}}\newline
+{\ttfamily \+\#include "{}database.\+h"{}}\newline
+{\ttfamily \+\#include "{}email\+\_\+service.\+h"{}}\newline
+{\ttfamily \+\#include $<$QVBox\+Layout$>$}\newline
+{\ttfamily \+\#include $<$QHBox\+Layout$>$}\newline
+{\ttfamily \+\#include $<$QLabel$>$}\newline
+{\ttfamily \+\#include $<$QLine\+Edit$>$}\newline
+{\ttfamily \+\#include $<$QPush\+Button$>$}\newline
+{\ttfamily \+\#include $<$QMessage\+Box$>$}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{resetwidget_8cpp_a9a85fef90bad6eab392e2471a65f8d4f}{GH\+\_\+\+BG}}~"{}\+\#0b1e2d"{}
+\item 
+\+\#define \doxymbox{\hyperlink{resetwidget_8cpp_afca1d0e2b834be063994059dc1b061e5}{GH\+\_\+\+CARD}}~"{}\+\#102a43"{}
+\item 
+\+\#define \doxymbox{\hyperlink{resetwidget_8cpp_a38738d697be4294cef70da505776fd3a}{GH\+\_\+\+BORDER}}~"{}\+\#1f4e79"{}
+\item 
+\+\#define \doxymbox{\hyperlink{resetwidget_8cpp_a76923ca4d575de2db881bfd1e2ed8fc6}{GH\+\_\+\+TEXT}}~"{}\+\#e6f2ff"{}
+\item 
+\+\#define \doxymbox{\hyperlink{resetwidget_8cpp_ae8746773945bc183eb687ba96b77b05c}{GH\+\_\+\+MUTED}}~"{}\+\#9ecae6"{}
+\item 
+\+\#define \doxymbox{\hyperlink{resetwidget_8cpp_a3f734cf434f583d8a713631c43619f90}{GH\+\_\+\+GREEN}}~"{}\+\#4cd4b0"{}
+\item 
+\+\#define \doxymbox{\hyperlink{resetwidget_8cpp_a565a6e6f1b74fe6699845e97f803862a}{GH\+\_\+\+RED}}~"{}\+\#ff6b6b"{}
+\item 
+\+\#define \doxymbox{\hyperlink{resetwidget_8cpp_a9d20cf908492c430163af5d2a12856b7}{GH\+\_\+\+BLUE}}~"{}\+\#3da9fc"{}
+\item 
+\+\#define \doxymbox{\hyperlink{resetwidget_8cpp_a42a7d8f7fd32b675ebe65742eddf8b30}{GH\+\_\+\+BLUE\+\_\+H}}~"{}\+\#74c0fc"{}
+\end{DoxyCompactItemize}
+
+
+\label{resetwidget_8cpp_doc-define-members}
+\Hypertarget{resetwidget_8cpp_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{resetwidget_8cpp_a9a85fef90bad6eab392e2471a65f8d4f}\index{resetwidget.cpp@{resetwidget.cpp}!GH\_BG@{GH\_BG}}
+\index{GH\_BG@{GH\_BG}!resetwidget.cpp@{resetwidget.cpp}}
+\doxysubsubsection{\texorpdfstring{GH\_BG}{GH\_BG}}
+{\footnotesize\ttfamily \label{resetwidget_8cpp_a9a85fef90bad6eab392e2471a65f8d4f} 
+\+\#define GH\+\_\+\+BG~"{}\+\#0b1e2d"{}}
+
+\Hypertarget{resetwidget_8cpp_a9d20cf908492c430163af5d2a12856b7}\index{resetwidget.cpp@{resetwidget.cpp}!GH\_BLUE@{GH\_BLUE}}
+\index{GH\_BLUE@{GH\_BLUE}!resetwidget.cpp@{resetwidget.cpp}}
+\doxysubsubsection{\texorpdfstring{GH\_BLUE}{GH\_BLUE}}
+{\footnotesize\ttfamily \label{resetwidget_8cpp_a9d20cf908492c430163af5d2a12856b7} 
+\+\#define GH\+\_\+\+BLUE~"{}\+\#3da9fc"{}}
+
+\Hypertarget{resetwidget_8cpp_a42a7d8f7fd32b675ebe65742eddf8b30}\index{resetwidget.cpp@{resetwidget.cpp}!GH\_BLUE\_H@{GH\_BLUE\_H}}
+\index{GH\_BLUE\_H@{GH\_BLUE\_H}!resetwidget.cpp@{resetwidget.cpp}}
+\doxysubsubsection{\texorpdfstring{GH\_BLUE\_H}{GH\_BLUE\_H}}
+{\footnotesize\ttfamily \label{resetwidget_8cpp_a42a7d8f7fd32b675ebe65742eddf8b30} 
+\+\#define GH\+\_\+\+BLUE\+\_\+H~"{}\+\#74c0fc"{}}
+
+\Hypertarget{resetwidget_8cpp_a38738d697be4294cef70da505776fd3a}\index{resetwidget.cpp@{resetwidget.cpp}!GH\_BORDER@{GH\_BORDER}}
+\index{GH\_BORDER@{GH\_BORDER}!resetwidget.cpp@{resetwidget.cpp}}
+\doxysubsubsection{\texorpdfstring{GH\_BORDER}{GH\_BORDER}}
+{\footnotesize\ttfamily \label{resetwidget_8cpp_a38738d697be4294cef70da505776fd3a} 
+\+\#define GH\+\_\+\+BORDER~"{}\+\#1f4e79"{}}
+
+\Hypertarget{resetwidget_8cpp_afca1d0e2b834be063994059dc1b061e5}\index{resetwidget.cpp@{resetwidget.cpp}!GH\_CARD@{GH\_CARD}}
+\index{GH\_CARD@{GH\_CARD}!resetwidget.cpp@{resetwidget.cpp}}
+\doxysubsubsection{\texorpdfstring{GH\_CARD}{GH\_CARD}}
+{\footnotesize\ttfamily \label{resetwidget_8cpp_afca1d0e2b834be063994059dc1b061e5} 
+\+\#define GH\+\_\+\+CARD~"{}\+\#102a43"{}}
+
+\Hypertarget{resetwidget_8cpp_a3f734cf434f583d8a713631c43619f90}\index{resetwidget.cpp@{resetwidget.cpp}!GH\_GREEN@{GH\_GREEN}}
+\index{GH\_GREEN@{GH\_GREEN}!resetwidget.cpp@{resetwidget.cpp}}
+\doxysubsubsection{\texorpdfstring{GH\_GREEN}{GH\_GREEN}}
+{\footnotesize\ttfamily \label{resetwidget_8cpp_a3f734cf434f583d8a713631c43619f90} 
+\+\#define GH\+\_\+\+GREEN~"{}\+\#4cd4b0"{}}
+
+\Hypertarget{resetwidget_8cpp_ae8746773945bc183eb687ba96b77b05c}\index{resetwidget.cpp@{resetwidget.cpp}!GH\_MUTED@{GH\_MUTED}}
+\index{GH\_MUTED@{GH\_MUTED}!resetwidget.cpp@{resetwidget.cpp}}
+\doxysubsubsection{\texorpdfstring{GH\_MUTED}{GH\_MUTED}}
+{\footnotesize\ttfamily \label{resetwidget_8cpp_ae8746773945bc183eb687ba96b77b05c} 
+\+\#define GH\+\_\+\+MUTED~"{}\+\#9ecae6"{}}
+
+\Hypertarget{resetwidget_8cpp_a565a6e6f1b74fe6699845e97f803862a}\index{resetwidget.cpp@{resetwidget.cpp}!GH\_RED@{GH\_RED}}
+\index{GH\_RED@{GH\_RED}!resetwidget.cpp@{resetwidget.cpp}}
+\doxysubsubsection{\texorpdfstring{GH\_RED}{GH\_RED}}
+{\footnotesize\ttfamily \label{resetwidget_8cpp_a565a6e6f1b74fe6699845e97f803862a} 
+\+\#define GH\+\_\+\+RED~"{}\+\#ff6b6b"{}}
+
+\Hypertarget{resetwidget_8cpp_a76923ca4d575de2db881bfd1e2ed8fc6}\index{resetwidget.cpp@{resetwidget.cpp}!GH\_TEXT@{GH\_TEXT}}
+\index{GH\_TEXT@{GH\_TEXT}!resetwidget.cpp@{resetwidget.cpp}}
+\doxysubsubsection{\texorpdfstring{GH\_TEXT}{GH\_TEXT}}
+{\footnotesize\ttfamily \label{resetwidget_8cpp_a76923ca4d575de2db881bfd1e2ed8fc6} 
+\+\#define GH\+\_\+\+TEXT~"{}\+\#e6f2ff"{}}
+

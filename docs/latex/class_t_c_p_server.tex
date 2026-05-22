@@ -1,0 +1,151 @@
+\doxysection{TCPServer Class Reference}
+\hypertarget{class_t_c_p_server}{}\label{class_t_c_p_server}\index{TCPServer@{TCPServer}}
+
+
+{\ttfamily \+\#include $<$TCPServer.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{class_t_c_p_server_a5fe156c6ef8e554b61805a5093bc3f72}{setup}} (int port)
+\item 
+std::\+string \doxymbox{\hyperlink{class_t_c_p_server_ab28c42ec05193f229f607f2c56c74e9b}{receive}} ()
+\item 
+std::\+string \doxymbox{\hyperlink{class_t_c_p_server_adb8ddf3421b44c73a8b711f83dd82627}{get\+Message}} ()
+\item 
+void \doxymbox{\hyperlink{class_t_c_p_server_a8d6b5d183eb93579ec13be9ebe5e6a0c}{Send}} (std::\+string msg)
+\item 
+void \doxymbox{\hyperlink{class_t_c_p_server_a57852edb522bf1a10ae80d425ccf567c}{detach}} ()
+\item 
+void \doxymbox{\hyperlink{class_t_c_p_server_a132d304b321be037a8d419b44a7530d1}{clean}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \doxymbox{\hyperlink{class_t_c_p_server_a5760b0d1dad5583ccf109256ff28cc08}{sockfd}}
+\item 
+int \doxymbox{\hyperlink{class_t_c_p_server_a05a6844c0e14b608838936d5fcfe8276}{newsockfd}}
+\item 
+int \doxymbox{\hyperlink{class_t_c_p_server_aed56ffdf9decb8e932eb1373737596b1}{n}}
+\item 
+int \doxymbox{\hyperlink{class_t_c_p_server_ad9d74f690b71ff410bf2271d1b880818}{pid}}
+\item 
+struct sockaddr\+\_\+in \doxymbox{\hyperlink{class_t_c_p_server_a8158542abc8b434935935452e7bbba5e}{server\+Address}}
+\item 
+struct sockaddr\+\_\+in \doxymbox{\hyperlink{class_t_c_p_server_ad701eade413d190ae412033e924df362}{client\+Address}}
+\item 
+pthread\+\_\+t \doxymbox{\hyperlink{class_t_c_p_server_ab8871398b81e5062b1b169d31b5a8e21}{server\+Thread}}
+\item 
+char \doxymbox{\hyperlink{class_t_c_p_server_af65dae4c6d5cfb3b72b3c5b723e8fad6}{msg}} \+[\doxymbox{\hyperlink{_t_c_p_server_8hpp_ac5b738d467a1bbf9325bcc0eaf4f5efa}{MAXPACKETSIZE}}]\+
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static std::\+string \doxymbox{\hyperlink{class_t_c_p_server_a8dcffc5a7b50a1c5ff66fa2883c77f81}{Message}} = "{}"{}
+\end{DoxyCompactItemize}
+
+
+\label{class_t_c_p_server_doc-func-members}
+\Hypertarget{class_t_c_p_server_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_t_c_p_server_a132d304b321be037a8d419b44a7530d1}\index{TCPServer@{TCPServer}!clean@{clean}}
+\index{clean@{clean}!TCPServer@{TCPServer}}
+\doxysubsubsection{\texorpdfstring{clean()}{clean()}}
+{\footnotesize\ttfamily \label{class_t_c_p_server_a132d304b321be037a8d419b44a7530d1} 
+void TCPServer::\+clean (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{class_t_c_p_server_a57852edb522bf1a10ae80d425ccf567c}\index{TCPServer@{TCPServer}!detach@{detach}}
+\index{detach@{detach}!TCPServer@{TCPServer}}
+\doxysubsubsection{\texorpdfstring{detach()}{detach()}}
+{\footnotesize\ttfamily \label{class_t_c_p_server_a57852edb522bf1a10ae80d425ccf567c} 
+void TCPServer::\+detach (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{class_t_c_p_server_adb8ddf3421b44c73a8b711f83dd82627}\index{TCPServer@{TCPServer}!getMessage@{getMessage}}
+\index{getMessage@{getMessage}!TCPServer@{TCPServer}}
+\doxysubsubsection{\texorpdfstring{getMessage()}{getMessage()}}
+{\footnotesize\ttfamily \label{class_t_c_p_server_adb8ddf3421b44c73a8b711f83dd82627} 
+std::\+string TCPServer::\+get\+Message (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{class_t_c_p_server_ab28c42ec05193f229f607f2c56c74e9b}\index{TCPServer@{TCPServer}!receive@{receive}}
+\index{receive@{receive}!TCPServer@{TCPServer}}
+\doxysubsubsection{\texorpdfstring{receive()}{receive()}}
+{\footnotesize\ttfamily \label{class_t_c_p_server_ab28c42ec05193f229f607f2c56c74e9b} 
+std::\+string TCPServer::\+receive (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{class_t_c_p_server_a8d6b5d183eb93579ec13be9ebe5e6a0c}\index{TCPServer@{TCPServer}!Send@{Send}}
+\index{Send@{Send}!TCPServer@{TCPServer}}
+\doxysubsubsection{\texorpdfstring{Send()}{Send()}}
+{\footnotesize\ttfamily \label{class_t_c_p_server_a8d6b5d183eb93579ec13be9ebe5e6a0c} 
+void TCPServer::\+\+Send (\begin{DoxyParamCaption}\item[{std::\+string}]{msg}{}\end{DoxyParamCaption})}
+
+\Hypertarget{class_t_c_p_server_a5fe156c6ef8e554b61805a5093bc3f72}\index{TCPServer@{TCPServer}!setup@{setup}}
+\index{setup@{setup}!TCPServer@{TCPServer}}
+\doxysubsubsection{\texorpdfstring{setup()}{setup()}}
+{\footnotesize\ttfamily \label{class_t_c_p_server_a5fe156c6ef8e554b61805a5093bc3f72} 
+void TCPServer::\+setup (\begin{DoxyParamCaption}\item[{int}]{port}{}\end{DoxyParamCaption})}
+
+
+
+\label{class_t_c_p_server_doc-variable-members}
+\Hypertarget{class_t_c_p_server_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_t_c_p_server_ad701eade413d190ae412033e924df362}\index{TCPServer@{TCPServer}!clientAddress@{clientAddress}}
+\index{clientAddress@{clientAddress}!TCPServer@{TCPServer}}
+\doxysubsubsection{\texorpdfstring{clientAddress}{clientAddress}}
+{\footnotesize\ttfamily \label{class_t_c_p_server_ad701eade413d190ae412033e924df362} 
+struct sockaddr\+\_\+in TCPServer::\+client\+Address}
+
+\Hypertarget{class_t_c_p_server_a8dcffc5a7b50a1c5ff66fa2883c77f81}\index{TCPServer@{TCPServer}!Message@{Message}}
+\index{Message@{Message}!TCPServer@{TCPServer}}
+\doxysubsubsection{\texorpdfstring{Message}{Message}}
+{\footnotesize\ttfamily \label{class_t_c_p_server_a8dcffc5a7b50a1c5ff66fa2883c77f81} 
+std::\+string TCPServer::\+\+Message = "{}"{}\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{class_t_c_p_server_af65dae4c6d5cfb3b72b3c5b723e8fad6}\index{TCPServer@{TCPServer}!msg@{msg}}
+\index{msg@{msg}!TCPServer@{TCPServer}}
+\doxysubsubsection{\texorpdfstring{msg}{msg}}
+{\footnotesize\ttfamily \label{class_t_c_p_server_af65dae4c6d5cfb3b72b3c5b723e8fad6} 
+char TCPServer::\+msg\+[\doxymbox{\hyperlink{_t_c_p_server_8hpp_ac5b738d467a1bbf9325bcc0eaf4f5efa}{MAXPACKETSIZE}}]\+}
+
+\Hypertarget{class_t_c_p_server_aed56ffdf9decb8e932eb1373737596b1}\index{TCPServer@{TCPServer}!n@{n}}
+\index{n@{n}!TCPServer@{TCPServer}}
+\doxysubsubsection{\texorpdfstring{n}{n}}
+{\footnotesize\ttfamily \label{class_t_c_p_server_aed56ffdf9decb8e932eb1373737596b1} 
+int TCPServer::\+n}
+
+\Hypertarget{class_t_c_p_server_a05a6844c0e14b608838936d5fcfe8276}\index{TCPServer@{TCPServer}!newsockfd@{newsockfd}}
+\index{newsockfd@{newsockfd}!TCPServer@{TCPServer}}
+\doxysubsubsection{\texorpdfstring{newsockfd}{newsockfd}}
+{\footnotesize\ttfamily \label{class_t_c_p_server_a05a6844c0e14b608838936d5fcfe8276} 
+int TCPServer::\+newsockfd}
+
+\Hypertarget{class_t_c_p_server_ad9d74f690b71ff410bf2271d1b880818}\index{TCPServer@{TCPServer}!pid@{pid}}
+\index{pid@{pid}!TCPServer@{TCPServer}}
+\doxysubsubsection{\texorpdfstring{pid}{pid}}
+{\footnotesize\ttfamily \label{class_t_c_p_server_ad9d74f690b71ff410bf2271d1b880818} 
+int TCPServer::\+pid}
+
+\Hypertarget{class_t_c_p_server_a8158542abc8b434935935452e7bbba5e}\index{TCPServer@{TCPServer}!serverAddress@{serverAddress}}
+\index{serverAddress@{serverAddress}!TCPServer@{TCPServer}}
+\doxysubsubsection{\texorpdfstring{serverAddress}{serverAddress}}
+{\footnotesize\ttfamily \label{class_t_c_p_server_a8158542abc8b434935935452e7bbba5e} 
+struct sockaddr\+\_\+in TCPServer::\+server\+Address}
+
+\Hypertarget{class_t_c_p_server_ab8871398b81e5062b1b169d31b5a8e21}\index{TCPServer@{TCPServer}!serverThread@{serverThread}}
+\index{serverThread@{serverThread}!TCPServer@{TCPServer}}
+\doxysubsubsection{\texorpdfstring{serverThread}{serverThread}}
+{\footnotesize\ttfamily \label{class_t_c_p_server_ab8871398b81e5062b1b169d31b5a8e21} 
+pthread\+\_\+t TCPServer::\+server\+Thread}
+
+\Hypertarget{class_t_c_p_server_a5760b0d1dad5583ccf109256ff28cc08}\index{TCPServer@{TCPServer}!sockfd@{sockfd}}
+\index{sockfd@{sockfd}!TCPServer@{TCPServer}}
+\doxysubsubsection{\texorpdfstring{sockfd}{sockfd}}
+{\footnotesize\ttfamily \label{class_t_c_p_server_a5760b0d1dad5583ccf109256ff28cc08} 
+int TCPServer::\+sockfd}
+
+
+
+The documentation for this class was generated from the following files:\+\begin{DoxyCompactItemize}
+\item 
+Client\+\_\+\+Server/\+\doxymbox{\hyperlink{_t_c_p_server_8hpp}{TCPServer.\+hpp}}\item 
+Client\+\_\+\+Server/\+\doxymbox{\hyperlink{_t_c_p_server_8cpp}{TCPServer.\+cpp}}\end{DoxyCompactItemize}

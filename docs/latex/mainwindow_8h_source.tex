@@ -1,0 +1,79 @@
+\doxysection{mainwindow.\+h}
+\hypertarget{mainwindow_8h_source}{}\label{mainwindow_8h_source}\index{Qt\_client/mainwindow.h@{Qt\_client/mainwindow.h}}
+\doxymbox{\hyperlink{mainwindow_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ MAINWINDOW\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ MAINWINDOW\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <QMainWindow>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <QStackedWidget>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <QPushButton>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <QLabel>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <QHBoxLayout>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <QVBoxLayout>}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{authwidget_8h}{authwidget.h}}"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{regwidget_8h}{regwidget.h}}"{}}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{verifywidget_8h}{verifywidget.h}}"{}}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{resetwidget_8h}{resetwidget.h}}"{}}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{graphwidget_8h}{graphwidget.h}}"{}}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}database.h"{}}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ "{}auth.h"{}}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_main_window_a53af18dcd8a25b6d894ea53be7ebb4bf}{MainWindow}}\ :\ \textcolor{keyword}{public}\ QMainWindow}
+\DoxyCodeLine{00021\ \{}
+\DoxyCodeLine{00022\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{explicit}\ \doxymbox{\hyperlink{class_main_window_a53af18dcd8a25b6d894ea53be7ebb4bf}{MainWindow}}(\doxymbox{\hyperlink{class_database}{Database}}\&\ db,\ QWidget\ *parent\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00026\ \ \ \ \ \doxymbox{\hyperlink{class_main_window_ae98d00a93bc118200eeef9f9bba1dba7}{\string~MainWindow}}();}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{private}\ slots:}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{void}\ onShowRegister();}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{void}\ onShowAuth();}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{void}\ onShowVerifyAuth(\textcolor{keyword}{const}\ QString\ \&login);}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{void}\ onVerificationSuccess(\textcolor{keyword}{const}\ QString\ \&login);}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{void}\ onBackToAuth();}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{void}\ onRegistrationSuccess(\textcolor{keyword}{const}\ QString\ \&login);}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{void}\ onLogout();}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{void}\ onShowReset();}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{void}\ onResetSuccess();}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{void}\ onTaskBtnClicked();}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{void}\ onSchemaBtnClicked();}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00043\ \ \ \ \ QWidget\ \ \ \ \ \ \ \ \ *centralWidget;}
+\DoxyCodeLine{00044\ \ \ \ \ QVBoxLayout\ \ \ \ \ *mainVLayout;}
+\DoxyCodeLine{00045\ \ \ \ \ QHBoxLayout\ \ \ \ \ *topBarLayout;}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \ \ QPushButton\ \ \ \ \ *taskBtn;}
+\DoxyCodeLine{00048\ \ \ \ \ QPushButton\ \ \ \ \ *schemaBtn;}
+\DoxyCodeLine{00049\ \ \ \ \ QLabel\ \ \ \ \ \ \ \ \ \ *appTitleLabel;}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ QStackedWidget\ \ *stackedWidget;}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ \doxymbox{\hyperlink{class_auth_widget}{AuthWidget}}\ \ \ \ \ \ *authWidget;}
+\DoxyCodeLine{00054\ \ \ \ \ \doxymbox{\hyperlink{class_reg_widget}{RegWidget}}\ \ \ \ \ \ \ *regWidget;}
+\DoxyCodeLine{00055\ \ \ \ \ \doxymbox{\hyperlink{class_verify_widget}{VerifyWidget}}\ \ \ \ *verifyWidget;}
+\DoxyCodeLine{00056\ \ \ \ \ \doxymbox{\hyperlink{class_reset_widget}{ResetWidget}}\ \ \ \ \ *resetWidget;}
+\DoxyCodeLine{00057\ \ \ \ \ \doxymbox{\hyperlink{class_graph_widget}{GraphWidget}}\ \ \ \ \ *graphWidget;}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{void}\ setupUI();}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordtype}{void}\ connectSignals();}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ IDX\_AUTH\ \ \ =\ 0;}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ IDX\_REG\ \ \ \ =\ 1;}
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ IDX\_VERIFY\ =\ 2;}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ IDX\_GRAPH\ \ =\ 3;}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ IDX\_RESET\ \ =\ 4;}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00069\ \ \ \ \ \doxymbox{\hyperlink{class_database}{Database}}\&\ m\_db;}
+\DoxyCodeLine{00070\ \ \ \ \ \doxymbox{\hyperlink{class_auth}{Auth}}*\ m\_auth\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00071\ \};}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ MAINWINDOW\_H}}
+
+\end{DoxyCode}

@@ -1,0 +1,77 @@
+\doxysection{email\+\_\+service.\+h}
+\hypertarget{_auth_2email__service_8h_source}{}\label{_auth_2email__service_8h_source}\index{Auth/email\_service.h@{Auth/email\_service.h}}
+\doxymbox{\hyperlink{_auth_2email__service_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{_auth_2common_8h}{common.h}}"{}}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{_auth_2email__config_8h}{email\_config.h}}"{}}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ Структура\ для\ хранения\ данных\ email\ сообщения}}
+\DoxyCodeLine{00007\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{struct_email_message}{EmailMessage}}\ \{}
+\DoxyCodeLine{00008\ \ \ \ \ std::string\ \doxymbox{\hyperlink{struct_email_message_a409602fa6222564e095c1b34a797b6ed}{to\_email}};}
+\DoxyCodeLine{00009\ \ \ \ \ std::string\ \doxymbox{\hyperlink{struct_email_message_a53b00c4c2e2bba01a0d180cc409d7382}{to\_name}};}
+\DoxyCodeLine{00010\ \ \ \ \ std::string\ \doxymbox{\hyperlink{struct_email_message_a1792abe6ffc6bb77303e994f60d9f5a5}{subject}};}
+\DoxyCodeLine{00011\ \ \ \ \ std::string\ \doxymbox{\hyperlink{struct_email_message_afc109aa6ad062877732c60d74d44a3a8}{body}};}
+\DoxyCodeLine{00012\ \};}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{comment}{//\ Структура\ для\ временного\ хранения\ кода\ верификации\ (в\ памяти)}}
+\DoxyCodeLine{00015\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{struct_verification_code}{VerificationCode}}\ \{}
+\DoxyCodeLine{00016\ \ \ \ \ std::string\ \doxymbox{\hyperlink{struct_verification_code_a93b5c0a1acf84c8f03f589d7feea44d7}{code}};}
+\DoxyCodeLine{00017\ \ \ \ \ std::chrono::system\_clock::time\_point\ \doxymbox{\hyperlink{struct_verification_code_a6cf42fd576e344d4889350fdf777998a}{expires\_at}};}
+\DoxyCodeLine{00018\ \};}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ Структура\ для\ callback\ функции\ CURL\ при\ отправке}}
+\DoxyCodeLine{00021\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{struct_upload_status_a73ca91daf9c97c4653d3a2690f8a3311}{UploadStatus}}\ \{}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{const}\ std::string*\ \doxymbox{\hyperlink{struct_upload_status_a5ebe62cb7bc3df0eec496d01b6e68051}{data}};}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \doxymbox{\hyperlink{struct_upload_status_a1c312f452145e6a1aa845b56bbdd9774}{bytes\_read}};}
+\DoxyCodeLine{00024\ \ \ \ \ }
+\DoxyCodeLine{00025\ \ \ \ \ \doxymbox{\hyperlink{struct_upload_status_a73ca91daf9c97c4653d3a2690f8a3311}{UploadStatus}}(\textcolor{keyword}{const}\ std::string*\ d)\ :\ \doxymbox{\hyperlink{struct_upload_status_a5ebe62cb7bc3df0eec496d01b6e68051}{data}}(d),\ \doxymbox{\hyperlink{struct_upload_status_a1c312f452145e6a1aa845b56bbdd9774}{bytes\_read}}(0)\ \{\}}
+\DoxyCodeLine{00026\ \};}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_email_service}{EmailService}}\ \{}
+\DoxyCodeLine{00029\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{comment}{//\ хранилище\ кодов\ в\ памяти\ (email\ -\/>\ код)}}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{static}\ std::map<std::string,\ VerificationCode>\ pending\_codes;}
+\DoxyCodeLine{00032\ \ \ \ \ }
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{comment}{//\ Статические\ callback\ функции\ для\ CURL}}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{size\_t}\ write\_callback(\textcolor{keywordtype}{void}*\ contents,\ \textcolor{keywordtype}{size\_t}\ size,\ \textcolor{keywordtype}{size\_t}\ nmemb,\ std::string*\ output);}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{size\_t}\ read\_callback(\textcolor{keywordtype}{char}*\ ptr,\ \textcolor{keywordtype}{size\_t}\ size,\ \textcolor{keywordtype}{size\_t}\ nmemb,\ \textcolor{keywordtype}{void}*\ userdata);}
+\DoxyCodeLine{00036\ \ \ \ \ }
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{comment}{//\ Форматирование\ email\ сообщения\ в\ RFC\ 822\ формат}}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{static}\ std::string\ formatEmailMessage(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{struct_email_message}{EmailMessage}}\&\ msg);}
+\DoxyCodeLine{00039\ \ \ \ \ }
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{comment}{//\ Получение\ текущей\ даты\ в\ формате\ RFC\ 822}}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{static}\ std::string\ getRFC822Date();}
+\DoxyCodeLine{00042\ \ \ \ \ }
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{comment}{//\ Кодирование\ строки\ в\ Base64\ (для\ аутентификации)}}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{static}\ std::string\ base64\_encode(\textcolor{keyword}{const}\ std::string\&\ input);}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{comment}{//\ Генерация\ 6-\/значного\ кода}}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keyword}{static}\ std::string\ \doxymbox{\hyperlink{class_email_service_aa387e09b49acc442a12c925fa93784ee}{generateVerificationCode}}();}
+\DoxyCodeLine{00049\ \ \ \ \ }
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{comment}{//\ Отправка\ email\ с\ кодом\ верификации}}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{class_email_service_a3fa37752ce64be335e34f673c576d591}{sendVerificationEmail}}(\textcolor{keyword}{const}\ std::string\&\ to\_email,\ }
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\&\ user\_name\ =\ \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{00053\ \ \ \ \ }
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{comment}{//\ Проверка\ кода\ верификации}}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{class_email_service_a625c446d8bedfbc54516db7287d99430}{verifyCode}}(\textcolor{keyword}{const}\ std::string\&\ email,\ \textcolor{keyword}{const}\ std::string\&\ code);}
+\DoxyCodeLine{00056\ \ \ \ \ }
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{comment}{//\ Проверка\ формата\ email}}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{class_email_service_a7aa5fc8831662906b59e585a2fea0ee6}{isValidEmail}}(\textcolor{keyword}{const}\ std::string\&\ email);}
+\DoxyCodeLine{00059\ \ \ \ \ }
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{comment}{//\ Отправка\ произвольного\ email}}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{class_email_service_a6b1de298a7d458d7496195865df3011b}{sendEmail}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{struct_email_message}{EmailMessage}}\&\ message);}
+\DoxyCodeLine{00062\ \ \ \ \ }
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{comment}{//\ Проверка\ соединения\ с\ SMTP\ сервером}}
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{class_email_service_a70b029446648ffa8f0b0263bcc99eae3}{testSmtpConnection}}();}
+\DoxyCodeLine{00065\ \ \ \ \ }
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{comment}{//\ Очистка\ просроченных\ кодов}}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_email_service_ae0da1c48944968aa72bede8478aeca1d}{cleanupExpiredCodes}}();}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{comment}{//\ Очистка\ кэша\ писем}}
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_email_service_a93fc8b98af97a7d31388e18237929f80}{clearAllCodes}}();}
+\DoxyCodeLine{00071\ \};}
+
+\end{DoxyCode}

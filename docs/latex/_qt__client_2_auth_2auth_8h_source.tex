@@ -1,0 +1,39 @@
+\doxysection{auth.\+h}
+\hypertarget{_qt__client_2_auth_2auth_8h_source}{}\label{_qt__client_2_auth_2auth_8h_source}\index{Qt\_client/Auth/auth.h@{Qt\_client/Auth/auth.h}}
+\doxymbox{\hyperlink{_qt__client_2_auth_2auth_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{_qt__client_2_auth_2common_8h}{common.h}}"{}}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{_qt__client_2_auth_2database_8h}{database.h}}"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{_qt__client_2_auth_2email__service_8h}{email\_service.h}}"{}}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00010\ \textcolor{keyword}{enum\ class}\ \doxymbox{\hyperlink{_auth_2auth_8h_a87ba9bd5edfd749f4729620dbadd5fce}{AuthResult}}\ \{}
+\DoxyCodeLine{00011\ \ \ \ \ \doxymbox{\hyperlink{_auth_2auth_8h_a87ba9bd5edfd749f4729620dbadd5fcea505a83f220c02df2f85c3810cd9ceb38}{Success}},\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00012\ \ \ \ \ \doxymbox{\hyperlink{_auth_2auth_8h_a87ba9bd5edfd749f4729620dbadd5fcea929c177ef9cd3b348c4f2f9731b2ca73}{WrongPassword}},\ \ \ \ \ }
+\DoxyCodeLine{00013\ \ \ \ \ \doxymbox{\hyperlink{_auth_2auth_8h_a87ba9bd5edfd749f4729620dbadd5fcea5e349b2189e271e32f633c077d4ff028}{UserNotFound}},\ \ \ \ \ \ }
+\DoxyCodeLine{00014\ \ \ \ \ \doxymbox{\hyperlink{_auth_2auth_8h_a87ba9bd5edfd749f4729620dbadd5fcea540db2331a85a6ee2b81b54a21e2be13}{NeedVerification}},\ \ }
+\DoxyCodeLine{00015\ \ \ \ \ \doxymbox{\hyperlink{_auth_2auth_8h_a87ba9bd5edfd749f4729620dbadd5fcea902b0d55fddef6f8d651fe1035b7d4bd}{Error}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00016\ \};}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_auth}{Auth}}\ \{}
+\DoxyCodeLine{00025\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00026\ \ \ \ \ Database\&\ db;\ \ }
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{bool}\ verifyPassword(\textcolor{keyword}{const}\ std::string\&\ password,\ \textcolor{keyword}{const}\ std::string\&\ hash);}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ std::string\ m\_pendingEmail;\ \ }
+\DoxyCodeLine{00038\ \ \ \ \ std::string\ m\_pendingName;\ \ \ }
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00045\ \ \ \ \ \doxymbox{\hyperlink{class_auth_adb7b7590c51cefd5218184fba0f73a0f}{Auth}}(\doxymbox{\hyperlink{class_database}{Database}}\&\ database);}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00053\ \ \ \ \ std::string\ \doxymbox{\hyperlink{class_auth_aabae212273e121b84232f0bb4120a368}{hashPassword}}(\textcolor{keyword}{const}\ std::string\&\ password);}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00068\ \ \ \ \ \doxymbox{\hyperlink{_qt__client_2_auth_2auth_8h_a87ba9bd5edfd749f4729620dbadd5fce}{AuthResult}}\ \doxymbox{\hyperlink{class_auth_a9a4f6e03208c15d76da5bef4e9b721c8}{loginUser}}(\textcolor{keyword}{const}\ std::string\&\ login,}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\&\ password);}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{class_auth_a7779c5ca864d367d39528f846221cde6}{verifyLoginCode}}(\textcolor{keyword}{const}\ std::string\&\ code);}
+\DoxyCodeLine{00078\ \};}
+
+\end{DoxyCode}

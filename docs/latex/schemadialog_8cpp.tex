@@ -1,0 +1,69 @@
+\doxysection{Qt\+\_\+client/\+schemadialog.cpp File Reference}
+\hypertarget{schemadialog_8cpp}{}\label{schemadialog_8cpp}\index{Qt\_client/schemadialog.cpp@{Qt\_client/schemadialog.cpp}}
+{\ttfamily \+\#include "{}schemadialog.\+h"{}}\newline
+{\ttfamily \+\#include $<$QVBox\+Layout$>$}\newline
+{\ttfamily \+\#include $<$QHBox\+Layout$>$}\newline
+{\ttfamily \+\#include $<$QPainter$>$}\newline
+{\ttfamily \+\#include $<$QPainter\+Path$>$}\newline
+{\ttfamily \+\#include $<$QPen$>$}\newline
+{\ttfamily \+\#include $<$QFont$>$}\newline
+{\ttfamily \+\#include $<$QPolygon$>$}\newline
+{\ttfamily \+\#include $<$QPush\+Button$>$}\newline
+{\ttfamily \+\#include $<$QLabel$>$}\newline
+{\ttfamily \+\#include $<$QPixmap$>$}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{schemadialog_8cpp_a66c8a970207e9cc0ec07a3343c3812a0}{FC\+\_\+\+BG}}~QColor(0x0b, 0x1e, 0x2d)
+\item 
+\+\#define \doxymbox{\hyperlink{schemadialog_8cpp_a74dea05f281648e81e57baec493547a0}{FC\+\_\+\+BORDER}}~QColor(0x1f, 0x4e, 0x79)
+\item 
+\+\#define \doxymbox{\hyperlink{schemadialog_8cpp_ac92ae50bc8e596177fd389d04cde4938}{FC\+\_\+\+TEXT}}~QColor(0xe6, 0xf2, 0xff)
+\item 
+\+\#define \doxymbox{\hyperlink{schemadialog_8cpp_a3b320026c77799cd5049b7fdbddd73d9}{FC\+\_\+\+ARROW}}~QColor(0x9e, 0xca, 0xe6)
+\item 
+\+\#define \doxymbox{\hyperlink{schemadialog_8cpp_ac71712f256420c526d5febd11576d278}{FC\+\_\+\+LABEL}}~QColor(0x74, 0xc0, 0xfc)
+\item 
+\+\#define \doxymbox{\hyperlink{schemadialog_8cpp_a1f86a89716ada4d7063c047811d1076b}{FONT\+\_\+\+FAMILY}}~"{}Segoe UI"{}
+\end{DoxyCompactItemize}
+
+
+\label{schemadialog_8cpp_doc-define-members}
+\Hypertarget{schemadialog_8cpp_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{schemadialog_8cpp_a3b320026c77799cd5049b7fdbddd73d9}\index{schemadialog.cpp@{schemadialog.cpp}!FC\_ARROW@{FC\_ARROW}}
+\index{FC\_ARROW@{FC\_ARROW}!schemadialog.cpp@{schemadialog.cpp}}
+\doxysubsubsection{\texorpdfstring{FC\_ARROW}{FC\_ARROW}}
+{\footnotesize\ttfamily \label{schemadialog_8cpp_a3b320026c77799cd5049b7fdbddd73d9} 
+\+\#define FC\+\_\+\+ARROW~QColor(0x9e, 0xca, 0xe6)}
+
+\Hypertarget{schemadialog_8cpp_a66c8a970207e9cc0ec07a3343c3812a0}\index{schemadialog.cpp@{schemadialog.cpp}!FC\_BG@{FC\_BG}}
+\index{FC\_BG@{FC\_BG}!schemadialog.cpp@{schemadialog.cpp}}
+\doxysubsubsection{\texorpdfstring{FC\_BG}{FC\_BG}}
+{\footnotesize\ttfamily \label{schemadialog_8cpp_a66c8a970207e9cc0ec07a3343c3812a0} 
+\+\#define FC\+\_\+\+BG~QColor(0x0b, 0x1e, 0x2d)}
+
+\Hypertarget{schemadialog_8cpp_a74dea05f281648e81e57baec493547a0}\index{schemadialog.cpp@{schemadialog.cpp}!FC\_BORDER@{FC\_BORDER}}
+\index{FC\_BORDER@{FC\_BORDER}!schemadialog.cpp@{schemadialog.cpp}}
+\doxysubsubsection{\texorpdfstring{FC\_BORDER}{FC\_BORDER}}
+{\footnotesize\ttfamily \label{schemadialog_8cpp_a74dea05f281648e81e57baec493547a0} 
+\+\#define FC\+\_\+\+BORDER~QColor(0x1f, 0x4e, 0x79)}
+
+\Hypertarget{schemadialog_8cpp_ac71712f256420c526d5febd11576d278}\index{schemadialog.cpp@{schemadialog.cpp}!FC\_LABEL@{FC\_LABEL}}
+\index{FC\_LABEL@{FC\_LABEL}!schemadialog.cpp@{schemadialog.cpp}}
+\doxysubsubsection{\texorpdfstring{FC\_LABEL}{FC\_LABEL}}
+{\footnotesize\ttfamily \label{schemadialog_8cpp_ac71712f256420c526d5febd11576d278} 
+\+\#define FC\+\_\+\+LABEL~QColor(0x74, 0xc0, 0xfc)}
+
+\Hypertarget{schemadialog_8cpp_ac92ae50bc8e596177fd389d04cde4938}\index{schemadialog.cpp@{schemadialog.cpp}!FC\_TEXT@{FC\_TEXT}}
+\index{FC\_TEXT@{FC\_TEXT}!schemadialog.cpp@{schemadialog.cpp}}
+\doxysubsubsection{\texorpdfstring{FC\_TEXT}{FC\_TEXT}}
+{\footnotesize\ttfamily \label{schemadialog_8cpp_ac92ae50bc8e596177fd389d04cde4938} 
+\+\#define FC\+\_\+\+TEXT~QColor(0xe6, 0xf2, 0xff)}
+
+\Hypertarget{schemadialog_8cpp_a1f86a89716ada4d7063c047811d1076b}\index{schemadialog.cpp@{schemadialog.cpp}!FONT\_FAMILY@{FONT\_FAMILY}}
+\index{FONT\_FAMILY@{FONT\_FAMILY}!schemadialog.cpp@{schemadialog.cpp}}
+\doxysubsubsection{\texorpdfstring{FONT\_FAMILY}{FONT\_FAMILY}}
+{\footnotesize\ttfamily \label{schemadialog_8cpp_a1f86a89716ada4d7063c047811d1076b} 
+\+\#define FONT\+\_\+\+FAMILY~"{}Segoe UI"{}}
+

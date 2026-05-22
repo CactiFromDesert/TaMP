@@ -3,69 +3,87 @@
 #include "common.h"
 #include "email_config.h"
 
-// Структура для хранения данных email сообщения
+/**
+ * @brief Структура для хранения данных email сообщения.
+ */
 struct EmailMessage {
-    std::string to_email;
-    std::string to_name;
-    std::string subject;
-    std::string body;
+    std::string to_email;  ///< Email получателя
+    std::string to_name;   ///< Имя получателя
+    std::string subject;   ///< Тема письма
+    std::string body;      ///< Тело письма
 };
 
-// Структура для временного хранения кода верификации (в памяти)
+/**
+ * @brief Структура для временного хранения кода верификации.
+ */
 struct VerificationCode {
-    std::string code;
-    std::chrono::system_clock::time_point expires_at;
+    std::string code;                                      ///< 6-значный код
+    std::chrono::system_clock::time_point expires_at;      ///< Время истечения (10 минут)
 };
 
-// Структура для callback функции CURL при отправке
+/**
+ * @brief Структура для callback функции CURL при отправке.
+ */
 struct UploadStatus {
-    const std::string* data;
-    size_t bytes_read;
+    const std::string* data;      ///< Данные для отправки
+    size_t bytes_read;            ///< Количество прочитанных байт
     
     UploadStatus(const std::string* d) : data(d), bytes_read(0) {}
 };
 
+/**
+ * @brief Сервис для отправки email через SMTP и верификации кодов.
+ * 
+ * Использует библиотеку CURL для взаимодействия с SMTP-сервером.
+ * Коды верификации хранятся в оперативной памяти с ограничением времени жизни.
+ */
 class EmailService {
 private:
-    // хранилище кодов в памяти (email -> код)
+    /// Хранилище кодов в памяти (email -> код)
     static std::map<std::string, VerificationCode> pending_codes;
     
-    // Статические callback функции для CURL
     static size_t write_callback(void* contents, size_t size, size_t nmemb, std::string* output);
     static size_t read_callback(char* ptr, size_t size, size_t nmemb, void* userdata);
-    
-    // Форматирование email сообщения в RFC 822 формат
     static std::string formatEmailMessage(const EmailMessage& msg);
-    
-    // Получение текущей даты в формате RFC 822
     static std::string getRFC822Date();
-    
-    // Кодирование строки в Base64 (для аутентификации)
     static std::string base64_encode(const std::string& input);
 
 public:
-    // Генерация 6-значного кода
+    /**
+     * @brief Генерирует 6-значный случайный код верификации.
+     * @return std::string Код из 6 цифр
+     */
     static std::string generateVerificationCode();
     
-    // Отправка email с кодом верификации
+    /**
+     * @brief Отправляет email с кодом верификации на указанный адрес.
+     * @param to_email Email получателя
+     * @param user_name Имя получателя (для персонализации)
+     * @return true Письмо успешно отправлено
+     * @return false Ошибка отправки
+     */
     static bool sendVerificationEmail(const std::string& to_email, 
                                       const std::string& user_name = "");
     
-    // Проверка кода верификации
+    /**
+     * @brief Проверяет код верификации для указанного email.
+     * @param email Email, на который был отправлен код
+     * @param code Введённый пользователем код
+     * @return true Код верен и не истек
+     * @return false Код неверен или истек
+     */
     static bool verifyCode(const std::string& email, const std::string& code);
     
-    // Проверка формата email
+    /**
+     * @brief Проверяет корректность формата email.
+     * @param email Проверяемый email
+     * @return true Формат корректен
+     * @return false Некорректный email
+     */
     static bool isValidEmail(const std::string& email);
     
-    // Отправка произвольного email
     static bool sendEmail(const EmailMessage& message);
-    
-    // Проверка соединения с SMTP сервером
     static bool testSmtpConnection();
-    
-    // Очистка просроченных кодов
     static void cleanupExpiredCodes();
-
-    // Очистка кэша писем
     static void clearAllCodes();
 };

@@ -1,0 +1,23 @@
+var searchData=
+[
+  ['generatepointsjson_0',['generatePointsJSON',['../main__server_8cpp.html#aa8ca608f883da3a5979f8cf0ccc6543e',1,'main_server.cpp']]],
+  ['generateverificationcode_1',['generateVerificationCode',['../class_email_service.html#aa387e09b49acc442a12c925fa93784ee',1,'EmailService::generateVerificationCode()'],['../class_email_service.html#ade1cff8469250f5337545995167afc84',1,'EmailService::generateVerificationCode()']]],
+  ['get_5fnum_2',['get_num',['../func_8hpp.html#a82b75f73610bbf71285dff92887f4c97',1,'func.hpp']]],
+  ['getconnection_3',['getConnection',['../class_database.html#ad367e16e29c9a550c1ae6eee33a5a6cb',1,'Database::getConnection()'],['../class_database.html#ad367e16e29c9a550c1ae6eee33a5a6cb',1,'Database::getConnection()']]],
+  ['getmessage_4',['getMessage',['../class_t_c_p_server.html#adb8ddf3421b44c73a8b711f83dd82627',1,'TCPServer']]],
+  ['gh_5fbg_5',['GH_BG',['../resetwidget_8cpp.html#a9a85fef90bad6eab392e2471a65f8d4f',1,'GH_BG:&#160;resetwidget.cpp'],['../taskdialog_8cpp.html#a9a85fef90bad6eab392e2471a65f8d4f',1,'GH_BG:&#160;taskdialog.cpp'],['../verifywidget_8cpp.html#a9a85fef90bad6eab392e2471a65f8d4f',1,'GH_BG:&#160;verifywidget.cpp']]],
+  ['gh_5fblue_6',['GH_BLUE',['../resetwidget_8cpp.html#a9d20cf908492c430163af5d2a12856b7',1,'GH_BLUE:&#160;resetwidget.cpp'],['../taskdialog_8cpp.html#a9d20cf908492c430163af5d2a12856b7',1,'GH_BLUE:&#160;taskdialog.cpp'],['../verifywidget_8cpp.html#a9d20cf908492c430163af5d2a12856b7',1,'GH_BLUE:&#160;verifywidget.cpp']]],
+  ['gh_5fblue_5fh_7',['GH_BLUE_H',['../resetwidget_8cpp.html#a42a7d8f7fd32b675ebe65742eddf8b30',1,'GH_BLUE_H:&#160;resetwidget.cpp'],['../taskdialog_8cpp.html#a42a7d8f7fd32b675ebe65742eddf8b30',1,'GH_BLUE_H:&#160;taskdialog.cpp']]],
+  ['gh_5fborder_8',['GH_BORDER',['../resetwidget_8cpp.html#a38738d697be4294cef70da505776fd3a',1,'GH_BORDER:&#160;resetwidget.cpp'],['../taskdialog_8cpp.html#a38738d697be4294cef70da505776fd3a',1,'GH_BORDER:&#160;taskdialog.cpp'],['../verifywidget_8cpp.html#a38738d697be4294cef70da505776fd3a',1,'GH_BORDER:&#160;verifywidget.cpp']]],
+  ['gh_5fcard_9',['GH_CARD',['../resetwidget_8cpp.html#afca1d0e2b834be063994059dc1b061e5',1,'GH_CARD:&#160;resetwidget.cpp'],['../taskdialog_8cpp.html#afca1d0e2b834be063994059dc1b061e5',1,'GH_CARD:&#160;taskdialog.cpp'],['../verifywidget_8cpp.html#afca1d0e2b834be063994059dc1b061e5',1,'GH_CARD:&#160;verifywidget.cpp']]],
+  ['gh_5fgreen_10',['GH_GREEN',['../resetwidget_8cpp.html#a3f734cf434f583d8a713631c43619f90',1,'GH_GREEN:&#160;resetwidget.cpp'],['../verifywidget_8cpp.html#a3f734cf434f583d8a713631c43619f90',1,'GH_GREEN:&#160;verifywidget.cpp']]],
+  ['gh_5fgreen_5fh_11',['GH_GREEN_H',['../verifywidget_8cpp.html#a68e2e9b14ef1d97a4810924fe86a4046',1,'verifywidget.cpp']]],
+  ['gh_5finput_5fbg_12',['GH_INPUT_BG',['../verifywidget_8cpp.html#a5626014872de4495ee148e630d071b49',1,'verifywidget.cpp']]],
+  ['gh_5fmuted_13',['GH_MUTED',['../resetwidget_8cpp.html#ae8746773945bc183eb687ba96b77b05c',1,'GH_MUTED:&#160;resetwidget.cpp'],['../taskdialog_8cpp.html#ae8746773945bc183eb687ba96b77b05c',1,'GH_MUTED:&#160;taskdialog.cpp'],['../verifywidget_8cpp.html#ae8746773945bc183eb687ba96b77b05c',1,'GH_MUTED:&#160;verifywidget.cpp']]],
+  ['gh_5fred_14',['GH_RED',['../resetwidget_8cpp.html#a565a6e6f1b74fe6699845e97f803862a',1,'GH_RED:&#160;resetwidget.cpp'],['../verifywidget_8cpp.html#a565a6e6f1b74fe6699845e97f803862a',1,'GH_RED:&#160;verifywidget.cpp']]],
+  ['gh_5ftext_15',['GH_TEXT',['../resetwidget_8cpp.html#a76923ca4d575de2db881bfd1e2ed8fc6',1,'GH_TEXT:&#160;resetwidget.cpp'],['../taskdialog_8cpp.html#a76923ca4d575de2db881bfd1e2ed8fc6',1,'GH_TEXT:&#160;taskdialog.cpp'],['../verifywidget_8cpp.html#a76923ca4d575de2db881bfd1e2ed8fc6',1,'GH_TEXT:&#160;verifywidget.cpp']]],
+  ['graphcanvas_16',['GraphCanvas',['../class_graph_canvas.html',1,'GraphCanvas'],['../class_graph_canvas.html#aaf662538e1a1f2b081abc4f6b0bb37e8',1,'GraphCanvas::GraphCanvas()']]],
+  ['graphwidget_17',['GraphWidget',['../class_graph_widget.html',1,'GraphWidget'],['../class_graph_widget.html#a6df7c301e5551dff21bbdc5b6cd7ffc9',1,'GraphWidget::GraphWidget()']]],
+  ['graphwidget_2ecpp_18',['graphwidget.cpp',['../graphwidget_8cpp.html',1,'']]],
+  ['graphwidget_2eh_19',['graphwidget.h',['../graphwidget_8h.html',1,'']]]
+];

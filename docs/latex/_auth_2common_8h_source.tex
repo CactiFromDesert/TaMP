@@ -1,0 +1,24 @@
+\doxysection{common.\+h}
+\hypertarget{_auth_2common_8h_source}{}\label{_auth_2common_8h_source}\index{Auth/common.h@{Auth/common.h}}
+\doxymbox{\hyperlink{_auth_2common_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ Для\ БД,\ авторизация\ и\ регистрация}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <pqxx/pqxx>}\ \textcolor{comment}{//\ Подключение\ к\ БД\ }}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <sodium.h>}\ \textcolor{comment}{//\ Хэширование\ паролей\ (Argon2)}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <stdexcept>}\ \textcolor{comment}{//\ Исключения\ для\ ошибок}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <limits>}\ \textcolor{comment}{//\ Лимиты\ числовых\ типов}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Добавлено\ для\ email\ функционала}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <random>}\ \textcolor{comment}{//\ Для\ кода\ верификации}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <chrono>}\ \textcolor{comment}{//\ Для\ времени\ кода\ верификации}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <iomanip>}\ \textcolor{comment}{//\ Форматирование\ вывода}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <sstream>}\ \textcolor{comment}{//\ Работа\ с\ потоками\ строк}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <regex>}\ \textcolor{comment}{//\ проверка\ формата\ email}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <curl/curl.h>}\ \textcolor{comment}{//\ Отправка\ email\ через\ SMTP}}
+
+\end{DoxyCode}

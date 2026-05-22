@@ -1,0 +1,46 @@
+\chapter{Инструкция по запуску через докер }
+\hypertarget{md__r_e_a_d_m_e}{}\label{md__r_e_a_d_m_e}\index{Инструкция по запуску через докер@{Инструкция по запуску через докер}}
+\label{md__r_e_a_d_m_e_autotoc_md1}%
+\Hypertarget{md__r_e_a_d_m_e_autotoc_md1}%
+\hypertarget{md__r_e_a_d_m_e_autotoc_md2}{}\doxysection{\texorpdfstring{Предварительные требования}{Предварительные требования}}\label{md__r_e_a_d_m_e_autotoc_md2}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md3}{}\doxysubsection{\texorpdfstring{Установка XLaunch (Vc\+Xsrv Windows X Server)}{Установка XLaunch (Vc\+Xsrv Windows X Server)}}\label{md__r_e_a_d_m_e_autotoc_md3}
+Для запуска Qt клиента в Docker на Windows необходимо установить X-\/сервер:\+
+
+
+\begin{DoxyEnumerate}
+\item Скачайте XLaunch с официального сайта:\+ \href{https://sourceforge.net/projects/vcxsrv/}{\texttt{https:\+/\+/\+sourceforge.\+net/\+projects/\+vcxsrv/\+}}
+\item Установите Vc\+Xsrv (выберите версию, соответствующую вашей системе:\+ x64)
+\item После установки запустите {\bfseries{XLaunch}}
+\item В настройках укажите:\+
+\begin{DoxyItemize}
+\item Display settings:\+ Multiple Windows
+\item Display number:\+ 0
+\item Start no client
+\item Дополнительно:\+ отключите Access Control (Native opengl может понадобиться)
+\end{DoxyItemize}
+\item Нажмите "{}\+Save configuration"{} если хотите сохранить настройки
+\item Завершите настройку и нажмите "{}\+Finish"{}
+\end{DoxyEnumerate}\hypertarget{md__r_e_a_d_m_e_autotoc_md4}{}\doxysection{\texorpdfstring{Часть 1:\+ Первый запуск (с нуля)}{Часть 1:\+ Первый запуск (с нуля)}}\label{md__r_e_a_d_m_e_autotoc_md4}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md5}{}\doxysubsection{\texorpdfstring{1. Клонировать проект}{1. Клонировать проект}}\label{md__r_e_a_d_m_e_autotoc_md5}
+cd /\+путь/\+до/\+папки/\+где/\+будет/\+проект
+
+git clone \href{https://github.com/CactiFromDesert/TaMP.git}{\texttt{https:\+/\+/\+github.\+com/\+\+Cacti\+From\+Desert/\+\+Ta\+MP.\+git}}\hypertarget{md__r_e_a_d_m_e_autotoc_md6}{}\doxysubsection{\texorpdfstring{2. Билд}{2. Билд}}\label{md__r_e_a_d_m_e_autotoc_md6}
+docker compose build\hypertarget{md__r_e_a_d_m_e_autotoc_md7}{}\doxysubsection{\texorpdfstring{3. Запустить сервер и БД -\/ В одном терминале (порядок важен)}{3. Запустить сервер и БД -\/ В одном терминале (порядок важен)}}\label{md__r_e_a_d_m_e_autotoc_md7}
+docker compose up -\/d postgres
+
+docker compose up calculation\+\_\+server\hypertarget{md__r_e_a_d_m_e_autotoc_md8}{}\doxysubsection{\texorpdfstring{4. Запустить клиент (новый терминал, старый остается открытым)}{4. Запустить клиент (новый терминал, старый остается открытым)}}\label{md__r_e_a_d_m_e_autotoc_md8}
+docker compose up qt\+\_\+client\hypertarget{md__r_e_a_d_m_e_autotoc_md9}{}\doxysection{\texorpdfstring{Часть 2. Не первый запуск (уже было установлено, но выключено)}{Часть 2. Не первый запуск (уже было установлено, но выключено)}}\label{md__r_e_a_d_m_e_autotoc_md9}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md10}{}\doxysubsection{\texorpdfstring{1. Заходим в папку}{1. Заходим в папку}}\label{md__r_e_a_d_m_e_autotoc_md10}
+cd /\+путь/\+до/\+папки/\+где/\+проект\hypertarget{md__r_e_a_d_m_e_autotoc_md11}{}\doxysubsection{\texorpdfstring{2. Запустить сервер и БД -\/ В одном терминале (порядок важен)}{2. Запустить сервер и БД -\/ В одном терминале (порядок важен)}}\label{md__r_e_a_d_m_e_autotoc_md11}
+docker compose up -\/d postgres
+
+docker compose up calculation\+\_\+server\hypertarget{md__r_e_a_d_m_e_autotoc_md12}{}\doxysubsection{\texorpdfstring{3. Запустить клиент (новый терминал, старый остается открытым)}{3. Запустить клиент (новый терминал, старый остается открытым)}}\label{md__r_e_a_d_m_e_autotoc_md12}
+docker compose up qt\+\_\+client\hypertarget{md__r_e_a_d_m_e_autotoc_md13}{}\doxysection{\texorpdfstring{Часть 3. Остановить всё (не удаляя)}{Часть 3. Остановить всё (не удаляя)}}\label{md__r_e_a_d_m_e_autotoc_md13}
+Остановить выполнение программы -\/ ctrl + C
+
+docker compose stop calc\+\_\+server
+
+docker compose stop calc\+\_\+server
+
+docker compose stop auth\+\_\+postgres\hypertarget{md__r_e_a_d_m_e_autotoc_md14}{}\doxysection{\texorpdfstring{Часть 3.\+1 Остановить и удалить всё}{Часть 3.\+1 Остановить и удалить всё}}\label{md__r_e_a_d_m_e_autotoc_md14}
+docker compose down 

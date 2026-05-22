@@ -1,0 +1,29 @@
+\doxysection{email\+\_\+config.\+h}
+\hypertarget{_auth_2email__config_8h_source}{}\label{_auth_2email__config_8h_source}\index{Auth/email\_config.h@{Auth/email\_config.h}}
+\doxymbox{\hyperlink{_auth_2email__config_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ НАСТРОЙКИ\ SMTP\ СЕРВЕРА\ }}
+\DoxyCodeLine{00006\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespace_email_config}{EmailConfig}}\ \{}
+\DoxyCodeLine{00007\ \ \ \ \ \textcolor{comment}{//\ SMTP\ сервер\ }}
+\DoxyCodeLine{00008\ \ \ \ \ \textcolor{keyword}{const}\ std::string\ \doxymbox{\hyperlink{namespace_email_config_adff766bb1948225b08e2cd0fc1558f29}{SMTP\_SERVER}}\ =\ \textcolor{stringliteral}{"{}smtp.gmail.com"{}};}
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{namespace_email_config_a67462fb31043d4b81cd34acb9449a368}{SMTP\_PORT}}\ =\ 587;\ \textcolor{comment}{//\ 587\ для\ TLS,\ 465\ для\ SSL}}
+\DoxyCodeLine{00010\ \ \ \ \ }
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{comment}{//\ Учетные\ данные\ отправителя}}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keyword}{const}\ std::string\ \doxymbox{\hyperlink{namespace_email_config_a401727309083d34c5128843ddd097272}{SMTP\_USERNAME}}\ =\ \textcolor{stringliteral}{"{}dmitriy.mikhanoshin@gmail.com"{}};\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keyword}{const}\ std::string\ \doxymbox{\hyperlink{namespace_email_config_a7d1cc5cf59ecf7e0813e29b4a060188c}{SMTP\_PASSWORD}}\ =\ \textcolor{stringliteral}{"{}zgsgprotqjvxgrnf"{}};\ \ \ \ \textcolor{comment}{//\ }}
+\DoxyCodeLine{00014\ \ \ \ \ }
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{comment}{//\ Информация\ об\ отправителе}}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keyword}{const}\ std::string\ \doxymbox{\hyperlink{namespace_email_config_a7e0297816d9c9523fb09fa32a6435d1a}{FROM\_EMAIL}}\ =\ \textcolor{stringliteral}{"{}dmitriy.mikhanoshin@gmail.com"{}};}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keyword}{const}\ std::string\ \doxymbox{\hyperlink{namespace_email_config_acb90309397d95c075b757b1e04a85705}{FROM\_NAME}}\ =\ \textcolor{stringliteral}{"{}SMTP"{}};}
+\DoxyCodeLine{00018\ \ \ \ \ }
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{comment}{//\ Дополнительные\ настройки}}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{namespace_email_config_a8630b80b72b2f5559bea613e10497581}{USE\_TLS}}\ =\ \textcolor{keyword}{true};\ \textcolor{comment}{//\ Использовать\ TLS\ шифрование}}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{namespace_email_config_abec1a755f54fa59f7eac72d7466a13a0}{VERIFY\_SSL}}\ =\ \textcolor{keyword}{true};\ \textcolor{comment}{//\ Проверять\ SSL\ сертификат}}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{namespace_email_config_a89b749f908fc5ce998d42c94cca82726}{TIMEOUT}}\ =\ 30;\ \textcolor{comment}{//\ Таймаут\ в\ секундах}}
+\DoxyCodeLine{00023\ \}}
+
+\end{DoxyCode}

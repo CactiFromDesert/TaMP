@@ -1,0 +1,58 @@
+\doxysection{authwidget.\+h}
+\hypertarget{authwidget_8h_source}{}\label{authwidget_8h_source}\index{Qt\_client/authwidget.h@{Qt\_client/authwidget.h}}
+\doxymbox{\hyperlink{authwidget_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ AUTHWIDGET\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ AUTHWIDGET\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <QWidget>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <QLineEdit>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <QPushButton>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <QLabel>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <QTimer>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <QString>}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_auth}{Auth}};\ \ \textcolor{comment}{//\ forward\ declaration}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_auth_widget_a9b315d88b3fff2899af95e529a35133d}{AuthWidget}}\ :\ \textcolor{keyword}{public}\ QWidget}
+\DoxyCodeLine{00014\ \{}
+\DoxyCodeLine{00015\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keyword}{explicit}\ \doxymbox{\hyperlink{class_auth_widget_a9b315d88b3fff2899af95e529a35133d}{AuthWidget}}(\textcolor{keyword}{class}\ \doxymbox{\hyperlink{class_auth}{Auth}}\ *auth,\ QWidget\ *parent\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00019\ \ \ \ \ \doxymbox{\hyperlink{class_auth_widget_aa5143223755e9f243d178c5d675bc6c3}{\string~AuthWidget}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ signals:}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_auth_widget_abc39ceb79f4aaab81bdf43b19f9a35cf}{loginSuccess}}(\textcolor{keyword}{const}\ QString\ \&login);}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_auth_widget_aa7c8ab7849086f8e0ad1ad954ca91a93}{showVerifyAuth}}(\textcolor{keyword}{const}\ QString\ \&login);}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_auth_widget_a1e5e908862a827d2ef3ae7123f194635}{showRegister}}();}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_auth_widget_a9a21ea2bba138e77cc49d2efe8baed75}{showReset}}();}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_auth_widget_a7a3952be7e4ef6c676008fedc7c7a534}{suggestReset}}();}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{public}\ slots:}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_auth_widget_ab602ac82962d5ce8a89556e2537390a9}{clearFields}}();}
+\DoxyCodeLine{00030\ \ \ \ \ }
+\DoxyCodeLine{00031\ \textcolor{keyword}{private}\ slots:}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{void}\ onLoginClicked();}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{void}\ onRegisterClicked();}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{void}\ onForgotClicked();}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{void}\ onTogglePassword();}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_auth}{Auth}}\ *m\_auth;}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ QLineEdit\ \ \ *loginEdit\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00041\ \ \ \ \ QLineEdit\ \ \ *passwordEdit\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00042\ \ \ \ \ QPushButton\ *loginBtn\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00043\ \ \ \ \ QPushButton\ *registerBtn\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00044\ \ \ \ \ QPushButton\ *forgotBtn\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00045\ \ \ \ \ QLabel\ \ \ \ \ \ *statusLabel\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordtype}{void}\ setupUI();}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordtype}{int}\ m\_loginAttempts\ =\ 0;}
+\DoxyCodeLine{00050\ \};}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ AUTHWIDGET\_H}}
+
+\end{DoxyCode}
