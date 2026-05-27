@@ -58,6 +58,12 @@ MainWindow::MainWindow(Database& db, QWidget *parent)
     });
 }
 
+void MainWindow::onLogout()
+{
+    authWidget->clearFields();
+    stackedWidget->setCurrentIndex(IDX_AUTH);
+}
+
 MainWindow::~MainWindow() {}
 
 // ─────────────────────────────────────────────

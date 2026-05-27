@@ -16,7 +16,25 @@ Database::Database(const std::string& conn_str) // Создаем подключ
     }
 }
 
-// Создаем ссылку на подключение для использования в других местах
-pqxx::connection& Database::getConnection() { 
+// database.cpp
+std::string Database::getConnectionString()
+{
+    const char* host = std::getenv("DB_HOST");
+    const char* port = std::getenv("DB_PORT");
+    const char* user = std::getenv("DB_USER");
+    const char* password = std::getenv("DB_PASSWORD");
+    const char* dbname = std::getenv("DB_NAME");
+    
+    std::string conn = "postgresql://";
+    conn += (user ? user : "postgres");
+    conn += ":";
+    conn += (password ? password : "1234");
+    conn += "@";
+    conn += (host ? host : "postgres");
+    conn += ":";
+    conn += (port ? port : "5432");
+    conn += "/";
+    conn += (dbname ? dbname : "usersauth");
+    
     return conn;
 }
