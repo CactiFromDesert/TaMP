@@ -1,34 +1,21 @@
 services:
   postgres:
-    image: postgres:16-alpine
-    container_name: auth_postgres
+    image: postgres:15
     environment:
-      POSTGRES_DB: usersauth
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: "1234"
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
     ports:
       - "5432:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 5s
-      timeout: 5s
-      retries: 10
-      start_period: 10s
-    networks:
-      - app_network
+      - pgdata:/var/lib/postgresql/data
+    network_mode: host  # раскомментить если проблемы с доступом
 
   calculation_server:
-    build:
-      context: .
-      dockerfile: Client_Server/Dockerfile.server
-    container_name: calc_server
+    build: ./calculation_server
     ports:
       - "11999:11999"
-    networks:
-      - app_network
+    network_mode: host
 
   auth:
     build:
