@@ -20,13 +20,13 @@ ClientSingleton& ClientSingleton::instance()
     return inst;
 }
 
-void ClientSingleton::connectToServer()
+bool ClientSingleton::connectToServer(const QString &host, int port)
 {
-    QString host = qgetenv("CALC_HOST");
-    if (host.isEmpty()) host = "calc_server";  // fallback для docker compose
-    
-    quint16 port = 11999;
+    if (m_socket->state() == QAbstractSocket::ConnectedState)
+        return true;
+
     m_socket->connectToHost(host, port);
+    return m_socket->waitForConnected(3000);
 }
 
 void ClientSingleton::disconnectFromServer()

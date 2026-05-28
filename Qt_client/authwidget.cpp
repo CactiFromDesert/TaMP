@@ -21,13 +21,6 @@ AuthWidget::AuthWidget(Auth *auth, QWidget *parent)
 
 AuthWidget::~AuthWidget() = default;
 
-void AuthWidget::clearFields()
-{
-    ui->loginEdit->clear();
-    ui->passwordEdit->clear();
-    ui->errorLabel->clear();
-}
-
 static QString inputStyle()
 {
     return QString(
