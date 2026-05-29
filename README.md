@@ -1,5 +1,7 @@
 # TAMP
 
+https://github.com/CactiFromDesert/TaMP.git
+
 ## Участники (учебная группа 251-372)
 
 1) Миханошин Дмитрий Павлович 

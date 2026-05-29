@@ -23,7 +23,7 @@ services:
   calculation_server:
     build:
       context: .
-      dockerfile: Client_Server/Dockerfile.server
+      dockerfile: Server/Dockerfile.server
     container_name: calc_server
     ports:
       - "11999:11999" # Пробрасывает порт вычислений на локальную машину

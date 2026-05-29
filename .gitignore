@@ -1,16 +1,46 @@
+# Build artifacts
 build/
 bin/
 obj/
 *.o
 *.out
 *.exe
+*.so
+*.dll
+*.a
 auth_app
 client_app
 server_app
+client
+server
+main
+
+# Qt Creator
+.qtcreator/
+*.pro.user
+*.pro.user.*
+
+# IDE
 .vscode/
 .idea/
 *.swp
 *.swo
+*~
+
+# OS
 .DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
 *.log
-postgres_data/"test/build/" 
+
+# Docker volumes
+postgres_data/
+
+# Doxygen output
+Doxygen/html/
+Doxygen/latex/
+
+# Temp files
+docker
