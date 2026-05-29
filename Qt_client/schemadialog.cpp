@@ -10,6 +10,8 @@
 #include <QPushButton>
 #include <QLabel>
 #include <QPixmap>
+#include <QCoreApplication>
+#include <QDir>
 
 // ── UI STUB SWITCH ───────────────────────────────────────────
 #ifndef UI_STUB
@@ -71,7 +73,8 @@ void SchemaDialog::setupUI()
     mainLayout->setContentsMargins(16, 16, 16, 16);
 
     imageLabel = new QLabel(this);
-    QPixmap pixmap("Schema.png");
+    QString appDir = QCoreApplication::applicationDirPath();
+    QPixmap pixmap(QDir(appDir).filePath("Schema.png"));
 
     if (!pixmap.isNull()) {
         // Масштабируем картинку под размер окна

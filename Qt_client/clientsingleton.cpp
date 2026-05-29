@@ -1,4 +1,5 @@
 #include "clientsingleton.h"
+#include <QDebug>
 
 ClientSingleton::ClientSingleton(QObject *parent)
     : QObject(parent)
@@ -25,8 +26,15 @@ bool ClientSingleton::connectToServer(const QString &host, int port)
     if (m_socket->state() == QAbstractSocket::ConnectedState)
         return true;
 
+    qInfo() << "ClientSingleton: connecting to" << host << ":" << port;
     m_socket->connectToHost(host, port);
-    return m_socket->waitForConnected(3000);
+    bool ok = m_socket->waitForConnected(3000);
+    if (ok) {
+        qInfo() << "ClientSingleton: connected successfully";
+    } else {
+        qWarning() << "ClientSingleton: connection failed:" << m_socket->errorString();
+    }
+    return ok;
 }
 
 void ClientSingleton::disconnectFromServer()
@@ -42,10 +50,12 @@ bool ClientSingleton::isConnected() const
 
 void ClientSingleton::sendRequest(const QString &request)
 {
+    QByteArray packet = request.toUtf8() + "\n";
+
     if (m_socket->state() == QAbstractSocket::ConnectedState) {
-        QByteArray data = request.toUtf8() + "\n";
-        m_socket->write(data);
-        m_socket->flush();
+        m_socket->write(packet);
+    } else {
+        qWarning() << "ClientSingleton: NOT CONNECTED, cannot send" << request;
     }
 }
 
@@ -65,10 +75,12 @@ void ClientSingleton::onReadyRead()
 
 void ClientSingleton::onConnected()
 {
+    qInfo() << "ClientSingleton: connected";
     emit connected();
 }
 
 void ClientSingleton::onDisconnected()
 {
+    qWarning() << "ClientSingleton: disconnected";
     emit disconnected();
 }

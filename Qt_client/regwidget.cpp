@@ -1,10 +1,10 @@
 #include "regwidget.h"
-#include "database.h"
-#include "auth.h"
-#include "email_service.h"
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QMessageBox>
+#include <QJsonObject>
+#include <QJsonDocument>
+#include "authclient.h"
 
 #define UI_BG         "#0b1e2d"
 #define UI_CARD       "#102a43"
@@ -46,12 +46,14 @@ static QString btnSecondary()
     ).arg(UI_TEXT, UI_BORDER, UI_BORDER);
 }
 
-RegWidget::RegWidget(Database &db, QWidget *parent)
-    : QWidget(parent), m_db(db), m_auth(db)
+RegWidget::RegWidget(QWidget *parent)
+    : QWidget(parent)
 {
     setStyleSheet(QString("background:%1; color:%2; font-family:'Segoe UI'; font-weight: bold; font-size: 12pt;")
                   .arg(UI_BG, UI_TEXT));
     setupUI();
+    connect(&AuthClient::instance(), &AuthClient::responseReceived,
+            this, &RegWidget::onAuthResponse);
 }
 
 void RegWidget::setupUI()
@@ -184,46 +186,16 @@ void RegWidget::onRegisterClicked()
         errorLabel->show();
         return;
     }
-    if (!email.contains('@') || !email.contains('.')) {
-        errorLabel->setText("Invalid email");
-        errorLabel->show();
-        return;
-    }
 
-    // Проверим, нет ли уже такого логина/почты
-    try {
-        pqxx::work txn(m_db.getConnection());
-        pqxx::result r = txn.exec_params(
-            "SELECT id FROM users WHERE login=$1 OR email=$2",
-            login.toStdString(), email.toStdString()
-        );
-        if (!r.empty()) {
-            errorLabel->setText("Login or email already exists");
-            errorLabel->show();
-            return;
-        }
-    } catch (const std::exception &e) {
-        errorLabel->setText("Database error");
-        errorLabel->show();
-        return;
-    }
+    QJsonObject obj;
+    obj["name"] = name;
+    obj["login"] = login;
+    obj["password"] = pass;
+    obj["email"] = email;
 
-    // Отправляем код на почту
-    if (!EmailService::sendVerificationEmail(email.toStdString(), name.toStdString())) {
-        errorLabel->setText("Failed to send email");
-        errorLabel->show();
-        return;
-    }
-
-    // Сохраняем данные для финальной регистрации
-    m_pendingName     = name.toStdString();
-    m_pendingLogin    = login.toStdString();
-    m_pendingPassword = pass.toStdString();
-    m_pendingEmail    = email.toStdString();
-
+    btnRegister->setEnabled(false);
     errorLabel->hide();
-    codeStatusLabel->setText("Code sent to " + email);
-    showStep(2);
+    AuthClient::instance().sendRequest("register", obj);
 }
 
 void RegWidget::onVerifyClicked()
@@ -235,31 +207,43 @@ void RegWidget::onVerifyClicked()
         return;
     }
 
-    // Проверяем код
-    if (!EmailService::verifyCode(m_pendingEmail, code.toStdString())) {
-        codeErrorLabel->setText("Wrong code");
-        codeErrorLabel->show();
-        return;
+    QJsonObject obj;
+    obj["code"] = code;
+
+    btnVerify->setEnabled(false);
+    codeErrorLabel->hide();
+    AuthClient::instance().sendRequest("verify_register", obj);
+}
+
+void RegWidget::onAuthResponse(const QString &response)
+{
+    if (!isVisible()) return;
+
+    QJsonDocument doc = QJsonDocument::fromJson(response.toUtf8());
+    if (!doc.isObject()) return;
+
+    QJsonObject obj = doc.object();
+    QString status = obj["status"].toString();
+
+    if (m_currentStep == 1 && status == "ok") {
+        btnRegister->setEnabled(true);
+        showStep(2);
     }
-
-    // Создаём пользователя в БД
-    try {
-        std::string hash = m_auth.hashPassword(m_pendingPassword);
-
-        pqxx::work txn(m_db.getConnection());
-        txn.exec_params(
-            "INSERT INTO users (name, login, hash, email) VALUES ($1, $2, $3, $4)",
-            m_pendingName, m_pendingLogin, hash, m_pendingEmail
-        );
-        txn.commit();
-    } catch (const std::exception &e) {
-        codeErrorLabel->setText("Registration failed");
-        codeErrorLabel->show();
-        return;
+    else if (m_currentStep == 1 && status == "error") {
+        btnRegister->setEnabled(true);
+        errorLabel->setText(obj["message"].toString());
+        errorLabel->show();
     }
-
-    QMessageBox::information(this, "Success", "Registration successful! You can now log in.");
-    emit registrationSuccess(QString::fromStdString(m_pendingLogin));
+    else if (m_currentStep == 2 && status == "ok") {
+        btnVerify->setEnabled(true);
+        QMessageBox::information(this, "Success", "Registration successful! You can now log in.");
+        emit registrationSuccess(loginEdit->text().trimmed());
+    }
+    else if (m_currentStep == 2 && status == "error") {
+        btnVerify->setEnabled(true);
+        codeErrorLabel->setText(obj["message"].toString());
+        codeErrorLabel->show();
+    }
 }
 
 void RegWidget::onBackClicked()
@@ -277,5 +261,7 @@ void RegWidget::clearFields()
     errorLabel->hide();
     codeEdit->clear();
     codeErrorLabel->hide();
+    btnRegister->setEnabled(true);
+    btnVerify->setEnabled(true);
     showStep(1);
 }

@@ -1,7 +1,4 @@
 #include "resetwidget.h"
-#include "auth.h"
-#include "database.h"
-#include "email_service.h"
 
 #include <QVBoxLayout>
 #include <QHBoxLayout>
@@ -9,8 +6,10 @@
 #include <QLineEdit>
 #include <QPushButton>
 #include <QMessageBox>
+#include <QJsonObject>
+#include <QJsonDocument>
+#include "authclient.h"
 
-// ── Palette ─────────────────────────────────────────────────
 #define GH_BG          "#0b1e2d"
 #define GH_CARD        "#102a43"
 #define GH_BORDER      "#1f4e79"
@@ -21,7 +20,6 @@
 #define GH_BLUE        "#3da9fc"
 #define GH_BLUE_H      "#74c0fc"
 
-// ── Styles ───────────────────────────────────────────────────
 static QString inputStyle()
 {
     return QString(
@@ -58,20 +56,20 @@ static QString btnSecondary()
     ).arg(GH_TEXT, GH_BORDER);
 }
 
-// ── Constructor ──────────────────────────────────────────────
-ResetWidget::ResetWidget(Database &db, Auth *auth, QWidget *parent)
-    : QWidget(parent), m_db(db), m_auth(auth)
+ResetWidget::ResetWidget(QWidget *parent)
+    : QWidget(parent)
 {
     setStyleSheet(QString(
         "background:%1; color:%2; font-family:'Segoe UI'; font-weight: bold; font-size: 12pt;"
     ).arg(GH_BG, GH_TEXT));
 
     setupUI();
+    connect(&AuthClient::instance(), &AuthClient::responseReceived,
+            this, &ResetWidget::onAuthResponse);
 }
 
 ResetWidget::~ResetWidget() {}
 
-// ── UI SETUP ─────────────────────────────────────────────────
 void ResetWidget::setupUI()
 {
     QVBoxLayout *outer = new QVBoxLayout(this);
@@ -182,7 +180,6 @@ void ResetWidget::setupUI()
     connect(backBtn, &QPushButton::clicked, this, &ResetWidget::onBackClicked);
     l->addWidget(backBtn);
 
-    // Центрирование
     QHBoxLayout *row = new QHBoxLayout();
     row->addStretch();
     row->addWidget(card);
@@ -194,7 +191,6 @@ void ResetWidget::setupUI()
     showStep(1);
 }
 
-// ── STEP SWITCH ──────────────────────────────────────────────
 void ResetWidget::showStep(int step)
 {
     m_currentStep = step;
@@ -203,7 +199,6 @@ void ResetWidget::showStep(int step)
     step3Widget->setVisible(step == 3);
 }
 
-// ── STEP 1: EMAIL ────────────────────────────────────────────
 void ResetWidget::onEmailTextChanged(const QString &text)
 {
     continueBtn->setEnabled(text.contains('@') && text.contains('.'));
@@ -211,42 +206,14 @@ void ResetWidget::onEmailTextChanged(const QString &text)
 
 void ResetWidget::onContinueClicked()
 {
-    QString email = emailEdit->text().trimmed();
-    m_pendingEmail = email.toStdString();
+    m_pendingEmail = emailEdit->text().trimmed().toStdString();
 
-    // Проверяем, есть ли такой email в БД
-    try {
-        pqxx::work txn(m_db.getConnection());
-        pqxx::result r = txn.exec_params(
-            "SELECT login, name FROM users WHERE email=$1", m_pendingEmail
-        );
-        if (r.empty()) {
-            emailErrorLabel->setText("Email not found");
-            emailErrorLabel->show();
-            return;
-        }
-        m_pendingLogin = r[0]["login"].c_str();
-        std::string name = r[0]["name"].c_str();
+    QJsonObject obj;
+    obj["email"] = emailEdit->text().trimmed();
 
-        // Отправляем код
-        if (!EmailService::sendVerificationEmail(m_pendingEmail, name)) {
-            emailErrorLabel->setText("Failed to send code");
-            emailErrorLabel->show();
-            return;
-        }
-    } catch (const std::exception &e) {
-        emailErrorLabel->setText("Database error");
-        emailErrorLabel->show();
-        return;
-    }
-
-    emailErrorLabel->hide();
-    codeStatusLabel->setText("Code sent to " + email);
-    codeStatusLabel->show();
-    showStep(2);
+    AuthClient::instance().sendRequest("reset_request", obj);
 }
 
-// ── STEP 2: CODE ────────────────────────────────────────────
 void ResetWidget::onCodeTextChanged(const QString &text)
 {
     verifyCodeBtn->setEnabled(!text.isEmpty());
@@ -254,24 +221,13 @@ void ResetWidget::onCodeTextChanged(const QString &text)
 
 void ResetWidget::onVerifyCodeClicked()
 {
-    QString code = codeEdit->text().trimmed();
-    if (code.isEmpty()) {
-        codeErrorLabel->setText("Enter code");
-        codeErrorLabel->show();
-        return;
-    }
+    QJsonObject obj;
+    obj["email"] = QString::fromStdString(m_pendingEmail);
+    obj["code"]  = codeEdit->text();
 
-    if (!EmailService::verifyCode(m_pendingEmail, code.toStdString())) {
-        codeErrorLabel->setText("Wrong code");
-        codeErrorLabel->show();
-        return;
-    }
-
-    codeErrorLabel->hide();
-    showStep(3);
+    AuthClient::instance().sendRequest("reset_verify", obj);
 }
 
-// ── STEP 3: PASSWORD ────────────────────────────────────────
 void ResetWidget::onNewPasswordTextChanged(const QString &)
 {
     validatePasswords();
@@ -291,23 +247,47 @@ void ResetWidget::validatePasswords()
 
 void ResetWidget::onSavePasswordClicked()
 {
-    std::string newPass = newPasswordEdit->text().toStdString();
-    std::string hash = m_auth->hashPassword(newPass);
+    QJsonObject obj;
+    obj["email"] = QString::fromStdString(m_pendingEmail);
+    obj["new_password"] = newPasswordEdit->text();
 
-    try {
-        pqxx::work txn(m_db.getConnection());
-        txn.exec_params("UPDATE users SET hash=$1 WHERE email=$2", hash, m_pendingEmail);
-        txn.commit();
-    } catch (const std::exception &e) {
-        QMessageBox::critical(this, "Error", "Failed to update password");
-        return;
-    }
-
-    QMessageBox::information(this, "Success", "Password changed successfully! You can now log in.");
-    emit resetSuccess();
+    AuthClient::instance().sendRequest("reset_finish", obj);
 }
 
-// ── BACK ─────────────────────────────────────────────────────
+void ResetWidget::onAuthResponse(const QString &response)
+{
+    if (!isVisible()) return;
+
+    QJsonDocument doc = QJsonDocument::fromJson(response.toUtf8());
+    if (!doc.isObject()) return;
+
+    QJsonObject obj = doc.object();
+    QString status = obj["status"].toString();
+
+    if (status == "ok") {
+        if (m_currentStep == 1) {
+            codeStatusLabel->setText("Code sent to your email");
+            codeStatusLabel->show();
+            showStep(2);
+        } else if (m_currentStep == 2) {
+            codeStatusLabel->setText("Code verified");
+            showStep(3);
+        } else if (m_currentStep == 3) {
+            QMessageBox::information(this, "Success", "Password has been changed successfully!");
+            emit resetSuccess();
+        }
+    } else {
+        QString msg = obj["message"].toString();
+        if (m_currentStep == 1) {
+            emailErrorLabel->setText(msg);
+            emailErrorLabel->show();
+        } else if (m_currentStep == 2) {
+            codeErrorLabel->setText(msg);
+            codeErrorLabel->show();
+        }
+    }
+}
+
 void ResetWidget::onBackClicked()
 {
     emailEdit->clear();
@@ -317,4 +297,3 @@ void ResetWidget::onBackClicked()
     showStep(1);
     emit backToAuth();
 }
-

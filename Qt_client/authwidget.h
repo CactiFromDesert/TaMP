@@ -8,14 +8,12 @@
 #include <QTimer>
 #include <QString>
 
-class Auth;  // forward declaration
-
 class AuthWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit AuthWidget(class Auth *auth, QWidget *parent = nullptr);
+    explicit AuthWidget(QWidget *parent = nullptr);
     ~AuthWidget() override;
 
 signals:
@@ -33,10 +31,9 @@ private slots:
     void onRegisterClicked();
     void onForgotClicked();
     void onTogglePassword();
+    void onAuthResponse(const QString &response);
 
 private:
-    class Auth *m_auth;
-
     QLineEdit   *loginEdit = nullptr;
     QLineEdit   *passwordEdit = nullptr;
     QPushButton *loginBtn = nullptr;
@@ -47,6 +44,7 @@ private:
     void setupUI();
 
     int m_loginAttempts = 0;
+    QString m_pendingLogin;
 };
 
 #endif // AUTHWIDGET_H

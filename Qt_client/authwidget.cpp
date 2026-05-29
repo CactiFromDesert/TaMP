@@ -1,10 +1,11 @@
 #include "authwidget.h"
-#include "auth.h"
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QTimer>
 #include <QMessageBox>
-
+#include <QJsonObject>
+#include <QJsonDocument>
+#include "authclient.h"
 #define UI_BG "#0b1e2d"
 #define UI_CARD "#102a43"
 #define UI_TEXT "#e6f2ff"
@@ -13,10 +14,12 @@
 #define UI_BORDER "#1f4e79"
 #define UI_ERROR "#ff6b6b"
 
-AuthWidget::AuthWidget(Auth *auth, QWidget *parent)
-    : QWidget(parent), m_auth(auth)
+AuthWidget::AuthWidget(QWidget *parent)
+    : QWidget(parent)
 {
     setupUI();
+    connect(&AuthClient::instance(), &AuthClient::responseReceived,
+            this, &AuthWidget::onAuthResponse);
 }
 
 AuthWidget::~AuthWidget() = default;
@@ -128,43 +131,12 @@ void AuthWidget::onLoginClicked()
     statusLabel->setText("Checking...");
     statusLabel->show();
 
-    // Вызываем реальный бэкенд
-    AuthResult result = m_auth->loginUser(login.toStdString(), pass.toStdString());
+    QJsonObject obj;
+    obj["login"] = login;
+    obj["password"] = pass;
 
-    if (result == AuthResult::UserNotFound) {
-        statusLabel->setText("User not found");
-        return;
-    }
-    if (result == AuthResult::WrongPassword) {
-        statusLabel->setText("Wrong password");
-        return;
-    }
-
-    if (result == AuthResult::WrongPassword) {
-    m_loginAttempts++;
-    if (m_loginAttempts >= 3) {
-        statusLabel->setText("Wrong password 3 times. Reset password?");
-        // Предлагаем сброс
-        int ret = QMessageBox::question(this, "Reset password",
-                      "Wrong password 3 times.\nReset password?",
-                      QMessageBox::Yes | QMessageBox::No);
-        if (ret == QMessageBox::Yes) {
-            m_loginAttempts = 0;
-            emit showReset();
-            return;
-        }
-        m_loginAttempts = 0;
-    }
-    statusLabel->setText("Wrong password");
-    return;
-    }
-    if (result == AuthResult::NeedVerification) {
-        // Код отправлен — переходим на верификацию
-        emit showVerifyAuth(login);
-        return;
-    }
-    // Остальные случаи — ошибка
-    statusLabel->setText("Error");
+    m_pendingLogin = login;
+    AuthClient::instance().sendRequest("login", obj);
 }
 
 void AuthWidget::onRegisterClicked()
@@ -175,6 +147,27 @@ void AuthWidget::onRegisterClicked()
 void AuthWidget::onForgotClicked()
 {
     emit showReset();
+}
+
+void AuthWidget::onAuthResponse(const QString &response)
+{
+    if (!isVisible()) return;
+
+    QJsonDocument doc = QJsonDocument::fromJson(response.toUtf8());
+    if (!doc.isObject()) return;
+
+    QJsonObject obj = doc.object();
+    QString status = obj["status"].toString();
+
+    if (status == "need_verification") {
+        emit showVerifyAuth(m_pendingLogin);
+    } else if (status == "error") {
+        statusLabel->setText(obj["message"].toString());
+        statusLabel->show();
+    } else {
+        statusLabel->setText("Unexpected response");
+        statusLabel->show();
+    }
 }
 
 void AuthWidget::onTogglePassword()

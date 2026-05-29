@@ -35,7 +35,7 @@ public:
     bool isConnected() const;
 
     /**
-     * @brief Отправляет запрос на сервер.
+     * @brief Отправляет сырой запрос на сервер.
      * @param request Строка запроса (автоматически добавляется '\n')
      */
     void sendRequest(const QString &request);
