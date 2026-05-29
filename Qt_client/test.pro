@@ -16,7 +16,8 @@ SOURCES += \
     schemadialog.cpp \
     resetwidget.cpp \
     clientsingleton.cpp \
-    authclient.cpp
+    authclient.cpp \
+    connectiondialog.cpp
 
 HEADERS += \
     mainwindow.h \
@@ -28,7 +29,8 @@ HEADERS += \
     schemadialog.h \
     resetwidget.h \
     clientsingleton.h \
-    authclient.h
+    authclient.h \
+    connectiondialog.h
 
 win32 {
     SCHEMA_SRC = $$shell_path($$PWD/Schema.png)
