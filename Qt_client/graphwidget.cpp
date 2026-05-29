@@ -114,7 +114,7 @@ void GraphCanvas::paintEvent(QPaintEvent *)
 GraphWidget::GraphWidget(QWidget *parent) : QWidget(parent)
 {
     setupUI();
-    ClientSingleton::instance().connectToServer("calc_server", 11999);
+    ClientSingleton::instance().connectToServer("127.0.0.1", 11999);
     connect(&ClientSingleton::instance(), &ClientSingleton::responseReceived,
             this, &GraphWidget::onServerResponse);
     if (spinA && spinB && spinC) updateGraph();

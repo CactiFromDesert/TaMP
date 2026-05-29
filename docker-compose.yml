@@ -7,7 +7,7 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: "1234"
     ports:
-      - "5432:5432"
+      - "5432:5432" # Теперь вы можете при желании подключиться к БД даже с хоста (через DBeaver/pgAdmin)
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
@@ -26,7 +26,10 @@ services:
       dockerfile: Client_Server/Dockerfile.server
     container_name: calc_server
     ports:
-      - "11999:11999"
+      - "11999:11999" # Пробрасывает порт вычислений на локальную машину
+    depends_on:
+      postgres:
+        condition: service_healthy
     networks:
       - app_network
 
@@ -35,6 +38,8 @@ services:
       context: .
       dockerfile: Auth/Dockerfile.auth
     container_name: auth_service
+    ports:
+      - "11998:11998"
     depends_on:
       postgres:
         condition: service_healthy
@@ -44,41 +49,8 @@ services:
       - POSTGRES_DB=usersauth
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=1234
-    stdin_open: true
-    tty: true
     networks:
       - app_network
-    profiles:
-      - interactive
-
-  calculation_client:
-    build:
-      context: .
-      dockerfile: Client_Server/Dockerfile.client
-    container_name: calc_client
-    depends_on:
-      - calculation_server
-    networks:
-      - app_network
-    profiles:
-      - client
-    
-  qt_client:
-    build:
-      context: ./Qt_client
-      dockerfile: Dockerfile.qt
-    container_name: qt_gui
-    depends_on:
-      postgres:
-        condition: service_healthy
-    environment:
-      - DISPLAY=host.docker.internal:0.0
-      - QT_X11_NO_MITSHM=1
-      - QT_IM_MODULE=xim
-    networks:
-      - app_network
-    stdin_open: true
-    tty: true
 
 networks:
   app_network:

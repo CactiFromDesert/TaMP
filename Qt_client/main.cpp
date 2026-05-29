@@ -1,45 +1,26 @@
 #include <QApplication>
 #include <QMessageBox>
-
+#include "clientsingleton.h"
+#include "authclient.h"
 #include "mainwindow.h"
-#include "database.h"
-#include "email_service.h"
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    a.setApplicationName("ТиМП — Подгруппа 2");
-    a.setApplicationVersion("1.0");
-    a.setStyleSheet("* { font-weight: bold; }");
-
-    // ─── INIT BACKEND ─────────────────────────
-
-    if (sodium_init() < 0) {
-        QMessageBox::critical(nullptr, "Error", "libsodium init failed");
-        return -1;
+    if (!AuthClient::instance().connectToServer("127.0.0.1", 11998)) {
+        QMessageBox::critical(nullptr, "Error",
+            "Failed to connect to auth server (127.0.0.1:11998).\n"
+            "Make sure Docker containers are running.");
     }
 
-    std::string conn_str =
-        "postgresql://postgres:1234@postgres:5432/usersauth";
-
-    Database *db = nullptr;
-
-    try {
-        db = new Database(conn_str);
-
-        if (!EmailService::testSmtpConnection()) {
-            qWarning("Email service not available");
-        }
-
-    } catch (const std::exception& e) {
-        QMessageBox::critical(nullptr, "DB Error", e.what());
-        return -1;
+    if (!ClientSingleton::instance().connectToServer("127.0.0.1", 11999)) {
+        QMessageBox::critical(nullptr, "Error",
+            "Failed to connect to calculation server (127.0.0.1:11999).\n"
+            "Make sure Docker containers are running.");
     }
 
-    // ─── UI ───────────────────────────────────
-
-    MainWindow w(*db);
+    MainWindow w;
     w.resize(1000, 700);
     w.show();
 

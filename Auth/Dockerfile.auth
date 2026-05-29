@@ -10,8 +10,9 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /app
 COPY Auth/ /app/
 
-RUN g++ -std=c++20 -o auth_app \
-    main.cpp auth.cpp database.cpp email_service.cpp \
-    -lpqxx -lpq -lsodium -lcurl
+RUN g++ -std=c++20 -pthread -o auth_tcp_server \
+    main_server_auth.cpp auth.cpp database.cpp email_service.cpp \
+    -lpqxx -lpq -lsodium -lcurl -lm
 
-CMD ["sh", "-c", "./auth_app; echo ''; echo 'Press Enter to exit...'; read"]
+EXPOSE 11998
+CMD ["./auth_tcp_server"]

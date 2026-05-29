@@ -14,15 +14,12 @@
 #include "resetwidget.h"
 #include "graphwidget.h"
 
-#include "database.h"
-#include "auth.h"
-
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    explicit MainWindow(Database& db, QWidget *parent = nullptr);
+    explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
 private slots:
@@ -64,10 +61,6 @@ private:
     static const int IDX_VERIFY = 2;
     static const int IDX_GRAPH  = 3;
     static const int IDX_RESET  = 4;
-
-private:
-    Database& m_db;
-    Auth* m_auth = nullptr;
 };
 
 #endif // MAINWINDOW_H

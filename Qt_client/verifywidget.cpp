@@ -1,9 +1,10 @@
 #include "verifywidget.h"
-#include "auth.h"
 #include <QVBoxLayout>
 #include <QHBoxLayout>
+#include <QJsonObject>
+#include <QJsonDocument>
+#include "authclient.h"
 
-// ── Palette ─────────────────────────────────────────────────
 #define GH_BG          "#0d1117"
 #define GH_CARD        "#161b22"
 #define GH_BORDER      "#30363d"
@@ -18,7 +19,6 @@
 #define FONT_FAMILY     "Segoe UI"
 #define FONT_SIZE_INPUT 11
 
-// ── Styles ──────────────────────────────────────────────────
 static QString inputStyle()
 {
     return QString(
@@ -58,15 +58,16 @@ static QString secondaryBtnStyle()
     ).arg(GH_TEXT, GH_BORDER, GH_BORDER);
 }
 
-// ── Constructor ──────────────────────────────────────────────
-VerifyWidget::VerifyWidget(Auth *auth, QWidget *parent)
-    : QWidget(parent), m_auth(auth)
+VerifyWidget::VerifyWidget(QWidget *parent)
+    : QWidget(parent)
 {
     setStyleSheet(QString(
         "background:%1; color:%2; font-family:'%3'; font-weight: bold; font-size: 12pt;"
     ).arg(GH_BG, GH_TEXT, FONT_FAMILY));
 
     setupUI();
+    connect(&AuthClient::instance(), &AuthClient::responseReceived,
+            this, &VerifyWidget::onAuthResponse);
 }
 
 VerifyWidget::~VerifyWidget() = default;
@@ -146,16 +147,28 @@ void VerifyWidget::onVerifyClicked()
         return;
     }
 
-    // Реальная проверка через Auth
-    bool ok = m_auth->verifyLoginCode(code.toStdString());
-    if (!ok) {
-        statusLabel->setText("Wrong code");
+    QJsonObject obj;
+    obj["code"] = code;
+    AuthClient::instance().sendRequest("verify_login", obj);
+}
+
+void VerifyWidget::onAuthResponse(const QString &response)
+{
+    if (!isVisible()) return;
+
+    QJsonDocument doc = QJsonDocument::fromJson(response.toUtf8());
+    if (!doc.isObject()) return;
+
+    QJsonObject obj = doc.object();
+    QString status = obj["status"].toString();
+
+    if (status == "ok") {
+        emit verificationSuccess(login);
+    } else {
+        statusLabel->setText(obj["message"].toString());
         statusLabel->setStyleSheet("color:#f85149; font-weight: bold;");
         statusLabel->show();
-        return;
     }
-
-    emit verificationSuccess(login);
 }
 
 void VerifyWidget::onBackClicked()
